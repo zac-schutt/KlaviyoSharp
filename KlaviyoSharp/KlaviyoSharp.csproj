@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <AssemblyName>KlaviyoSharp</AssemblyName>
+    <RootNamespace>KlaviyoSharp</RootNamespace>
+    <VersionPrefix>0.1.0</VersionPrefix>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <AssemblyVersion>$(VersionPrefix)</AssemblyVersion>
+    <FileVersion>$(VersionPrefix)</FileVersion>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <Description>KlaviyoSharp is a .Net library that exposes the klaviyo API.</Description>
+    <Authors>Zac Schutt</Authors>
+    <Copyright>Zac Schutt</Copyright>
+    <PackageLicenseUrl>https://github.com/zac-schutt/KlaviyoSharp/blob/main/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/zac-schutt/KlaviyoSharp</PackageProjectUrl>
+    <PackageTags>klaviyo</PackageTags>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.SourceLink.AzureRepos.Git" Version="1.1.1" PrivateAssets="All" />
+    <PackageReference Include="System.Text.Json" Version="7.0.3" />
+  </ItemGroup>
+
+</Project>
