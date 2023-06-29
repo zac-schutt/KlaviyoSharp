@@ -3,8 +3,8 @@ namespace KlaviyoSharp.Services
     public abstract class KlaviyoServiceBase
     {
         protected string _revision;
-        protected KlaviyoService _klaviyoService;
-        protected KlaviyoServiceBase(string revision, KlaviyoService klaviyoService)
+        protected KlaviyoApiBase _klaviyoService;
+        protected KlaviyoServiceBase(string revision, KlaviyoApiBase klaviyoService)
         {
             _revision = revision;
             _klaviyoService = klaviyoService;

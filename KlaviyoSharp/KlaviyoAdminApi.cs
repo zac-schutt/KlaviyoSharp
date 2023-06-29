@@ -2,7 +2,7 @@ namespace KlaviyoSharp;
 /// <summary>
 ///
 /// </summary>
-public class KlaviyoAdminApi : KlaviyoService
+public class KlaviyoAdminApi : KlaviyoApiBase
 {
     public KlaviyoAdminApi(string apiKey) : base()
     {
@@ -11,5 +11,6 @@ public class KlaviyoAdminApi : KlaviyoService
         _apiKey = apiKey;
     }
 
-
+    private Services.AccountServices _AccountServices;
+    public Services.AccountServices AccountServices { get { _AccountServices ??= new(this); return _AccountServices; } }
 }

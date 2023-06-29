@@ -23,7 +23,7 @@ Klaviyo's API is versioned by using dates in the request headers. The mapping of
 Endpoints are being developed from the [Klaviyo API Documentation](https://developers.klaviyo.com/en/reference/api_overview). A list of endpoints and their status can be found below.
 
 - Accounts
-  - [ ] Accounts
+  - [x] Accounts
 - Campaigns
   - [ ] Campaigns
   - [ ] Messages
