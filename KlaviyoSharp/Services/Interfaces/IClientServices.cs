@@ -4,7 +4,7 @@ using KlaviyoSharp.Models;
 
 namespace KlaviyoSharp.Services;
 
-internal interface IClientServices
+public interface IClientServices
 {
     /// <summary>
     /// Create a new event to track a profile's activity.

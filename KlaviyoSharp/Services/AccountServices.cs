@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using KlaviyoSharp.Infrastructure;
@@ -18,7 +19,7 @@ public class AccountServices : KlaviyoServiceBase, IAccountServices
             query ??= new Dictionary<string, string>();
             query.Add("fields[account]", string.Join(",", accountFields));
         }
-        var resp = await _klaviyoService.GET<ResponseBody<List<KlaviyoObject<Account>>>>("accounts/", _revision, query, null, cancellationToken);
+        var resp = await _klaviyoService.HTTP<ResponseBody<List<KlaviyoObject<Account>>>>(HttpMethod.Get, "accounts/", _revision, query, null, null, cancellationToken);
         return resp.Data;
     }
     ///<inheritdoc />
@@ -30,7 +31,7 @@ public class AccountServices : KlaviyoServiceBase, IAccountServices
             query ??= new Dictionary<string, string>();
             query.Add("fields[account]", string.Join(",", accountFields));
         }
-        var resp = await _klaviyoService.GET<ResponseBody<KlaviyoObject<Account>>>($"accounts/{accountId}/", _revision, query, null, cancellationToken);
+        var resp = await _klaviyoService.HTTP<ResponseBody<KlaviyoObject<Account>>>(HttpMethod.Get, $"accounts/{accountId}/", _revision, query, null, null, cancellationToken);
         return resp.Data;
     }
 }

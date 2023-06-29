@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading;
@@ -6,7 +7,6 @@ using System.Threading.Tasks;
 using KlaviyoSharp.Models;
 using KlaviyoSharp.Infrastructure;
 using Newtonsoft.Json;
-using System.Linq;
 using System.Diagnostics;
 
 namespace KlaviyoSharp;
@@ -47,11 +47,56 @@ public abstract class KlaviyoApiBase
     {
         _httpClient = new HttpClient();
     }
+    /// <summary>
+    /// Creates a new KlaviyoService using a custom Uri
+    /// </summary>
+    /// <param name="serverUri"></param>
     public KlaviyoApiBase(Uri serverUri) : this()
     {
         _serverUri = serverUri;
     }
+    /// <summary>
+    /// Performs an HTTP request to the Klaviyo API and returns the response
+    /// </summary>
+    /// <param name="method">HTTP method to use</param>
+    /// <param name="path">Path on the API to call</param>
+    /// <param name="revision">The API revision</param>
+    /// <param name="query">The query string parameters to use</param>
+    /// <param name="headers">The headers to use</param>
+    /// <param name="data">The data to send in the body of the request</param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    internal async Task<T> HTTP<T>(HttpMethod method, string path, string revision, Dictionary<string, string> query, Dictionary<string, string> headers, DataObject data, CancellationToken cancellationToken)
+    {
+        RequestBody requestBody = null;
+        if (data != null) { requestBody = new RequestBody(data); }
+        CloneableHttpRequestMessage requestMessage = PrepareRequest(method, BuildURI(path), revision, query, headers, requestBody);
+        return JsonConvert.DeserializeObject<T>((await GetResponse(requestMessage, cancellationToken)).Content.ReadAsStringAsync(cancellationToken).Result);
+    }
+    /// <summary>
+    /// Performs an HTTP request to the Klaviyo API and does not return a response
+    /// </summary>
+    /// <param name="method">HTTP method to use</param>
+    /// <param name="path">Path on the API to call</param>
+    /// <param name="revision">The API revision</param>
+    /// <param name="query">The query string parameters to use</param>
+    /// <param name="headers">The headers to use</param>
+    /// <param name="data">The data to send in the body of the request</param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    internal async Task HTTP(HttpMethod method, string path, string revision, Dictionary<string, string> query, Dictionary<string, string> headers, DataObject data, CancellationToken cancellationToken)
+    {
+        RequestBody requestBody = null;
+        if (data != null) { requestBody = new RequestBody(data); }
+        CloneableHttpRequestMessage requestMessage = PrepareRequest(method, BuildURI(path), revision, query, headers, requestBody);
+        await GetResponse(requestMessage, cancellationToken);
+    }
 
+    /// <summary>
+    /// Build a URI from the provided path
+    /// </summary>
+    /// <param name="path"></param>
+    /// <returns></returns>
     private Uri BuildURI(string path)
     {
         var builder = new UriBuilder(_serverUri)
@@ -59,82 +104,6 @@ public abstract class KlaviyoApiBase
             Path = $"{_apiPath}/{path}"
         };
         return builder.Uri;
-    }
-
-    public async virtual Task GET(string path, string revision, Dictionary<string, string> query, Dictionary<string, string> headers, CancellationToken cancellationToken)
-    {
-        await GET<object>(path, revision, query, headers, cancellationToken);
-    }
-    public async virtual Task POST(string path, string revision, Dictionary<string, string> query, Dictionary<string, string> headers, DataObject data, CancellationToken cancellationToken)
-    {
-        await POST<object>(path, revision, query, headers, data, cancellationToken);
-    }
-    public async virtual Task<T> GET<T>(string path, string revision, Dictionary<string, string> query, Dictionary<string, string> headers, CancellationToken cancellationToken)
-    {
-        CloneableHttpRequestMessage requestMessage = PrepareRequest(HttpMethod.Get, BuildURI(path), revision, query, headers);
-        HttpResponseMessage response = await ExecuteRequest(requestMessage, cancellationToken);
-        int retryCount = 0;
-        while (response.StatusCode == System.Net.HttpStatusCode.TooManyRequests)
-        {
-            if (retryCount >= 10) { throw new ApplicationException("Too many retries. Aborted."); }
-            retryCount++;
-            response.Headers.TryGetValues("Retry-After", out IEnumerable<string> retryAfters);
-            int retryAfter = retryAfters.FirstOrDefault() != null ? Convert.ToInt32(retryAfters.FirstOrDefault()) : 10;
-            if(retryAfter > 60){ throw new ApplicationException("Rate limiting applied and Retry-After is too high. Aborted."); }
-            Debug.WriteLine($"Warning! Too many requests. Retrying in {retryAfter} seconds...");
-            await Task.Delay(1000 * retryAfter, cancellationToken);
-            response = await ExecuteRequest(requestMessage.Clone(), cancellationToken);
-        }
-        if (response.StatusCode == System.Net.HttpStatusCode.TooManyRequests)
-        {
-
-        }
-
-
-        if (response.IsSuccessStatusCode)
-        {
-            return JsonConvert.DeserializeObject<T>(response.Content.ReadAsStringAsync(cancellationToken).Result);
-        }
-        else
-        {
-            throw new KlaviyoException(KlaviyoError.FromHttpResponse(response));
-        }
-    }
-    public async virtual Task<T> POST<T>(string path, string revision, Dictionary<string, string> query, Dictionary<string, string> headers, DataObject data, CancellationToken cancellationToken)
-    {
-        HttpResponseMessage response = await ExecuteRequest(PrepareRequest(HttpMethod.Post, BuildURI(path), revision, query, headers, new RequestBody(data)), cancellationToken);
-        if (response.IsSuccessStatusCode)
-        {
-            return JsonConvert.DeserializeObject<T>(response.Content.ReadAsStringAsync(cancellationToken).Result);
-        }
-        else
-        {
-            throw new KlaviyoException(KlaviyoError.FromHttpResponse(response));
-        }
-    }
-    public async virtual Task<T> PUT<T>(string path, string revision, Dictionary<string, string> query, Dictionary<string, string> headers, DataObject data, CancellationToken cancellationToken)
-    {
-        HttpResponseMessage response = await ExecuteRequest(PrepareRequest(HttpMethod.Put, BuildURI(path), revision, query, headers, new RequestBody(data)), cancellationToken);
-        if (response.IsSuccessStatusCode)
-        {
-            return JsonConvert.DeserializeObject<T>(response.Content.ReadAsStringAsync(cancellationToken).Result);
-        }
-        else
-        {
-            throw new KlaviyoException(KlaviyoError.FromHttpResponse(response));
-        }
-    }
-    public async virtual Task DELETE(string path, string revision, Dictionary<string, string> query, Dictionary<string, string> headers, CancellationToken cancellationToken)
-    {
-        HttpResponseMessage response = await ExecuteRequest(PrepareRequest(HttpMethod.Delete, BuildURI(path), revision, query, headers), cancellationToken);
-        if (response.IsSuccessStatusCode)
-        {
-            return;
-        }
-        else
-        {
-            throw new KlaviyoException(KlaviyoError.FromHttpResponse(response));
-        }
     }
 
     /// <summary>
@@ -146,7 +115,7 @@ public abstract class KlaviyoApiBase
     /// <param name="headers">The headers to use</param>
     /// <param name="content">The content to use</param>
     /// <returns>A CloneableHttpRequestMessage</returns>
-    CloneableHttpRequestMessage PrepareRequest(HttpMethod method, Uri uri, string revision, Dictionary<string, string> query = null, Dictionary<string, string> headers = null, RequestBody content = null)
+    internal CloneableHttpRequestMessage PrepareRequest(HttpMethod method, Uri uri, string revision, Dictionary<string, string> query = null, Dictionary<string, string> headers = null, RequestBody content = null)
     {
         CloneableHttpRequestMessage req = new(method, uri) { };
         headers ??= new();
@@ -162,7 +131,6 @@ public abstract class KlaviyoApiBase
             query.Add("company_id", _companyId);
         }
         req.RequestUri = new Uri($"{req.RequestUri}?{query.ToQueryString()}");
-
         foreach (var header in headers)
         {
             req.Headers.Add(header.Key, header.Value);
@@ -174,9 +142,30 @@ public abstract class KlaviyoApiBase
         return req;
     }
 
-    private async Task<HttpResponseMessage> ExecuteRequest(CloneableHttpRequestMessage request, CancellationToken cancellationToken)
+    /// <summary>
+    /// Gets the response from the API. Respects the rate limiting.
+    /// </summary>
+    /// <param name="requestMessage"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    /// <exception cref="ApplicationException"></exception>
+    /// <exception cref="KlaviyoException"></exception>
+    internal async Task<HttpResponseMessage> GetResponse(CloneableHttpRequestMessage requestMessage, CancellationToken cancellationToken)
     {
-        return await _httpClient.SendAsync(request, cancellationToken);
+        HttpResponseMessage response = await _httpClient.SendAsync(requestMessage, cancellationToken);
+        int retryCount = 0;
+        while (response.StatusCode == System.Net.HttpStatusCode.TooManyRequests)
+        {
+            if (retryCount >= 10) { throw new ApplicationException("Too many retries. Aborted."); }
+            retryCount++;
+            response.Headers.TryGetValues("Retry-After", out IEnumerable<string> retryAfters);
+            int retryAfter = retryAfters.FirstOrDefault() != null ? Convert.ToInt32(retryAfters.FirstOrDefault()) : 10;
+            if (retryAfter > 60) { throw new ApplicationException("Rate limiting applied and Retry-After is too high. Aborted."); }
+            Debug.WriteLine($"Warning! Too many requests. Retrying in {retryAfter} seconds...");
+            await Task.Delay(1000 * retryAfter, cancellationToken);
+            response = await _httpClient.SendAsync(requestMessage.Clone(), cancellationToken);
+        }
+        if (!response.IsSuccessStatusCode) { throw new KlaviyoException(KlaviyoError.FromHttpResponse(response)); }
+        return response;
     }
-
 }

@@ -37,7 +37,7 @@ Endpoints are being developed from the [Klaviyo API Documentation](https://devel
 - Client (Public facing API)
   - [x] Client
 - Data Privacy
-  - [ ] Data Privacy
+  - [x] Data Privacy
 - Events
   - [ ] Events
 - Flows
