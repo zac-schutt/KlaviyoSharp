@@ -13,7 +13,6 @@
             "program": "${workspaceFolder}/KlaviyoSharp.Tests/bin/Debug/net6.0/KlaviyoSharp.Tests.dll",
             "args": [],
             "cwd": "${workspaceFolder}/KlaviyoSharp.Tests",
-            "envFile": "${workspaceFolder}/.env",
             // For more information about the 'console' field, see https://aka.ms/VSCode-CS-LaunchJson-Console
             "console": "internalConsole",
             "stopAtEntry": false

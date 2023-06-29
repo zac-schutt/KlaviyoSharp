@@ -26,4 +26,7 @@ All services **MUST** be added with tests. The tests should attempt to call all 
 
 ## Testing Changes
 
-Changes should be able to be tested locally. To test your changes, you will need to copy the `.env.template` file to `.env` and fill in the values. You can then run the tests in your code editor.
+Changes should be able to be tested locally. To test your changes, you will need to copy the `appsettings.template.json` file to `appsettings.local.json` and fill in the values. You can then run the tests in your code editor. You can also provide the settings by setting the following environment variables:
+
+- `KLAVIYO_APIKEY` - Private API key beginning with pk_
+- `KLAVIYO_COMPANYID` - 6 character company ID

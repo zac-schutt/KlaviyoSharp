@@ -1,5 +1,3 @@
-using System;
-
 namespace KlaviyoSharp.Tests;
 
 /// <summary>
