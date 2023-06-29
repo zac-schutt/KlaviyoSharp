@@ -9,10 +9,9 @@ public class KlaviyoClientApi : KlaviyoService
         _useAuthentication = false;
         _apiPath = "/client";
         _companyId = companyId;
-        ClientSubscription = new(this);
-        ClientEvent = new(this);
     }
 
-    public Services.ClientSubscription ClientSubscription { get; set; }
-    public Services.ClientEvent ClientEvent { get; set; }
+    private Services.ClientServices _ClientServices;
+
+    public Services.ClientServices ClientServices { get { _ClientServices ??= new(this); return _ClientServices; } }
 }

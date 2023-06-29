@@ -1,11 +1,19 @@
+using Newtonsoft.Json;
+
 namespace KlaviyoSharp.Models;
 
 public class Links
 {
-    public string self { get; set; }
-    public string related { get; set; }
-    public string first { get; set; }
-    public string last { get; set; }
-    public string prev { get; set; }
-    public string next { get; set; }
+    [JsonProperty("self")]
+    public string Self { get; set; }
+    [JsonProperty("related")]
+    public string Related { get; set; }
+    [JsonProperty("first")]
+    public string First { get; set; }
+    [JsonProperty("last")]
+    public string Last { get; set; }
+    [JsonProperty("prev")]
+    public string Prev { get; set; }
+    [JsonProperty("next")]
+    public string Next { get; set; }
 }

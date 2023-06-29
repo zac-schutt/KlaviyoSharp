@@ -1,8 +1,15 @@
-namespace KlaviyoSharp.Models
+namespace KlaviyoSharp.Models;
+/// <summary>
+/// Source of the error in the request
+/// </summary>
+public class KlaviyoErrorSource
 {
-    public class KlaviyoErrorSource
-    {
-        public string Pointer { get; set; }
-        public string Parameter { get; set; }
-    }
+    /// <summary>
+    /// Pointer to the error in the request body
+    /// </summary>
+    public string Pointer { get; set; }
+    /// <summary>
+    /// Parameter in the request that caused the error
+    /// </summary>
+    public string Parameter { get; set; }
 }

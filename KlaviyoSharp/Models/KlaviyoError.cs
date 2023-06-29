@@ -1,5 +1,5 @@
 ﻿using System.Net.Http;
-using System.Text.Json;
+using Newtonsoft.Json;
 
 namespace KlaviyoSharp.Models;
 
@@ -14,6 +14,6 @@ public class KlaviyoError
     public KlaviyoErrorDetails[] Errors { get; set; }
     public static KlaviyoError FromHttpResponse(HttpResponseMessage response)
     {
-        return JsonSerializer.Deserialize<KlaviyoError>(response.Content.ReadAsStringAsync().Result);
+        return JsonConvert.DeserializeObject<KlaviyoError>(response.Content.ReadAsStringAsync().Result);
     }
 }

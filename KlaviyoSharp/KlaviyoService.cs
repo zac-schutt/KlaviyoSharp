@@ -5,6 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using KlaviyoSharp.Models;
 using KlaviyoSharp.Infrastructure;
+using Newtonsoft.Json;
 
 namespace KlaviyoSharp;
 
@@ -20,7 +21,7 @@ public abstract class KlaviyoService
     /// <summary>
     /// The server URI to use
     /// </summary>
-    protected Uri _serverUri = new Uri("https://a.klaviyo.com");
+    protected Uri _serverUri = new("https://a.klaviyo.com");
     /// <summary>
     /// The API path to use. Should be /api or /client
     /// </summary>
@@ -36,7 +37,7 @@ public abstract class KlaviyoService
     /// <summary>
     /// The HttpClient to use for all calls
     /// </summary>
-    private HttpClient _httpClient;
+    private readonly HttpClient _httpClient;
     /// <summary>
     /// Creates a new KlaviyoService using default options
     /// </summary>
@@ -58,53 +59,53 @@ public abstract class KlaviyoService
         return builder.Uri;
     }
 
-    public async virtual Task GET(string path, Dictionary<string, string> query, Dictionary<string, string> headers, CancellationToken cancellationToken)
+    public async virtual Task GET(string path, string revision, Dictionary<string, string> query, Dictionary<string, string> headers, CancellationToken cancellationToken)
     {
-        await GET<object>(path, query, headers, cancellationToken);
+        await GET<object>(path, revision, query, headers, cancellationToken);
     }
-    public async virtual Task POST(string path, Dictionary<string, string> query, Dictionary<string, string> headers, DataObject data, CancellationToken cancellationToken)
+    public async virtual Task POST(string path, string revision, Dictionary<string, string> query, Dictionary<string, string> headers, DataObject data, CancellationToken cancellationToken)
     {
-        await POST<object>(path, query, headers, data, cancellationToken);
+        await POST<object>(path, revision, query, headers, data, cancellationToken);
     }
-    public async virtual Task<T> GET<T>(string path, Dictionary<string, string> query, Dictionary<string, string> headers, CancellationToken cancellationToken)
+    public async virtual Task<T> GET<T>(string path, string revision, Dictionary<string, string> query, Dictionary<string, string> headers, CancellationToken cancellationToken)
     {
-        HttpResponseMessage response = await ExecuteRequest(PrepareRequest(HttpMethod.Get, BuildURI(path), query, headers), cancellationToken);
+        HttpResponseMessage response = await ExecuteRequest(PrepareRequest(HttpMethod.Get, BuildURI(path), revision, query, headers), cancellationToken);
         if (response.IsSuccessStatusCode)
         {
-            return System.Text.Json.JsonSerializer.Deserialize<T>(response.Content.ReadAsStringAsync().Result);
+            return JsonConvert.DeserializeObject<T>(response.Content.ReadAsStringAsync(cancellationToken).Result);
         }
         else
         {
             throw new KlaviyoException(KlaviyoError.FromHttpResponse(response));
         }
     }
-    public async virtual Task<T> POST<T>(string path, Dictionary<string, string> query, Dictionary<string, string> headers, DataObject data, CancellationToken cancellationToken)
+    public async virtual Task<T> POST<T>(string path, string revision, Dictionary<string, string> query, Dictionary<string, string> headers, DataObject data, CancellationToken cancellationToken)
     {
-        HttpResponseMessage response = await ExecuteRequest(PrepareRequest(HttpMethod.Post, BuildURI(path), query, headers, data), cancellationToken);
+        HttpResponseMessage response = await ExecuteRequest(PrepareRequest(HttpMethod.Post, BuildURI(path), revision, query, headers, new RequestBody(data)), cancellationToken);
         if (response.IsSuccessStatusCode)
         {
-            return System.Text.Json.JsonSerializer.Deserialize<T>(response.Content.ReadAsStringAsync().Result);
+            return JsonConvert.DeserializeObject<T>(response.Content.ReadAsStringAsync(cancellationToken).Result);
         }
         else
         {
             throw new KlaviyoException(KlaviyoError.FromHttpResponse(response));
         }
     }
-    public async virtual Task<T> PUT<T>(string path, Dictionary<string, string> query, Dictionary<string, string> headers, DataObject data, CancellationToken cancellationToken)
+    public async virtual Task<T> PUT<T>(string path, string revision, Dictionary<string, string> query, Dictionary<string, string> headers, DataObject data, CancellationToken cancellationToken)
     {
-        HttpResponseMessage response = await ExecuteRequest(PrepareRequest(HttpMethod.Put, BuildURI(path), query, headers, data), cancellationToken);
+        HttpResponseMessage response = await ExecuteRequest(PrepareRequest(HttpMethod.Put, BuildURI(path), revision, query, headers, new RequestBody(data)), cancellationToken);
         if (response.IsSuccessStatusCode)
         {
-            return System.Text.Json.JsonSerializer.Deserialize<T>(response.Content.ReadAsStringAsync().Result);
+            return JsonConvert.DeserializeObject<T>(response.Content.ReadAsStringAsync(cancellationToken).Result);
         }
         else
         {
             throw new KlaviyoException(KlaviyoError.FromHttpResponse(response));
         }
     }
-    public async virtual Task DELETE(string path, Dictionary<string, string> query, Dictionary<string, string> headers, CancellationToken cancellationToken)
+    public async virtual Task DELETE(string path, string revision, Dictionary<string, string> query, Dictionary<string, string> headers, CancellationToken cancellationToken)
     {
-        HttpResponseMessage response = await ExecuteRequest(PrepareRequest(HttpMethod.Delete, BuildURI(path), query, headers), cancellationToken);
+        HttpResponseMessage response = await ExecuteRequest(PrepareRequest(HttpMethod.Delete, BuildURI(path), revision, query, headers), cancellationToken);
         if (response.IsSuccessStatusCode)
         {
             return;
@@ -124,32 +125,27 @@ public abstract class KlaviyoService
     /// <param name="headers">The headers to use</param>
     /// <param name="content">The content to use</param>
     /// <returns>A HttpRequestMessage</returns>
-    HttpRequestMessage PrepareRequest(HttpMethod method, Uri uri, Dictionary<string, string> query = null, Dictionary<string, string> headers = null, object content = null)
+    HttpRequestMessage PrepareRequest(HttpMethod method, Uri uri, string revision, Dictionary<string, string> query = null, Dictionary<string, string> headers = null, RequestBody content = null)
     {
-        HttpRequestMessage req = new HttpRequestMessage(method, uri) { };
-
+        HttpRequestMessage req = new(method, uri) { };
+        headers ??= new();
+        query ??= new();
+        headers.Add("revision", revision);
+        //headers.Add("Accept", "application/json");
         if (_useAuthentication)
         {
-            if (headers is null) { headers = new(); }
             headers.Add("Authorization", $"Basic {_apiKey}");
         }
-        else
+        if (!string.IsNullOrEmpty(_companyId))
         {
-            if (query is null) { query = new(); }
             query.Add("company_id", _companyId);
         }
-        if (query != null)
+        req.RequestUri = new Uri($"{req.RequestUri}?{query.ToQueryString()}");
+
+        foreach (var header in headers)
         {
-            req.RequestUri = new Uri($"{req.RequestUri}?{query.ToQueryString()}");
+            req.Headers.Add(header.Key, header.Value);
         }
-        if (headers != null)
-        {
-            foreach (var header in headers)
-            {
-                req.Headers.Add(header.Key, header.Value);
-            }
-        }
-        req.Headers.Add("Accept", "application/json");
         if (content != null)
         {
             req.Content = new JsonContent(content);
