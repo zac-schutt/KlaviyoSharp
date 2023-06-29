@@ -1,0 +1,34 @@
+{
+    "Setup Test": {
+        "prefix": "new-test",
+        "description": "Creates a new test file for the specified service",
+        "scope": "csharp",
+        "body": [
+            "namespace KlaviyoSharp.Tests;",
+            "[Trait(\"Category\", \"$1\")]",
+            "public class $1_Tests : IClassFixture<$1_Tests_Fixture>",
+            "{",
+            "    private $1_Tests_Fixture Fixture { get; }",
+            "    public $1_Tests($1_Tests_Fixture fixture)",
+            "    {",
+            "        Fixture = fixture;",
+            "    }",
+            "",
+            "    //Add Tests Here",
+            "",
+            "}",
+            "public class $1_Tests_Fixture : IAsyncLifetime",
+            "{",
+            "    public KlaviyoAdminApi AdminApi { get; } = new(Config.ApiKey);",
+            "    public Task DisposeAsync()",
+            "    {",
+            "        return Task.CompletedTask;",
+            "    }",
+            "    public Task InitializeAsync()",
+            "    {",
+            "        return Task.CompletedTask;",
+            "    }",
+            "}"
+        ]
+    }
+}

@@ -3,22 +3,13 @@ namespace KlaviyoSharp.Tests;
 /// <summary>
 /// Klaviyo API Client Tests. Only tests the /client endpoints.
 /// </summary>
-[Trait("Category", "Client")]
-public class KlaviyoClientApi_Tests : IClassFixture<KlaviyoClientApi_Tests_Fixture>
+[Trait("Category", "ClientServices")]
+public class ClientServices_Tests : IClassFixture<ClientServices_Tests_Fixture>
 {
-    private KlaviyoClientApi_Tests_Fixture Fixture { get; }
-    public KlaviyoClientApi_Tests(KlaviyoClientApi_Tests_Fixture fixture)
+    private ClientServices_Tests_Fixture Fixture { get; }
+    public ClientServices_Tests(ClientServices_Tests_Fixture fixture)
     {
         Fixture = fixture;
-    }
-
-    /// <summary>
-    /// Check that ClientApi was created successfully. Tests the constructor.
-    /// </summary>
-    [Fact]
-    public void Setup()
-    {
-        Assert.NotNull(Fixture.ClientApi);
     }
 
     /// <summary>
@@ -92,9 +83,9 @@ public class KlaviyoClientApi_Tests : IClassFixture<KlaviyoClientApi_Tests_Fixtu
 }
 
 /// <summary>
-/// Fixture for KlaviyoClientApi_Tests
+/// Fixture for ClientServices_Tests
 /// </summary>
-public class KlaviyoClientApi_Tests_Fixture : IAsyncLifetime
+public class ClientServices_Tests_Fixture : IAsyncLifetime
 {
     public KlaviyoClientApi ClientApi { get; } = new(Config.CompanyId);
     public Task DisposeAsync()

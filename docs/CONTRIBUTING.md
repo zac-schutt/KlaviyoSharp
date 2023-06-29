@@ -22,7 +22,7 @@ Models should map to an object in the Klaviyo API. All properties should be null
 
 ## Adding Tests
 
-All services **MUST** be added with tests. The tests should attempt to call all parts of the code that have been written. Multiple tests may need to be written for some methods to test different code paths. Tests are written in xUnit and should be added to the `Klaviyo.Tests` project.
+All services **MUST** be added with tests. The tests should attempt to call all parts of the code that have been written. Multiple tests may need to be written for some methods to test different code paths. Tests are written in xUnit and should be added to the `Klaviyo.Tests` project. If you're using vscode as your code editor, you can use the snippet `new-test` to create a new test class.
 
 ## Testing Changes
 
