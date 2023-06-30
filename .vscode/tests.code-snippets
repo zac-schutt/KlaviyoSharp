@@ -1,34 +1,66 @@
 {
-    "Setup Test": {
-        "prefix": "new-test",
-        "description": "Creates a new test file for the specified service",
-        "scope": "csharp",
-        "body": [
-            "namespace KlaviyoSharp.Tests;",
-            "[Trait(\"Category\", \"$1\")]",
-            "public class $1_Tests : IClassFixture<$1_Tests_Fixture>",
-            "{",
-            "    private $1_Tests_Fixture Fixture { get; }",
-            "    public $1_Tests($1_Tests_Fixture fixture)",
-            "    {",
-            "        Fixture = fixture;",
-            "    }",
-            "",
-            "    //Add Tests Here",
-            "",
-            "}",
-            "public class $1_Tests_Fixture : IAsyncLifetime",
-            "{",
-            "    public KlaviyoAdminApi AdminApi { get; } = new(Config.ApiKey);",
-            "    public Task DisposeAsync()",
-            "    {",
-            "        return Task.CompletedTask;",
-            "    }",
-            "    public Task InitializeAsync()",
-            "    {",
-            "        return Task.CompletedTask;",
-            "    }",
-            "}"
-        ]
-    }
+  "Setup Test": {
+    "prefix": "new-test",
+    "description": "Creates a new test file for the specified service",
+    "scope": "csharp",
+    "isFileTemplate": true,
+    "body": [
+      "namespace KlaviyoSharp.Tests;",
+      "[Trait(\"Category\", \"$1\")]",
+      "public class $1_Tests : IClassFixture<$1_Tests_Fixture>",
+      "{",
+      "    private $1_Tests_Fixture Fixture { get; }",
+      "    public $1_Tests($1_Tests_Fixture fixture)",
+      "    {",
+      "        Fixture = fixture;",
+      "    }",
+      "",
+      "    //Add Tests Here",
+      "",
+      "}",
+      "public class $1_Tests_Fixture : IAsyncLifetime",
+      "{",
+      "    public KlaviyoAdminApi AdminApi { get; } = new(Config.ApiKey);",
+      "    public Task DisposeAsync()",
+      "    {",
+      "        return Task.CompletedTask;",
+      "    }",
+      "    public Task InitializeAsync()",
+      "    {",
+      "        return Task.CompletedTask;",
+      "    }",
+      "}"
+    ]
+  },
+  "Add Service to Api": {
+    "prefix": "add-service",
+    "description": "Adds a new service to the KlaviyoApi",
+    "scope": "csharp",
+    "body": [
+      "public Services.$1Services $1Services { get { _$1Services ??= new(this); return _$1Services; } }",
+      "private Services.$1Services _$1Services;"
+    ]
+  },
+  "Setup New Service":{
+    "prefix": "new-service",
+    "description": "Creates a new service for the specified service",
+    "scope": "csharp",
+    "isFileTemplate": true,
+    "body": [
+      "using System.Collections.Generic;",
+      "using System.Net.Http;",
+      "using System.Threading;",
+      "using System.Threading.Tasks;",
+      "using KlaviyoSharp.Infrastructure;",
+      "using KlaviyoSharp.Models;",
+      "",
+      "namespace KlaviyoSharp.Services;",
+      "",
+      "public class $TM_FILENAME_BASE : KlaviyoServiceBase",
+      "{",
+      "    public $TM_FILENAME_BASE(KlaviyoApiBase klaviyoService) : base(\"${2:2023-06-15}\", klaviyoService) { }",
+      " ",
+      "}"
+    ]
+  }
 }
