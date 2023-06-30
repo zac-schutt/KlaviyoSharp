@@ -87,6 +87,14 @@ public class QueryParams : Dictionary<string, string>
     {
         if (filter != null) AddFilters(filter.ToString());
     }
+    /// Add filter to a query dictionary
+    /// </summary>
+    /// <param name="filter"></param>
+    /// <returns></returns>
+    public void AddSort(string sortField)
+    {
+        if (!string.IsNullOrEmpty(sortField)) Add("sort", sortField);
+    }
 
 
 }

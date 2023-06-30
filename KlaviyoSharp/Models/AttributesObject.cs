@@ -9,5 +9,5 @@ public abstract class AttributesObject
     /// An object containing key/value pairs for any custom properties assigned to this object
     /// </summary>
     [JsonProperty("properties")]
-    public Dictionary<string, string> Properties { get; set; }
+    public Dictionary<string, object> Properties { get; set; }
 }

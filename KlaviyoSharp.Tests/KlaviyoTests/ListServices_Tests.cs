@@ -50,27 +50,23 @@ public class ListServices_Tests : IClassFixture<ListServices_Tests_Fixture>
     [Fact]
     public async Task AddProfileToList()
     {
-        //TODO: Update with real profile id
         var lists = await Fixture.AdminApi.ListServices.GetLists();
         Assert.NotEmpty(lists);
-        // var profiles = await Fixture.AdminApi.ProfileServices.GetProfiles();
-        // Assert.NotEmpty(profiles);
-        // await Fixture.AdminApi.ListServices.AddProfileToList(lists[0].Id, new List<string>() { profiles[0].Id });
-        await Fixture.AdminApi.ListServices.AddProfileToList(lists[0].Id, new List<string>() { "01H42N4KX4N2NV2CT2595KCG6Z" });
+        var profiles = await Fixture.AdminApi.ProfileServices.GetProfiles(null, null, null, null);
+        Assert.NotEmpty(profiles);
+        await Fixture.AdminApi.ListServices.AddProfileToList(lists[0].Id, new List<string>() { profiles[0].Id });
         Assert.True(true);
     }
 
     [Fact]
     public async Task RemoveProfileFromList()
     {
-        //TODO: Update with real profile id
         var lists = await Fixture.AdminApi.ListServices.GetLists();
         Assert.NotEmpty(lists);
-        // var profiles = await Fixture.AdminApi.ProfileServices.GetProfiles();
-        // Assert.NotEmpty(profiles);
-        // await Fixture.AdminApi.ListServices.AddProfileToList(lists[0].Id, new List<string>() { profiles[0].Id });
-        // await Fixture.AdminApi.ListServices.RemoveProfileFromList(lists[0].Id, new List<string>() { profiles[0].Id });
-        Assert.True(true);
+        var profiles = await Fixture.AdminApi.ProfileServices.GetProfiles(null, null, null, null);
+        Assert.NotEmpty(profiles);
+        await Fixture.AdminApi.ListServices.AddProfileToList(lists[0].Id, new List<string>() { profiles[0].Id });
+        await Fixture.AdminApi.ListServices.RemoveProfileFromList(lists[0].Id, new List<string>() { profiles[0].Id });
     }
 
     [Fact]

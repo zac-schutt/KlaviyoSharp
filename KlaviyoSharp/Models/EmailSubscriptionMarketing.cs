@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Newtonsoft.Json;
 
 namespace KlaviyoSharp.Models;
@@ -18,10 +19,10 @@ public class EmailSubscriptionMarketing : SubscriptionMarketing
     /// The global email marketing suppressions for this profile.
     /// </summary>
     [JsonProperty("suppressions")]
-    public EmailSupression Suppressions { get; set; }
+    public List<EmailSupression> Suppressions { get; set; }
     /// <summary>
     /// The list suppressions for this profile.
     /// </summary>
     [JsonProperty("list_suppressions")]
-    public ListSupression ListSuppressions { get; set; }
+    public List<ListSupression> ListSuppressions { get; set; }
 }

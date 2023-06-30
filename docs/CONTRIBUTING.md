@@ -30,3 +30,7 @@ Changes should be able to be tested locally. To test your changes, you will need
 
 - `KLAVIYO_APIKEY` - Private API key beginning with pk_
 - `KLAVIYO_COMPANYID` - 6 character company ID
+
+### Account Config for Testing
+
+The account is required to have a list called `Sample Data List`, and this list needs to have Single opt-in enabled in it's settings. This can't be set with the API, but is required for testing profile subscriptions.

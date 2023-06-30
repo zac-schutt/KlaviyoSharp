@@ -16,4 +16,7 @@ public class KlaviyoAdminApi : KlaviyoApiBase
     public Services.ListServices ListServices { get { _ListServices ??= new(this); return _ListServices; } }
     private Services.ListServices _ListServices;
 
+    public Services.ProfileServices ProfileServices { get { _ProfileServices ??= new(this); return _ProfileServices; } }
+    private Services.ProfileServices _ProfileServices;
+
 }

@@ -67,7 +67,8 @@ public abstract class KlaviyoApiBase
         RequestBody requestBody = null;
         if (data != null) { requestBody = new RequestBody(data); }
         CloneableHttpRequestMessage requestMessage = PrepareRequest(method, BuildURI(path), revision, query, headers, requestBody);
-        return JsonConvert.DeserializeObject<T>((await GetResponse(requestMessage, cancellationToken)).Content.ReadAsStringAsync(cancellationToken).Result);
+        string TextResult = (await GetResponse(requestMessage, cancellationToken)).Content.ReadAsStringAsync(cancellationToken).Result;
+        return JsonConvert.DeserializeObject<T>(TextResult);
     }
     /// <summary>
     /// Performs an HTTP request to the Klaviyo API and does not return a response

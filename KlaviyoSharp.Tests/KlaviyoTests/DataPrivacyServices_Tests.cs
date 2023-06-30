@@ -1,3 +1,4 @@
+using System.Linq;
 namespace KlaviyoSharp.Tests;
 [Trait("Category", "DataPrivacyServices")]
 public class DataPrivacyServices_Tests : IClassFixture<DataPrivacyServices_Tests_Fixture>
@@ -12,15 +13,32 @@ public class DataPrivacyServices_Tests : IClassFixture<DataPrivacyServices_Tests
     [Fact]
     public async Task RequestProfileDeletion()
     {
-        Assert.False(true);
-        //TODO: Create profile Id dynamically.
-        var tempProfileId = "";
+        //Create new profile to test deletion
+        var tempProfileId = Fixture.AdminApi.ProfileServices.CreateProfile(new()
+        {
+            Email = $"test{Config.Random}@example.com",
+            FirstName = $"Test-{Config.Random}",
+            LastName = "Name"
+        }).Result.Id;
         var attributes = new Models.ProfileDeletionAttributes
         {
             ProfileId = tempProfileId
         };
+
+        //Request profile deletion
         await Fixture.AdminApi.DataPrivacyServices.RequestProfileDeletion(attributes);
-        //Assert.True(true);
+
+        //Check if profile is deleted by looking for a not_found error
+        try
+        {
+            var output = Fixture.AdminApi.ProfileServices.GetProfile(tempProfileId, null, null, null, null, null).Result;
+            Assert.Null(output);
+        }
+        catch (Exception ex)
+        {
+            Assert.NotNull(ex.InnerException);
+            if (ex.InnerException != null) Assert.Equal("not_found", ((KlaviyoException)ex.InnerException).InternalErrors[0].Code);
+        }
     }
 
 }
