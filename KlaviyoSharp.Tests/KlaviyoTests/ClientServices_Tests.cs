@@ -1,3 +1,5 @@
+using KlaviyoSharp.Models.Filters;
+
 namespace KlaviyoSharp.Tests;
 
 /// <summary>
@@ -36,8 +38,10 @@ public class ClientServices_Tests : IClassFixture<ClientServices_Tests_Fixture>
     [Fact]
     public void CreateSubscription()
     {
-        //TODO: Lookup Sample Data List Id dynamically
-        string _listId = "SV9J4Z";
+        //Get Sample Data List ID
+        string _listId = Fixture.AdminApi.ListServices.GetLists(new() { "id" }, new Filter(FilterOperation.Equals, "name", "Sample Data List")).Result.First().Id;
+        Debug.WriteLine(_listId);
+
         Fixture.ClientApi.ClientServices.CreateSubscription(new Models.ClientSubscriptionRequestAttributes()
         {
             ListId = _listId,
@@ -88,6 +92,7 @@ public class ClientServices_Tests : IClassFixture<ClientServices_Tests_Fixture>
 public class ClientServices_Tests_Fixture : IAsyncLifetime
 {
     public KlaviyoClientApi ClientApi { get; } = new(Config.CompanyId);
+    public KlaviyoAdminApi AdminApi { get; } = new(Config.ApiKey);
     public Task DisposeAsync()
     {
         return Task.CompletedTask;

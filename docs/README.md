@@ -44,8 +44,8 @@ Endpoints are being developed from the [Klaviyo API Documentation](https://devel
   - [ ] Flows
   - [ ] Relationships
 - Lists
-  - [ ] Lists
-  - [ ] Relationships
+  - [x] Lists
+  - [x] Relationships
 - Metrics
   - [ ] Metrics
 - Profiles

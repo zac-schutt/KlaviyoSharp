@@ -43,4 +43,14 @@ internal static class Config
         return env ?? _config.GetSection("Klaviyo").GetSection(key).Value ?? throw new Exception($"Missing {key} in appsettings.local.json");
     }
 
+    /// <summary>
+    /// Random number generator
+    /// </summary>
+    private static readonly Random _random = new();
+    /// <summary>
+    /// Get Random integer
+    /// </summary>
+    /// <returns></returns>
+    public static int Random => _random.Next();
+
 }

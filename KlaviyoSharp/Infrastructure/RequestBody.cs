@@ -11,8 +11,8 @@ public class RequestBody
     /// The data object in a request body
     /// </summary>
     [JsonProperty("data")]
-    public Models.DataObject Data { get; set; }
-    public RequestBody(Models.DataObject dataObject)
+    public object Data { get; set; }
+    public RequestBody(object dataObject)
     {
         Data = dataObject;
     }

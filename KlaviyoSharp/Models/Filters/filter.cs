@@ -1,15 +1,15 @@
 using System;
 using System.Collections.Generic;
-using System.Runtime.Serialization;
 
 namespace KlaviyoSharp.Models.Filters;
 
-public class Filter
+public class Filter : IFilter
 {
     public FilterOperation Operation { get; }
     public string Field { get; }
     public string Value { get; }
     public static implicit operator FilterList(Filter filter) => new() { filter };
+    public static implicit operator string(Filter filter) => filter.ToString();
     public override string ToString()
     {
         return $"{Operation.ToEnumString()}({Field},{Value})";
@@ -61,32 +61,4 @@ public class Filter
         Field = field;
         Value = $"[{string.Join(",", value)}]";
     }
-}
-public class FilterList : List<Filter>
-{
-    public override string ToString()
-    {
-        return string.Join(",", this);
-    }
-}
-public enum FilterOperation
-{
-    [EnumMember(Value = "equals")]
-    Equals,
-    [EnumMember(Value = "less-than")]
-    LessThan,
-    [EnumMember(Value = "less-or-equal")]
-    LessOrEqual,
-    [EnumMember(Value = "greater-than")]
-    GreaterThan,
-    [EnumMember(Value = "greater-or-equal")]
-    GreaterOrEqual,
-    [EnumMember(Value = "contains")]
-    Contains,
-    [EnumMember(Value = "ends-with")]
-    EndsWith,
-    [EnumMember(Value = "starts-with")]
-    StartsWith,
-    [EnumMember(Value = "any")]
-    Any
 }

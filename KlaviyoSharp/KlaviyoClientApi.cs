@@ -6,7 +6,6 @@ public class KlaviyoClientApi : KlaviyoApiBase
 {
     public KlaviyoClientApi(string companyId) : base()
     {
-        _useAuthentication = false;
         _apiPath = "/client";
         _companyId = companyId;
     }

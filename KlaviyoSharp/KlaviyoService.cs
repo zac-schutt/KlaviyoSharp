@@ -17,10 +17,6 @@ namespace KlaviyoSharp;
 public abstract class KlaviyoApiBase
 {
     /// <summary>
-    /// Whether or not to use authentication
-    /// </summary>
-    protected bool _useAuthentication = true;
-    /// <summary>
     /// The server URI to use
     /// </summary>
     protected Uri _serverUri = new("https://a.klaviyo.com");
@@ -29,11 +25,11 @@ public abstract class KlaviyoApiBase
     /// </summary>
     protected string _apiPath;
     /// <summary>
-    /// The API key to use if authentication is enabled
+    /// The API key to use
     /// </summary>
     protected string _apiKey;
     /// <summary>
-    /// The company ID to use if authentication is disabled
+    /// The company ID to use
     /// </summary>
     protected string _companyId;
     /// <summary>
@@ -66,7 +62,7 @@ public abstract class KlaviyoApiBase
     /// <param name="data">The data to send in the body of the request</param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    internal async Task<T> HTTP<T>(HttpMethod method, string path, string revision, Dictionary<string, string> query, Dictionary<string, string> headers, DataObject data, CancellationToken cancellationToken)
+    internal async Task<T> HTTP<T>(HttpMethod method, string path, string revision, QueryParams query, HeaderParams headers, object data, CancellationToken cancellationToken)
     {
         RequestBody requestBody = null;
         if (data != null) { requestBody = new RequestBody(data); }
@@ -84,7 +80,7 @@ public abstract class KlaviyoApiBase
     /// <param name="data">The data to send in the body of the request</param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    internal async Task HTTP(HttpMethod method, string path, string revision, Dictionary<string, string> query, Dictionary<string, string> headers, DataObject data, CancellationToken cancellationToken)
+    internal async Task HTTP(HttpMethod method, string path, string revision, QueryParams query, HeaderParams headers, object data, CancellationToken cancellationToken)
     {
         RequestBody requestBody = null;
         if (data != null) { requestBody = new RequestBody(data); }
@@ -115,14 +111,14 @@ public abstract class KlaviyoApiBase
     /// <param name="headers">The headers to use</param>
     /// <param name="content">The content to use</param>
     /// <returns>A CloneableHttpRequestMessage</returns>
-    internal CloneableHttpRequestMessage PrepareRequest(HttpMethod method, Uri uri, string revision, Dictionary<string, string> query = null, Dictionary<string, string> headers = null, RequestBody content = null)
+    internal CloneableHttpRequestMessage PrepareRequest(HttpMethod method, Uri uri, string revision, QueryParams query = null, HeaderParams headers = null, RequestBody content = null)
     {
         CloneableHttpRequestMessage req = new(method, uri) { };
         headers ??= new();
         query ??= new();
         headers.Add("revision", revision);
         //headers.Add("Accept", "application/json");
-        if (_useAuthentication)
+        if (!string.IsNullOrEmpty(_apiKey))
         {
             headers.Add("Authorization", $"Klaviyo-API-Key {_apiKey}");
         }
@@ -130,7 +126,7 @@ public abstract class KlaviyoApiBase
         {
             query.Add("company_id", _companyId);
         }
-        req.RequestUri = new Uri($"{req.RequestUri}?{query.ToQueryString()}");
+        req.RequestUri = new Uri($"{req.RequestUri}?{query}");
         foreach (var header in headers)
         {
             req.Headers.Add(header.Key, header.Value);
