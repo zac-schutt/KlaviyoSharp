@@ -4,11 +4,8 @@ namespace KlaviyoSharp;
 /// </summary>
 public class KlaviyoAdminApi : KlaviyoApiBase
 {
-    public KlaviyoAdminApi(string apiKey) : base()
-    {
-        _apiPath = "/api";
-        _apiKey = apiKey;
-    }
+
+    public KlaviyoAdminApi(string apiKey) : base(new(apiKey)) { }
     public Services.AccountServices AccountServices { get { _AccountServices ??= new(this); return _AccountServices; } }
     private Services.AccountServices _AccountServices;
     public Services.DataPrivacyServices DataPrivacyServices { get { _DataPrivacyServices ??= new(this); return _DataPrivacyServices; } }
@@ -18,5 +15,8 @@ public class KlaviyoAdminApi : KlaviyoApiBase
 
     public Services.ProfileServices ProfileServices { get { _ProfileServices ??= new(this); return _ProfileServices; } }
     private Services.ProfileServices _ProfileServices;
+
+    public Services.MetricServices MetricServices { get { _MetricServices ??= new(this); return _MetricServices; } }
+    private Services.MetricServices _MetricServices;
 
 }

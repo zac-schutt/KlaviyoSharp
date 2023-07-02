@@ -4,11 +4,7 @@ namespace KlaviyoSharp;
 /// </summary>
 public class KlaviyoClientApi : KlaviyoApiBase
 {
-    public KlaviyoClientApi(string companyId) : base()
-    {
-        _apiPath = "/client";
-        _companyId = companyId;
-    }
+    public KlaviyoClientApi(string companyId) : base(new(companyId) { ApiPath = "/client" }) { }
 
     private Services.ClientServices _ClientServices;
 

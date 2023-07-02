@@ -16,40 +16,20 @@ namespace KlaviyoSharp;
 /// </summary>
 public abstract class KlaviyoApiBase
 {
-    /// <summary>
-    /// The server URI to use
-    /// </summary>
-    protected Uri _serverUri = new("https://a.klaviyo.com");
-    /// <summary>
-    /// The API path to use. Should be /api or /client
-    /// </summary>
-    protected string _apiPath;
-    /// <summary>
-    /// The API key to use
-    /// </summary>
-    protected string _apiKey;
-    /// <summary>
-    /// The company ID to use
-    /// </summary>
-    protected string _companyId;
+    private readonly KlaviyoConfig _config;
+
     /// <summary>
     /// The HttpClient to use for all calls
     /// </summary>
     private readonly HttpClient _httpClient;
     /// <summary>
-    /// Creates a new KlaviyoService using default options
+    /// Creates a new KlaviyoService using the provided config
     /// </summary>
-    public KlaviyoApiBase()
+    /// <param name="config">The config to use</param>
+    public KlaviyoApiBase(KlaviyoConfig config)
     {
+        _config = config;
         _httpClient = new HttpClient();
-    }
-    /// <summary>
-    /// Creates a new KlaviyoService using a custom Uri
-    /// </summary>
-    /// <param name="serverUri"></param>
-    public KlaviyoApiBase(Uri serverUri) : this()
-    {
-        _serverUri = serverUri;
     }
     /// <summary>
     /// Performs an HTTP request to the Klaviyo API and returns the response
@@ -92,9 +72,9 @@ public abstract class KlaviyoApiBase
     /// <returns></returns>
     private Uri BuildURI(string path)
     {
-        var builder = new UriBuilder(_serverUri)
+        var builder = new UriBuilder(_config.ApiDomain)
         {
-            Path = $"{_apiPath}/{path}"
+            Path = $"{_config.ApiPath}/{path}"
         };
         return builder.Uri;
     }
@@ -115,14 +95,15 @@ public abstract class KlaviyoApiBase
         query ??= new();
         headers.Add("revision", revision);
         //headers.Add("Accept", "application/json");
-        if (!string.IsNullOrEmpty(_apiKey))
+        if (_config.UseAuthentication)
         {
-            headers.Add("Authorization", $"Klaviyo-API-Key {_apiKey}");
+            headers.Add("Authorization", $"Klaviyo-API-Key {_config.ApiKey}");
         }
-        if (!string.IsNullOrEmpty(_companyId))
+        else
         {
-            query.Add("company_id", _companyId);
+            query.Add("company_id", _config.ApiKey);
         }
+
         req.RequestUri = new Uri($"{req.RequestUri}?{query}");
         foreach (var header in headers)
         {
@@ -149,11 +130,11 @@ public abstract class KlaviyoApiBase
         int retryCount = 0;
         while (response.StatusCode.ToString() == "429")
         {
-            if (retryCount >= 10) { throw new ApplicationException("Too many retries. Aborted."); }
+            if (retryCount > _config.MaxRetries) { throw new ApplicationException("Too many retries. Aborted."); }
             retryCount++;
             response.Headers.TryGetValues("Retry-After", out IEnumerable<string> retryAfters);
             int retryAfter = retryAfters.FirstOrDefault() != null ? Convert.ToInt32(retryAfters.FirstOrDefault()) : 10;
-            if (retryAfter > 60) { throw new ApplicationException("Rate limiting applied and Retry-After is too high. Aborted."); }
+            if (retryAfter > _config.MaxDelay) { throw new ApplicationException("Rate limiting applied and Retry-After is too high. Aborted."); }
             Debug.WriteLine($"Warning! Too many requests. Retrying in {retryAfter} seconds...");
             await Task.Delay(1000 * retryAfter, cancellationToken);
             response = await _httpClient.SendAsync(requestMessage.Clone(), cancellationToken);
