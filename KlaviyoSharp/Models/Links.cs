@@ -1,13 +1,19 @@
 using Newtonsoft.Json;
 
-namespace KlaviyoSharp.Models;
+namespace KlaviyoSharp.Models.Links;
 
-public class Links
+public class SelfLink
 {
     [JsonProperty("self")]
     public string Self { get; set; }
+}
+public class RelatedLink : SelfLink
+{
     [JsonProperty("related")]
     public string Related { get; set; }
+}
+public class NavLink: SelfLink
+{
     [JsonProperty("first")]
     public string First { get; set; }
     [JsonProperty("last")]

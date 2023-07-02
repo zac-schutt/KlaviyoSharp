@@ -3,9 +3,8 @@
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-
     <IsPackable>false</IsPackable>
+    <langversion>latest</langversion>
   </PropertyGroup>
 
   <ItemGroup>

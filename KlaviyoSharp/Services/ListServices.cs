@@ -1,11 +1,11 @@
 using System.Collections.Generic;
 using System.Net.Http;
-using System.Security.Cryptography.X509Certificates;
 using System.Threading;
 using System.Threading.Tasks;
 using KlaviyoSharp.Infrastructure;
 using KlaviyoSharp.Models;
 using KlaviyoSharp.Models.Filters;
+using System.Linq;
 
 namespace KlaviyoSharp.Services;
 
@@ -13,41 +13,41 @@ public class ListServices : KlaviyoServiceBase, IListServices
 {
     public ListServices(KlaviyoApiBase klaviyoService) : base("2023-06-15", klaviyoService) { }
     /// <inheritdoc />
-    public async Task<List<DataObject<ListAttributes>>> GetLists(List<string> listFields = null, IFilter filter = null, CancellationToken cancellationToken = default)
+    public async Task<DataListObject<List>> GetLists(List<string> listFields = null, IFilter filter = null, CancellationToken cancellationToken = default)
     {
         QueryParams query = new();
         query.AddFieldset("list", listFields);
         query.AddFilters(filter);
 
-        List<DataObject<ListAttributes>> output = new();
+        DataListObject<List> output = new(new());
         string pageCursor = "";
-        ResponseBody<List<DataObject<ListAttributes>>> response;
+        DataListObject<List> response;
         query.Add("page[cursor]", pageCursor);
         do
         {
             query["page[cursor]"] = pageCursor;
-            response = await _klaviyoService.HTTP<ResponseBody<List<DataObject<ListAttributes>>>>(HttpMethod.Get, "lists/", _revision, query, null, null, cancellationToken);
-            output.AddRange(response.Data);
-            pageCursor = new QueryParams(response.Links.Next).GetValueOrDefault("page[cursor]");
+            response = await _klaviyoService.HTTP<DataListObject<List>>(HttpMethod.Get, "lists/", _revision, query, null, null, cancellationToken);
+            output.Data.AddRange(response.Data);
+            new QueryParams(response.Links.Next)?.TryGetValue("page[cursor]", out pageCursor);
         } while (response.Links.Next != null);
         return output;
     }
     /// <inheritdoc />
-    public async Task<DataObject<ListAttributes>> GetList(string id, List<string> listFields = null, CancellationToken cancellationToken = default)
+    public async Task<DataObject<List>> GetList(string id, List<string> listFields = null, CancellationToken cancellationToken = default)
     {
         QueryParams query = new();
         query.AddFieldset("list", listFields);
-        return (await _klaviyoService.HTTP<ResponseBody<DataObject<ListAttributes>>>(HttpMethod.Get, $"lists/{id}/", _revision, query, null, null, cancellationToken)).Data;
+        return await _klaviyoService.HTTP<DataObject<List>>(HttpMethod.Get, $"lists/{id}/", _revision, query, null, null, cancellationToken);
     }
     /// <inheritdoc />
-    public async Task<DataObject<ListAttributes>> CreateList(ListAttributes listAttributes, CancellationToken cancellationToken = default)
+    public async Task<DataObject<List>> CreateList(List list, CancellationToken cancellationToken = default)
     {
-        return (await _klaviyoService.HTTP<ResponseBody<DataObject<ListAttributes>>>(HttpMethod.Post, "lists/", _revision, null, null, new DataObject<ListAttributes>("list", listAttributes), cancellationToken)).Data;
+        return await _klaviyoService.HTTP<DataObject<List>>(HttpMethod.Post, "lists/", _revision, null, null, new DataObject<List>(list), cancellationToken);
     }
     /// <inheritdoc />
-    public async Task<DataObject<ListAttributes>> UpdateList(string id, ListAttributes listAttributes, CancellationToken cancellationToken = default)
+    public async Task<DataObject<List>> UpdateList(string id, List listAttributes, CancellationToken cancellationToken = default)
     {
-        return (await _klaviyoService.HTTP<ResponseBody<DataObject<ListAttributes>>>(HttpMethod.Patch, $"lists/{id}/", _revision, null, null, new DataObject<ListAttributes>("list", id, listAttributes), cancellationToken)).Data;
+        return await _klaviyoService.HTTP<DataObject<List>>(new("PATCH"), $"lists/{id}/", _revision, null, null, new DataObject<List>(listAttributes), cancellationToken);
     }
     /// <inheritdoc />
     public async Task DeleteList(string id, CancellationToken cancellationToken = default)
@@ -55,58 +55,58 @@ public class ListServices : KlaviyoServiceBase, IListServices
         await _klaviyoService.HTTP(HttpMethod.Delete, $"lists/{id}/", _revision, null, null, null, cancellationToken);
     }
     /// <inheritdoc />
-    public async Task<List<DataObject<TagAttributes>>> GetListTags(string id, List<string> listFields = null, CancellationToken cancellationToken = default)
+    public async Task<DataListObject<Tag>> GetListTags(string id, List<string> listFields = null, CancellationToken cancellationToken = default)
     {
         QueryParams query = new();
         query.AddFieldset("tag", listFields);
-        return (await _klaviyoService.HTTP<ResponseBody<List<DataObject<TagAttributes>>>>(HttpMethod.Get, $"lists/{id}/tags/", _revision, query, null, null, cancellationToken)).Data;
+        return await _klaviyoService.HTTP<DataListObject<Tag>>(HttpMethod.Get, $"lists/{id}/tags/", _revision, query, null, null, cancellationToken);
     }
     /// <inheritdoc />
     public async Task AddProfileToList(string id, List<string> profileId, CancellationToken cancellationToken = default)
     {
-        List<DataObject> dataObjects = new();
-        profileId.ForEach(x => dataObjects.Add(new DataObject("profile", x)));
+        DataListObject<GenericObject> dataObjects = new(new());
+        profileId.ForEach(profileId => dataObjects.Data.Add(new() { Type = "profile", Id = profileId }));
         await _klaviyoService.HTTP(HttpMethod.Post, $"lists/{id}/relationships/profiles/", _revision, null, null, dataObjects, cancellationToken);
     }
 
     /// <inheritdoc />
     public async Task RemoveProfileFromList(string id, List<string> profileId, CancellationToken cancellationToken = default)
     {
-        List<DataObject> dataObjects = new();
-        profileId.ForEach(x => dataObjects.Add(new DataObject("profile", x)));
+        DataListObject<GenericObject> dataObjects = new(new());
+        profileId.ForEach(profileId => dataObjects.Data.Add(new() { Type = "profile", Id = profileId }));
         await _klaviyoService.HTTP(HttpMethod.Delete, $"lists/{id}/relationships/profiles/", _revision, null, null, dataObjects, cancellationToken);
     }
 
     /// <inheritdoc />
-    public async Task<List<DataObject<ProfileAttributes>>> GetListProfiles(string id, List<string> profileFields = null, List<string> additionalFields = null, IFilter filter = null, CancellationToken cancellationToken = default)
+    public async Task<DataListObject<Profile>> GetListProfiles(string id, List<string> profileFields = null, List<string> additionalFields = null, IFilter filter = null, CancellationToken cancellationToken = default)
     {
         QueryParams query = new();
         query.AddFieldset("profile", profileFields);
         query.AddFilters(filter);
         query.AddAdditionalFields("profile", additionalFields);
 
-        List<DataObject<ProfileAttributes>> output = new();
+        DataListObject<Profile> output = new(new());
         string pageCursor = "";
-        ResponseBody<List<DataObject<ProfileAttributes>>> response;
+        DataListObject<Profile> response;
         query.Add("page[cursor]", pageCursor);
         do
         {
             query["page[cursor]"] = pageCursor;
-            response = await _klaviyoService.HTTP<ResponseBody<List<DataObject<ProfileAttributes>>>>(HttpMethod.Get, $"lists/{id}/profiles/", _revision, query, null, null, cancellationToken);
-            output.AddRange(response.Data);
-            pageCursor = new QueryParams(response.Links.Next).GetValueOrDefault("page[cursor]");
+            response = await _klaviyoService.HTTP<DataListObject<Profile>>(HttpMethod.Get, $"lists/{id}/profiles/", _revision, query, null, null, cancellationToken);
+            output.Data.AddRange(response.Data);
+            new QueryParams(response.Links.Next)?.TryGetValue("page[cursor]", out pageCursor);
         } while (response.Links.Next != null);
         return output;
     }
-/// <inheritdoc />
-    public async Task<List<DataObject>> GetListRelationshipsTags(string id, CancellationToken cancellationToken = default)
+    /// <inheritdoc />
+    public async Task<DataListObject<GenericObject>> GetListRelationshipsTags(string id, CancellationToken cancellationToken = default)
     {
-        return (await _klaviyoService.HTTP<ResponseBody<List<DataObject>>>(HttpMethod.Get, $"lists/{id}/relationships/tags/", _revision, null, null, null, cancellationToken)).Data;
+        return await _klaviyoService.HTTP<DataListObject<GenericObject>>(HttpMethod.Get, $"lists/{id}/relationships/tags/", _revision, null, null, null, cancellationToken);
     }
-/// <inheritdoc />
-    public async Task<List<DataObject>> GetListRelationshipsProfiles(string id, CancellationToken cancellationToken = default)
+    /// <inheritdoc />
+    public async Task<DataListObject<GenericObject>> GetListRelationshipsProfiles(string id, CancellationToken cancellationToken = default)
     {
-        return (await _klaviyoService.HTTP<ResponseBody<List<DataObject>>>(HttpMethod.Get, $"lists/{id}/relationships/profiles/", _revision, null, null, null, cancellationToken)).Data;
+        return await _klaviyoService.HTTP<DataListObject<GenericObject>>(HttpMethod.Get, $"lists/{id}/relationships/profiles/", _revision, null, null, null, cancellationToken);
     }
 
 

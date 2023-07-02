@@ -2,7 +2,14 @@ using Newtonsoft.Json;
 
 namespace KlaviyoSharp.Models;
 
-public class ProfileDeletionAttributes : AttributesObject
+public class ProfileDeletionRequest : KlaviyoObjectBasic<ProfileDeletionRequestAttributes>
+{
+    public static new ProfileDeletionRequest Create()
+    {
+        return new() { Type = "data-privacy-deletion-job" };
+    }
+}
+public class ProfileDeletionRequestAttributes
 {
     /// <summary>
     /// The email address of the profile to delete.

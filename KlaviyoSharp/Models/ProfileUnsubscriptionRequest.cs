@@ -3,7 +3,14 @@ using Newtonsoft.Json;
 
 namespace KlaviyoSharp.Models;
 
-public class ProfileUnsubscriptionAttributes : AttributesObject
+public class ProfileUnsubscriptionRequest : KlaviyoObjectBasic<ProfileUnsubscriptionAttributes>
+{
+    public static new ProfileUnsubscriptionRequest Create()
+    {
+        return new ProfileUnsubscriptionRequest() { Type = "profile-unsubscription-bulk-create-job" };
+    }
+}
+public class ProfileUnsubscriptionAttributes
 {
     /// <summary>
     /// Optional, the list to remove the profiles from

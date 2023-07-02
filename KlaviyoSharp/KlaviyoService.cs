@@ -64,10 +64,8 @@ public abstract class KlaviyoApiBase
     /// <returns></returns>
     internal async Task<T> HTTP<T>(HttpMethod method, string path, string revision, QueryParams query, HeaderParams headers, object data, CancellationToken cancellationToken)
     {
-        RequestBody requestBody = null;
-        if (data != null) { requestBody = new RequestBody(data); }
-        CloneableHttpRequestMessage requestMessage = PrepareRequest(method, BuildURI(path), revision, query, headers, requestBody);
-        string TextResult = (await GetResponse(requestMessage, cancellationToken)).Content.ReadAsStringAsync(cancellationToken).Result;
+        CloneableHttpRequestMessage requestMessage = PrepareRequest(method, BuildURI(path), revision, query, headers, data);
+        string TextResult = (await GetResponse(requestMessage, cancellationToken)).Content.ReadAsStringAsync().Result;
         return JsonConvert.DeserializeObject<T>(TextResult);
     }
     /// <summary>
@@ -83,9 +81,7 @@ public abstract class KlaviyoApiBase
     /// <returns></returns>
     internal async Task HTTP(HttpMethod method, string path, string revision, QueryParams query, HeaderParams headers, object data, CancellationToken cancellationToken)
     {
-        RequestBody requestBody = null;
-        if (data != null) { requestBody = new RequestBody(data); }
-        CloneableHttpRequestMessage requestMessage = PrepareRequest(method, BuildURI(path), revision, query, headers, requestBody);
+        CloneableHttpRequestMessage requestMessage = PrepareRequest(method, BuildURI(path), revision, query, headers, data);
         await GetResponse(requestMessage, cancellationToken);
     }
 
@@ -112,7 +108,7 @@ public abstract class KlaviyoApiBase
     /// <param name="headers">The headers to use</param>
     /// <param name="content">The content to use</param>
     /// <returns>A CloneableHttpRequestMessage</returns>
-    internal CloneableHttpRequestMessage PrepareRequest(HttpMethod method, Uri uri, string revision, QueryParams query = null, HeaderParams headers = null, RequestBody content = null)
+    internal CloneableHttpRequestMessage PrepareRequest(HttpMethod method, Uri uri, string revision, QueryParams query = null, HeaderParams headers = null, object content = null)
     {
         CloneableHttpRequestMessage req = new(method, uri) { };
         headers ??= new();
@@ -151,7 +147,7 @@ public abstract class KlaviyoApiBase
     {
         HttpResponseMessage response = await _httpClient.SendAsync(requestMessage, cancellationToken);
         int retryCount = 0;
-        while (response.StatusCode == System.Net.HttpStatusCode.TooManyRequests)
+        while (response.StatusCode.ToString() == "429")
         {
             if (retryCount >= 10) { throw new ApplicationException("Too many retries. Aborted."); }
             retryCount++;

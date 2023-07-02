@@ -10,21 +10,21 @@ public class ClientServices : KlaviyoServiceBase, IClientServices
     public ClientServices(KlaviyoClientApi klaviyoService) : base("2023-06-15", klaviyoService) { }
 
     /// <inheritdoc/>
-    public async Task CreateEvent(ClientEventRequestAttributes attributes, CancellationToken cancellationToken = default)
+    public async Task CreateEvent(ClientEvent clientEvent, CancellationToken cancellationToken = default)
     {
-        await _klaviyoService.HTTP(HttpMethod.Post, "events", _revision, null, null, new DataObject<ClientEventRequestAttributes>("event", attributes), cancellationToken);
+        await _klaviyoService.HTTP(HttpMethod.Post, "events", _revision, null, null, new DataObject<ClientEvent>(clientEvent), cancellationToken);
     }
 
     /// <inheritdoc/>
-    public async Task UpsertProfile(ClientProfileRequestAttributes attributes, CancellationToken cancellationToken = default)
+    public async Task UpsertProfile(ClientProfile profile, CancellationToken cancellationToken = default)
     {
-        await _klaviyoService.HTTP(HttpMethod.Post, "profiles/", _revision, null, null, new DataObject<ClientProfileRequestAttributes>("profile", attributes), cancellationToken);
+        await _klaviyoService.HTTP(HttpMethod.Post, "profiles/", _revision, null, null, new DataObject<ClientProfile>(profile), cancellationToken);
     }
 
     /// <inheritdoc/>
-    public async Task CreateSubscription(ClientSubscriptionRequestAttributes attributes, CancellationToken cancellationToken = default)
+    public async Task CreateSubscription(ClientSubscription subscription, CancellationToken cancellationToken = default)
     {
-        await _klaviyoService.HTTP(HttpMethod.Post, "subscriptions", _revision, null, null, new DataObject<ClientSubscriptionRequestAttributes>("subscription", attributes), cancellationToken);
+        await _klaviyoService.HTTP(HttpMethod.Post, "subscriptions", _revision, null, null, new DataObject<ClientSubscription>(subscription), cancellationToken);
     }
 
 }

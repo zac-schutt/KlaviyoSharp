@@ -35,17 +35,11 @@ public class Filter : IFilter
         Value = value.ToString();
     }
 
-    public Filter(FilterOperation operation, string field, DateTime value)
+    public Filter(FilterOperation operation, string field, DateTime value, bool showTime = true)
     {
         Operation = operation;
         Field = field;
-        Value = value.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ssZ");
-    }
-    public Filter(FilterOperation operation, string field, DateOnly value)
-    {
-        Operation = operation;
-        Field = field;
-        Value = value.ToString("yyyy-MM-dd");
+        Value = value.ToUniversalTime().ToString(showTime ? "yyyy-MM-ddTHH:mm:ssZ" : "yyyy-MM-dd");
     }
     public Filter(FilterOperation operation, string field, List<string> value)
     {

@@ -38,7 +38,7 @@ internal static class Config
     /// <param name="key"></param>
     private static string Get(string key)
     {
-        string? env = Environment.GetEnvironmentVariable($"KLAVIYO_{key.ToUpper()}");
+        string env = Environment.GetEnvironmentVariable($"KLAVIYO_{key.ToUpper()}");
         _config ??= LoadConfig();
         return env ?? _config.GetSection("Klaviyo").GetSection(key).Value ?? throw new Exception($"Missing {key} in appsettings.local.json");
     }

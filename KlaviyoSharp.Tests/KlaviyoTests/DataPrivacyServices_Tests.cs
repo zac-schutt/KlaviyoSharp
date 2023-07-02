@@ -14,19 +14,21 @@ public class DataPrivacyServices_Tests : IClassFixture<DataPrivacyServices_Tests
     public async Task RequestProfileDeletion()
     {
         //Create new profile to test deletion
-        var tempProfileId = Fixture.AdminApi.ProfileServices.CreateProfile(new()
+        var tempProfile = Models.Profile.Create();
+        tempProfile.Attributes = new()
         {
             Email = $"test{Config.Random}@example.com",
             FirstName = $"Test-{Config.Random}",
             LastName = "Name"
-        }).Result.Id;
-        var attributes = new Models.ProfileDeletionAttributes
-        {
-            ProfileId = tempProfileId
         };
+        var tempProfileId = Fixture.AdminApi.ProfileServices.CreateProfile(tempProfile).Result.Data.Id;
+        var deletionRequest = Models.ProfileDeletionRequest.Create();
+        deletionRequest.Attributes = new() { ProfileId = tempProfileId };
+
+
 
         //Request profile deletion
-        await Fixture.AdminApi.DataPrivacyServices.RequestProfileDeletion(attributes);
+        await Fixture.AdminApi.DataPrivacyServices.RequestProfileDeletion(deletionRequest);
 
         //Check if profile is deleted by looking for a not_found error
         try

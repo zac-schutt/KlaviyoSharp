@@ -20,15 +20,18 @@ public class ClientServices_Tests : IClassFixture<ClientServices_Tests_Fixture>
     [Fact]
     public void CreateEvent()
     {
-        Fixture.ClientApi.ClientServices.CreateEvent(new Models.ClientEventRequestAttributes()
+        var newEvent = Models.ClientEvent.Create();
+        newEvent.Attributes = new()
         {
             Profile = new() { { "$email", "matt.kemp@klaviyo-demo.com" } },
             Metric = new() { Name = "C# Test" },
             Time = DateTime.Now,
-            Value = 12.99M,
+            Value = 12.99,
             UniqueId = Guid.NewGuid().ToString(),
             Properties = new() { { "test", "test" } }
-        }).Wait();
+        };
+
+        Fixture.ClientApi.ClientServices.CreateEvent(newEvent).Wait();
         Assert.True(true);
     }
 
@@ -39,16 +42,17 @@ public class ClientServices_Tests : IClassFixture<ClientServices_Tests_Fixture>
     public void CreateSubscription()
     {
         //Get Sample Data List ID
-        string _listId = Fixture.AdminApi.ListServices.GetLists(new() { "id" }, new Filter(FilterOperation.Equals, "name", "Sample Data List")).Result.First().Id;
+        string _listId = Fixture.AdminApi.ListServices.GetLists(new() { "id" }, new Filter(FilterOperation.Equals, "name", "Sample Data List")).Result.Data.First().Id;
         Debug.WriteLine(_listId);
-
-        Fixture.ClientApi.ClientServices.CreateSubscription(new Models.ClientSubscriptionRequestAttributes()
+        var newSubscription = Models.ClientSubscription.Create();
+        newSubscription.Attributes = new()
         {
             ListId = _listId,
             CustomSource = "C# Test",
             Email = "test@test.com",
             Properties = new() { { "test", "test" } }
-        }).Wait();
+        };
+        Fixture.ClientApi.ClientServices.CreateSubscription(newSubscription).Wait();
         Assert.True(true);
     }
 
@@ -58,7 +62,9 @@ public class ClientServices_Tests : IClassFixture<ClientServices_Tests_Fixture>
     [Fact]
     public void UpsertProfile()
     {
-        Fixture.ClientApi.ClientServices.UpsertProfile(new Models.ClientProfileRequestAttributes()
+        var newProfile = Models.ClientProfile.Create();
+
+        newProfile.Attributes = new()
         {
             Id = "01H42N4KX4N2NV2CT2595KCG6Z",
             Email = "test@test.com",
@@ -72,8 +78,8 @@ public class ClientServices_Tests : IClassFixture<ClientServices_Tests_Fixture>
             {
                 Address1 = "1 Main St",
                 Address2 = "Suite 101",
-                Latitude = 42.35843M,
-                Longitude = -71.05977M,
+                Latitude = 42.35843,
+                Longitude = -71.05977,
                 Timezone = "America/New_York",
                 City = "Boston",
                 Region = "MA",
@@ -81,7 +87,9 @@ public class ClientServices_Tests : IClassFixture<ClientServices_Tests_Fixture>
                 Zip = "02110"
             },
             Properties = new() { { "Last Test", DateTime.Now.ToString() } }
-        }).Wait();
+        };
+
+        Fixture.ClientApi.ClientServices.UpsertProfile(newProfile).Wait();
         Assert.True(true);
     }
 }

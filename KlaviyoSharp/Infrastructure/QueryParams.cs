@@ -96,5 +96,12 @@ public class QueryParams : Dictionary<string, string>
         if (!string.IsNullOrEmpty(sortField)) Add("sort", sortField);
     }
 
+    private void TryAdd(string key, string value)
+    {
+        if (!string.IsNullOrEmpty(value) && !ContainsKey(key))
+        {
+            Add(key, value);
+        }
+    }
 
 }

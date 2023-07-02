@@ -3,41 +3,42 @@ using Newtonsoft.Json;
 
 namespace KlaviyoSharp.Models;
 
-public class DataObject
+public class DataObject<T>
 {
     public DataObject() { }
-    public DataObject(string type, string id)
+    public DataObject(T data)
     {
-        Type = type;
-        Id = id;
+        Data = data;
     }
-    [JsonProperty("type")]
-    public string Type { get; set; }
-    [JsonProperty("id")]
-    public string Id { get; set; }
+
+    [JsonProperty("data")]
+    public T Data { get; set; }
 
 }
-public class DataObject<T> : DataObject
+
+public class DataListObject<T>
 {
-    public DataObject(string type, T attributes) : base()
+    public DataListObject() { }
+    public DataListObject(List<T> data)
     {
-        Type = type;
-        Attributes = attributes;
+        Data = data;
     }
-    public DataObject(string type, string id, T attributes) : base()
-    {
-        Type = type;
-        Attributes = attributes;
-        Id = id;
-    }
-    public DataObject() { }
 
-    [JsonProperty("attributes")]
-    public T Attributes { get; set; }
-
-    [JsonProperty("relationships")]
-    public Dictionary<string, Relationship> Relationships { get; set; }
-
+    [JsonProperty("data")]
+    public List<T> Data { get; set; }
     [JsonProperty("links")]
-    public Links Links { get; set; }
+    public Links.NavLink Links { get; set; }
+}
+public class DataListObjectRelated<T>
+{
+    public DataListObjectRelated() { }
+    public DataListObjectRelated(List<T> data)
+    {
+        Data = data;
+    }
+
+    [JsonProperty("data")]
+    public List<T> Data { get; set; }
+    [JsonProperty("links")]
+    public Links.RelatedLink Links { get; set; }
 }

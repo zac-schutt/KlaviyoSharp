@@ -13,7 +13,7 @@ public interface IAccountServices
     /// <param name="accountFields">For more information please visit <see href="https://developers.klaviyo.com/en/v2023-06-15/reference/api-overview#sparse-fieldsets">Fieldsets overview</see></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    Task<List<KlaviyoObject<Account>>> GetAccounts(List<string> accountFields = null, CancellationToken cancellationToken = default);
+    Task<DataListObject<Account>> GetAccounts(List<string> accountFields = null, CancellationToken cancellationToken = default);
     /// <summary>
     /// Retrieve a single account object by its account ID. You can only request the account by which the private API key was generated.
     /// </summary>
@@ -21,5 +21,5 @@ public interface IAccountServices
     /// <param name="accountFields">For more information please visit <see href="https://developers.klaviyo.com/en/v2023-06-15/reference/api-overview#sparse-fieldsets">Fieldsets overview</see></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    Task<KlaviyoObject<Account>> GetAccount(string accountId, List<string> accountFields = null, CancellationToken cancellationToken = default);
+    Task<DataObject<Account>> GetAccount(string accountId, List<string> accountFields = null, CancellationToken cancellationToken = default);
     }

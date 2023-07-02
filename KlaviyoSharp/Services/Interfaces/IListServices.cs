@@ -15,7 +15,7 @@ public interface IListServices
     /// <param name="filter">For more information please visit <see href="https://developers.klaviyo.com/en/v2023-06-15/reference/api-overview#filtering" /> Allowed field(s): name, id, created, updated</param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    Task<List<DataObject<ListAttributes>>> GetLists(List<string> listFields = null, IFilter filter = null, CancellationToken cancellationToken = default);
+    Task<DataListObject<List>> GetLists(List<string> listFields = null, IFilter filter = null, CancellationToken cancellationToken = default);
     /// <summary>
     /// Get a list with the given list ID.
     /// </summary>
@@ -23,14 +23,14 @@ public interface IListServices
     /// <param name="listFields">For more information please visit https://developers.klaviyo.com/en/v2023-06-15/reference/api-overview#sparse-fieldsets</param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    Task<DataObject<ListAttributes>> GetList(string id, List<string> listFields = null, CancellationToken cancellationToken = default);
+    Task<DataObject<List>> GetList(string id, List<string> listFields = null, CancellationToken cancellationToken = default);
     /// <summary>
     /// Create a new list.
     /// </summary>
     /// <param name="listAttributes"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    Task<DataObject<ListAttributes>> CreateList(ListAttributes listAttributes, CancellationToken cancellationToken = default);
+    Task<DataObject<List>> CreateList(List listAttributes, CancellationToken cancellationToken = default);
     /// <summary>
     /// Update the name of a list with the given list ID.
     /// </summary>
@@ -38,7 +38,7 @@ public interface IListServices
     /// <param name="listAttributes"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    Task<DataObject<ListAttributes>> UpdateList(string id, ListAttributes listAttributes, CancellationToken cancellationToken = default);
+    Task<DataObject<List>> UpdateList(string id, List listAttributes, CancellationToken cancellationToken = default);
     /// <summary>
     /// Delete a list with the given list ID.
     /// </summary>
@@ -53,7 +53,7 @@ public interface IListServices
     /// <param name="listFields"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    Task<List<DataObject<TagAttributes>>> GetListTags(string id, List<string> listFields = null, CancellationToken cancellationToken = default);
+    Task<DataListObject<Tag>> GetListTags(string id, List<string> listFields = null, CancellationToken cancellationToken = default);
     /// <summary>
     /// Add a profile to a list with the given list ID.
     /// It is recommended that you use the <see href="https://developers.klaviyo.com/en/reference/subscribe_profiles">Subscribe Profiles</see> endpoint if you're trying to give a profile consent to receive email marketing.
@@ -85,19 +85,19 @@ public interface IListServices
     /// <param name="filter">For more information please visit <see href="https://developers.klaviyo.com/en/v2023-06-15/reference/api-overview#filtering" />. Allowed field(s): email, phone_number, push_token, _kx</param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    Task<List<DataObject<ProfileAttributes>>> GetListProfiles(string id, List<string> profileFields = null, List<string> additionalFields = null, IFilter filter = null, CancellationToken cancellationToken = default);
+    Task<DataListObject<Profile>> GetListProfiles(string id, List<string> profileFields = null, List<string> additionalFields = null, IFilter filter = null, CancellationToken cancellationToken = default);
     /// <summary>
     /// Returns the tag IDs of all tags associated with the given list.
     /// </summary>
     /// <param name="id">List id</param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    Task<List<DataObject>> GetListRelationshipsTags(string id, CancellationToken cancellationToken = default);
+    Task<DataListObject<GenericObject>> GetListRelationshipsTags(string id, CancellationToken cancellationToken = default);
     /// <summary>
     ///Get profile membership <see href="https://developers.klaviyo.com/en/reference/api_overview#relationships">relationships</see> for a list with the given list ID.
     /// </summary>
     /// <param name="id">List id</param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    Task<List<DataObject>> GetListRelationshipsProfiles(string id, CancellationToken cancellationToken = default);
+    Task<DataListObject<GenericObject>> GetListRelationshipsProfiles(string id, CancellationToken cancellationToken = default);
 }

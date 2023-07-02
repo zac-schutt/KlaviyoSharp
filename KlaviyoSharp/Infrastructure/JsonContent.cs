@@ -10,12 +10,12 @@ namespace KlaviyoSharp.Infrastructure;
 /// </summary>
 public class JsonContent : ByteArrayContent
 {
-    private RequestBody Data { get; set; }
+    private object Data { get; set; }
     /// <summary>
     /// Creates a new JsonContent with the given RequestBody data
     /// </summary>
     /// <param name="data"></param>
-    public JsonContent(RequestBody data) : base(ToBytes(data))
+    public JsonContent(object data) : base(ToBytes(data))
     {
         Data = data;
         Headers.ContentType = new MediaTypeHeaderValue("application/json");
@@ -25,7 +25,7 @@ public class JsonContent : ByteArrayContent
     /// </summary>
     /// <param name="data"></param>
     /// <returns></returns>
-    private static byte[] ToBytes(RequestBody data)
+    private static byte[] ToBytes(object data)
     {
         string rawData = JsonConvert.SerializeObject(data, Formatting.None, new JsonSerializerSettings
         {
