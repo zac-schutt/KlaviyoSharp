@@ -16,6 +16,11 @@ public class DataObject<T>
 
 }
 
+public class DataObjectWithIncluded<T> : DataObject<T>{
+    [JsonProperty("included")]
+    public List<object> Included { get; set; }
+}
+
 public class DataListObject<T>
 {
     public DataListObject() { }

@@ -38,7 +38,7 @@ public class ProfileServices : KlaviyoServiceBase, IProfileServices
         return await _klaviyoService.HTTP<DataObject<Profile>>(HttpMethod.Post, "profiles/", _revision, null, null, new DataObject<Profile>(profile), cancellationToken);
     }
     /// <inheritdoc />
-    public async Task<DataObject<Profile>> GetProfile(string profileId, List<string> listFields = null, List<string> profileFields = null, List<string> segmentFields = null, List<string> additionalFields = null, List<string> includedObjects = null, CancellationToken cancellationToken = default)
+    public async Task<DataObjectWithIncluded<Profile>> GetProfile(string profileId, List<string> listFields = null, List<string> profileFields = null, List<string> segmentFields = null, List<string> additionalFields = null, List<string> includedObjects = null, CancellationToken cancellationToken = default)
     {
         QueryParams query = new();
         query.AddAdditionalFields("profile", additionalFields);
@@ -46,7 +46,7 @@ public class ProfileServices : KlaviyoServiceBase, IProfileServices
         query.AddFieldset("profile", profileFields);
         query.AddFieldset("segment", segmentFields);
         includedObjects?.ForEach(x => query.Add("include", x));
-        return await _klaviyoService.HTTP<DataObject<Profile>>(HttpMethod.Get, $"profiles/{profileId}/", _revision, query, null, null, cancellationToken);
+        return await _klaviyoService.HTTP<DataObjectWithIncluded<Profile>>(HttpMethod.Get, $"profiles/{profileId}/", _revision, query, null, null, cancellationToken);
     }
     /// <inheritdoc />
     public async Task<DataObject<Profile>> UpdateProfile(string profileId, Profile profile, CancellationToken cancellationToken = default)

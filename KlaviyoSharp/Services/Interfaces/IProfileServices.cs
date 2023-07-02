@@ -31,7 +31,7 @@ internal interface IProfileServices
     /// <param name="includedObjects">For more information please visit https://developers.klaviyo.com/en/v2023-06-15/reference/api-overview#relationships</param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    Task<DataObject<Profile>> GetProfile(string profileId, List<string> listFields, List<string> profileFields, List<string> segmentFields, List<string> additionalFields, List<string> includedObjects, CancellationToken cancellationToken = default);
+    Task<DataObjectWithIncluded<Profile>> GetProfile(string profileId, List<string> listFields, List<string> profileFields, List<string> segmentFields, List<string> additionalFields, List<string> includedObjects, CancellationToken cancellationToken = default);
     /// <summary>
     /// Create a new profile.
     /// If you use a phone number as the profile identifier and SMS is not set up in the Klaviyo account, you'll need to include at least one other identifier attribute (email or external_id) in addition to the phone_number attribute for the API call to work.

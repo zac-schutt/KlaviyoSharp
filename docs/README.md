@@ -40,6 +40,7 @@ Endpoints are being developed from the [Klaviyo API Documentation](https://devel
   - [x] Data Privacy
 - Events
   - [ ] Events
+  - [ ] Relationships
 - Flows
   - [ ] Flows
   - [ ] Relationships
