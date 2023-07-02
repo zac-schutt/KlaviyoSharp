@@ -12,7 +12,7 @@ public interface IClientServices
     /// <param name="clientEvent"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    Task CreateEvent(ClientEvent clientEvent, CancellationToken cancellationToken = default);
+    Task CreateEvent(EventRequest clientEvent, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Create and update properties about a profile without tracking an associated event.

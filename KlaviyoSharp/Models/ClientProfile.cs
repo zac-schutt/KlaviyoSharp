@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Newtonsoft.Json;
 
 namespace KlaviyoSharp.Models;
@@ -79,7 +80,7 @@ public class ClientProfileAttributes
     /// An object containing key/value pairs for any custom properties assigned to this profile
     /// </summary>
     [JsonProperty("properties")]
-    public GenericProperties Properties { get; set; }
+    public Dictionary<string, object> Properties { get; set; }
 }
 
 public class ClientProfileLocation

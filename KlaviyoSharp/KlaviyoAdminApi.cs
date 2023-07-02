@@ -19,4 +19,6 @@ public class KlaviyoAdminApi : KlaviyoApiBase
     public Services.MetricServices MetricServices { get { _MetricServices ??= new(this); return _MetricServices; } }
     private Services.MetricServices _MetricServices;
 
+    public Services.EventServices EventServices { get { _EventServices ??= new(this); return _EventServices; } }
+    private Services.EventServices _EventServices;
 }

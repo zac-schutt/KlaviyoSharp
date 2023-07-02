@@ -16,7 +16,8 @@ public class DataObject<T>
 
 }
 
-public class DataObjectWithIncluded<T> : DataObject<T>{
+public class DataObjectWithIncluded<T> : DataObject<T>
+{
     [JsonProperty("included")]
     public List<object> Included { get; set; }
 }
@@ -33,6 +34,11 @@ public class DataListObject<T>
     public List<T> Data { get; set; }
     [JsonProperty("links")]
     public Links.NavLink Links { get; set; }
+}
+public class DataListObjectWithIncluded<T> : DataListObject<T>
+{
+    [JsonProperty("included")]
+    public List<object> Included { get; set; }
 }
 public class DataListObjectRelated<T>
 {

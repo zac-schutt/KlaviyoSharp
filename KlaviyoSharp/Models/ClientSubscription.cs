@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Newtonsoft.Json;
 
 namespace KlaviyoSharp.Models;
@@ -36,5 +37,5 @@ public class ClientSubscriptionAttributes
     /// Profile properties to set on the newly subscribed profile.
     /// </summary>
     [JsonProperty("properties")]
-    public GenericProperties Properties { get; set; }
+    public Dictionary<string, object> Properties { get; set; }
 }

@@ -4,22 +4,22 @@ using Newtonsoft.Json;
 
 namespace KlaviyoSharp.Models;
 
-public class ClientEvent : KlaviyoObjectBasic<ClientEventAttributes>
+public class EventRequest : KlaviyoObjectBasic<EventRequestAttributes>
 {
-    public new static ClientEvent Create()
+    public new static EventRequest Create()
     {
         return new() { Type = "event" };
     }
 }
 
-public class ClientEventAttributes
+public class EventRequestAttributes
 {
     /// <summary>
     /// Properties of the profile that triggered this event. The profile must contain an identifier. The $email and/or $phone_number can be used as the identify the profile.
     /// Other key value pairs can be used to create segments. For example, to create a list of people on trial plans, include a profile's plan type in the profile. The profile supports special fields. The fields include: $email (string), $first_name (string), $last_name (string), $phone_number (string), $city (string), $region (string; state or other region), $country (string), $zip (string), $image (string; url to a photo of a person), and $consent (list of strings; eg: ['sms', 'email', 'web', 'directmail', 'mobile']).
     /// </summary>
     [JsonProperty("profile")]
-    public ClientEventProfile Profile { get; set; }
+    public Dictionary<string, object> Profile { get; set; }
     /// <summary>
     /// The associated metric for the event. An account can have up to 200 unique metrics.
     /// </summary>
@@ -44,7 +44,7 @@ public class ClientEventAttributes
     /// Properties of this event. Any top level property (that are not objects) can be used to create segments. The $extra property is a special property. This records any non-segmentable values that can be references later. For example, HTML templates are useful on a segment, but itself is not used in creating a segment. There are limits placed onto the size of the data present. This must not exceed 5 MB. This must not exceed 300 event properties. A single string cannot be larger than 100 KB. Each array must not exceed 4000 elements. The properties cannot contain more than 10 nested levels.
     /// </summary>
     [JsonProperty("properties")]
-    public GenericProperties Properties { get; set; }
+    public Dictionary<string, object> Properties { get; set; }
 
 }
 

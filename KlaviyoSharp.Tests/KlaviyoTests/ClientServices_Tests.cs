@@ -14,16 +14,14 @@ public class ClientServices_Tests : IClassFixture<ClientServices_Tests_Fixture>
         Fixture = fixture;
     }
 
-    /// <summary>
-    /// Tests ClientEvent.Create
-    /// </summary>
     [Fact]
-    public void CreateEvent()
+    public async Task CreateEvent()
     {
-        var newEvent = Models.ClientEvent.Create();
+        var profile = (await Fixture.AdminApi.ProfileServices.GetProfiles()).Data.First();
+        var newEvent = Models.EventRequest.Create();
         newEvent.Attributes = new()
         {
-            Profile = new() { { "$email", "matt.kemp@klaviyo-demo.com" } },
+            Profile = new() { { "$email", profile.Attributes.Email } },
             Metric = new() { Name = "C# Test" },
             Time = DateTime.Now,
             Value = 12.99,
@@ -35,9 +33,6 @@ public class ClientServices_Tests : IClassFixture<ClientServices_Tests_Fixture>
         Assert.True(true);
     }
 
-    /// <summary>
-    /// Tests ClientSubscription.Subscribe
-    /// </summary>
     [Fact]
     public void CreateSubscription()
     {
@@ -56,9 +51,6 @@ public class ClientServices_Tests : IClassFixture<ClientServices_Tests_Fixture>
         Assert.True(true);
     }
 
-    /// <summary>
-    /// Tests ClientProfile.Upsert
-    /// </summary>
     [Fact]
     public void UpsertProfile()
     {
@@ -94,9 +86,6 @@ public class ClientServices_Tests : IClassFixture<ClientServices_Tests_Fixture>
     }
 }
 
-/// <summary>
-/// Fixture for ClientServices_Tests
-/// </summary>
 public class ClientServices_Tests_Fixture : IAsyncLifetime
 {
     public KlaviyoClientApi ClientApi { get; } = new(Config.CompanyId);

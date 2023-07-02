@@ -96,6 +96,19 @@ public class QueryParams : Dictionary<string, string>
         if (!string.IsNullOrEmpty(sortField)) Add("sort", sortField);
     }
 
+    /// Add filter to a query dictionary
+    /// </summary>
+    /// <param name="filter"></param>
+    /// <returns></returns>
+    public void AddIncludes(List<string> includedRecords)
+    {
+        if (includedRecords != null && includedRecords.Count != 0)
+        {
+            TryAdd("include", string.Join(",", includedRecords));
+        }
+    }
+
+
     private void TryAdd(string key, string value)
     {
         if (!string.IsNullOrEmpty(value) && !ContainsKey(key))

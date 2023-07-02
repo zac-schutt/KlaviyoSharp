@@ -10,9 +10,9 @@ public class ClientServices : KlaviyoServiceBase, IClientServices
     public ClientServices(KlaviyoClientApi klaviyoService) : base("2023-06-15", klaviyoService) { }
 
     /// <inheritdoc/>
-    public async Task CreateEvent(ClientEvent clientEvent, CancellationToken cancellationToken = default)
+    public async Task CreateEvent(EventRequest clientEvent, CancellationToken cancellationToken = default)
     {
-        await _klaviyoService.HTTP(HttpMethod.Post, "events", _revision, null, null, new DataObject<ClientEvent>(clientEvent), cancellationToken);
+        await _klaviyoService.HTTP(HttpMethod.Post, "events", _revision, null, null, new DataObject<EventRequest>(clientEvent), cancellationToken);
     }
 
     /// <inheritdoc/>

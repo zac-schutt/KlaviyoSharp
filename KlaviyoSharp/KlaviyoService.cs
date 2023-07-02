@@ -58,7 +58,7 @@ public abstract class KlaviyoApiBase
             query["page[cursor]"] = pageCursor;
             response = await HTTP<DataListObjectWithIncluded<T>>(method, path, revision, query, headers, data, cancellationToken);
             output.Data.AddRange(response.Data);
-            output.Included.AddRange(response.Included);
+            output.Included.AddRange(response.Included ?? Enumerable.Empty<object>());
             new QueryParams(response.Links.Next)?.TryGetValue("page[cursor]", out pageCursor);
         } while (response.Links.Next != null);
         return output;
