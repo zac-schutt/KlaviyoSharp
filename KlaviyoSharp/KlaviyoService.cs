@@ -32,6 +32,69 @@ public abstract class KlaviyoApiBase
         _httpClient = new HttpClient();
     }
     /// <summary>
+    /// Execute HTTP request and follow all pagination links
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="method">HTTP method to use</param>
+    /// <param name="path">Path on the API to call</param>
+    /// <param name="revision">The API revision</param>
+    /// <param name="query">The query string parameters to use</param>
+    /// <param name="headers">The headers to use</param>
+    /// <param name="data">The data to send in the body of the request</param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    internal async Task<DataListObjectWithIncluded<T>> HTTPRecursiveWithIncluded<T>(HttpMethod method, string path, string revision, QueryParams query, HeaderParams headers, object data, CancellationToken cancellationToken)
+    {
+        DataListObjectWithIncluded<T> output = new()
+        {
+            Data = new(),
+            Included = new()
+        };
+        string pageCursor = "";
+        DataListObjectWithIncluded<T> response;
+        query.Add("page[cursor]", pageCursor);
+        do
+        {
+            query["page[cursor]"] = pageCursor;
+            response = await HTTP<DataListObjectWithIncluded<T>>(method, path, revision, query, headers, data, cancellationToken);
+            output.Data.AddRange(response.Data);
+            output.Included.AddRange(response.Included);
+            new QueryParams(response.Links.Next)?.TryGetValue("page[cursor]", out pageCursor);
+        } while (response.Links.Next != null);
+        return output;
+    }
+    /// <summary>
+    /// Execute HTTP request and follow all pagination links
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="method">HTTP method to use</param>
+    /// <param name="path">Path on the API to call</param>
+    /// <param name="revision">The API revision</param>
+    /// <param name="query">The query string parameters to use</param>
+    /// <param name="headers">The headers to use</param>
+    /// <param name="data">The data to send in the body of the request</param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    internal async Task<DataListObject<T>> HTTPRecursive<T>(HttpMethod method, string path, string revision, QueryParams query, HeaderParams headers, object data, CancellationToken cancellationToken)
+    {
+        DataListObject<T> output = new()
+        {
+            Data = new()
+        };
+        string pageCursor = "";
+        DataListObject<T> response;
+        query.Add("page[cursor]", pageCursor);
+        do
+        {
+            query["page[cursor]"] = pageCursor;
+            response = await HTTP<DataListObject<T>>(method, path, revision, query, headers, data, cancellationToken);
+            output.Data.AddRange(response.Data);
+            new QueryParams(response.Links.Next)?.TryGetValue("page[cursor]", out pageCursor);
+        } while (response.Links.Next != null);
+        return output;
+    }
+
+    /// <summary>
     /// Performs an HTTP request to the Klaviyo API and returns the response
     /// </summary>
     /// <param name="method">HTTP method to use</param>

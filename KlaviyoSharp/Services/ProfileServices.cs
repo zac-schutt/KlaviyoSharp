@@ -19,18 +19,7 @@ public class ProfileServices : KlaviyoServiceBase, IProfileServices
         query.AddFieldset("profile", fields);
         query.AddFilters(filter);
         query.AddSort(sort);
-        DataListObject<Profile> output = new(new());
-        string pageCursor = "";
-        DataListObject<Profile> response;
-        query.Add("page[cursor]", pageCursor);
-        do
-        {
-            query["page[cursor]"] = pageCursor;
-            response = await _klaviyoService.HTTP<DataListObject<Profile>>(HttpMethod.Get, $"profiles/", _revision, query, null, null, cancellationToken);
-            output.Data.AddRange(response.Data);
-            new QueryParams(response.Links.Next)?.TryGetValue("page[cursor]", out pageCursor);
-        } while (response.Links.Next != null);
-        return output;
+        return await _klaviyoService.HTTPRecursive<Profile>(HttpMethod.Get, $"profiles/", _revision, query, null, null, cancellationToken);
     }
     /// <inheritdoc />
     public async Task<DataObject<Profile>> CreateProfile(Profile profile, CancellationToken cancellationToken = default)
@@ -45,7 +34,7 @@ public class ProfileServices : KlaviyoServiceBase, IProfileServices
         query.AddFieldset("list", listFields);
         query.AddFieldset("profile", profileFields);
         query.AddFieldset("segment", segmentFields);
-        includedObjects?.ForEach(x => query.Add("include", x));
+        query.AddIncludes(includedObjects);
         return await _klaviyoService.HTTP<DataObjectWithIncluded<Profile>>(HttpMethod.Get, $"profiles/{profileId}/", _revision, query, null, null, cancellationToken);
     }
     /// <inheritdoc />
