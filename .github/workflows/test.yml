@@ -15,13 +15,16 @@ jobs:
   build:
     runs-on: windows-latest
     steps:
-    - uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
-    - name: Restore dependencies
-      run: dotnet restore
+      - name: Restore dependencies
+        run: dotnet restore
 
-    - name: Build
-      run: dotnet build --configuration Debug --no-restore
+      - name: Build
+        run: dotnet build --configuration Debug --no-restore
 
-    - name: Test
-      run: dotnet test --no-build --verbosity normal
+      - name: Test
+        run: dotnet test --no-build --verbosity normal
+        env:
+          KLAVIYO_APIKEY: ${{ secrets.KLAVIYO_APIKEY }}
+          KLAVIYO_COMPANYID: ${{ secrets.KLAVIYO_COMPANYID }}
