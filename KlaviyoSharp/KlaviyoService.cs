@@ -147,6 +147,7 @@ public abstract class KlaviyoApiBase
     /// </summary>
     /// <param name="method">The HTTP method to use</param>
     /// <param name="uri">The URI to call</param>
+    /// <param name="revision">The API revision</param>
     /// <param name="query">The query string to use</param>
     /// <param name="headers">The headers to use</param>
     /// <param name="content">The content to use</param>

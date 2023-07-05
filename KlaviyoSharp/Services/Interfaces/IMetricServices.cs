@@ -5,7 +5,9 @@ using KlaviyoSharp.Models;
 using KlaviyoSharp.Models.Filters;
 
 namespace KlaviyoSharp.Services;
-
+/// <summary>
+/// Interface for Klaviyo Metric Services
+/// </summary>
 internal interface IMetricServices
 {
     /// <summary>

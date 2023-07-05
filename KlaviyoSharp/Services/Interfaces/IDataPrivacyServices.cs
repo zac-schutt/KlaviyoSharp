@@ -3,7 +3,9 @@ using System.Threading.Tasks;
 using KlaviyoSharp.Models;
 
 namespace KlaviyoSharp.Services;
-
+/// <summary>
+/// Interface for Klaviyo Data Privacy Services
+/// </summary>
 public interface IDataPrivacyServices
 {
     /// <summary>

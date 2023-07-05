@@ -2,15 +2,23 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 
 namespace KlaviyoSharp.Models;
-
+/// <summary>
+/// Request to subscribe a list of profiles
+/// </summary>
 public class ProfileSubscriptionRequest : KlaviyoObjectBasic<ProfileSubscriptionAttributes>
 {
+    /// <summary>
+    /// Creates a new instance of the Profile Subscription Request class
+    /// </summary>
+    /// <returns></returns>
     public static new ProfileSubscriptionRequest Create()
     {
         return new ProfileSubscriptionRequest() { Type = "profile-subscription-bulk-create-job" };
     }
 }
-
+/// <summary>
+/// Attributes of a Profile Subscription Request
+/// </summary>
 public class ProfileSubscriptionAttributes
 {
     /// <summary>
@@ -30,7 +38,9 @@ public class ProfileSubscriptionAttributes
     public List<ProfileSubscriptionRequestSubscription> Subscriptions { get; set; }
 
 }
-
+/// <summary>
+/// Subscription to be created
+/// </summary>
 public class ProfileSubscriptionRequestSubscription
 {
     /// <summary>
@@ -56,7 +66,9 @@ public class ProfileSubscriptionRequestSubscription
 
 
 }
-
+/// <summary>
+/// The communication types to subscribe
+/// </summary>
 public class ProfileSubscriptionRequestSubscriptionChannels
 {
     /// <summary>

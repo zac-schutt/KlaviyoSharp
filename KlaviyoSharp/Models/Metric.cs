@@ -2,15 +2,23 @@ using System;
 using Newtonsoft.Json;
 
 namespace KlaviyoSharp.Models;
-
+/// <summary>
+/// A metric is a custom event that you can use to track any action that you want to measure.
+/// </summary>
 public class Metric : KlaviyoObject<MetricAttributes>
 {
+    /// <summary>
+    /// Creates a new instance of the Metric class
+    /// </summary>
+    /// <returns></returns>
     public static new Metric Create()
     {
         return new Metric() { Type = "metric" };
     }
 }
-
+/// <summary>
+/// Attributes of a metric
+/// </summary>
 public class MetricAttributes
 {
     /// <summary>
@@ -39,12 +47,24 @@ public class MetricAttributes
 /// </summary>
 public class MetricIntegration
 {
+    /// <summary>
+    /// The type of object
+    /// </summary>
     [JsonProperty("object")]
     public string Object { get; set; }
+    /// <summary>
+    /// The ID of the integration
+    /// </summary>
     [JsonProperty("id")]
     public string Id { get; set; }
+    /// <summary>
+    /// The name of the integration
+    /// </summary>
     [JsonProperty("name")]
     public string Name { get; set; }
+    /// <summary>
+    /// The category of the integration
+    /// </summary>
     [JsonProperty("category")]
     public string Category { get; set; }
 }

@@ -4,7 +4,9 @@ using System.Threading.Tasks;
 using KlaviyoSharp.Models;
 
 namespace KlaviyoSharp.Services;
-
+/// <summary>
+/// Interface for Klaviyo Account Services
+/// </summary>
 public interface IAccountServices
 {
     /// <summary>

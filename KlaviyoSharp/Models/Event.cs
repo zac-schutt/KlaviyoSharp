@@ -3,25 +3,44 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 
 namespace KlaviyoSharp.Models;
-
+/// <summary>
+/// Klaviyo Event
+/// </summary>
 public class Event : KlaviyoObject<EventAttributes>
 {
+    /// <summary>
+    /// Creates a new instance of the Event class
+    /// </summary>
+    /// <returns></returns>
     public static new Event Create()
     {
         return new() { Type = "event" };
     }
+    /// <summary>
+    /// Relationships for the Event
+    /// </summary>
     [JsonProperty("relationships")]
     public EventRelationships Relationships { get; set; }
 }
-
+/// <summary>
+/// Klaviyo Event Relationships
+/// </summary>
 public class EventRelationships
 {
+    /// <summary>
+    /// Klaviyo Profiles associated with the Event
+    /// </summary>
     [JsonProperty("profiles")]
     public DataListObjectRelated<GenericObject> Profiles { get; set; }
+    /// <summary>
+    /// Klaviyo Metrics associated with the Event
+    /// </summary>
     [JsonProperty("metrics")]
     public DataListObjectRelated<GenericObject> Metrics { get; set; }
 }
-
+/// <summary>
+/// Klaviyo Event Attributes
+/// </summary>
 public class EventAttributes
 {
     /// <summary>

@@ -6,7 +6,7 @@ namespace KlaviyoSharp.Infrastructure;
 /// <summary>
 /// Class to represent a HTTP query string. Prevents accidentally passing the params to the wrong method parameter.
 /// </summary>
-public class QueryParams : Dictionary<string, string>
+internal class QueryParams : Dictionary<string, string>
 {
     /// <summary>
     /// Extract QueryParams from a Uri
@@ -16,6 +16,10 @@ public class QueryParams : Dictionary<string, string>
     {
         FromUri(uri);
     }
+    /// <summary>
+    /// Extract QueryParams from a Uri string
+    /// </summary>
+    /// <param name="uriString"></param>
     public QueryParams(string uriString)
     {
         if (!string.IsNullOrEmpty(uriString)) FromUri(new Uri(uriString));
@@ -35,7 +39,14 @@ public class QueryParams : Dictionary<string, string>
             }
         }
     }
+    /// <summary>
+    /// Create an empty QueryParams
+    /// </summary>
     public QueryParams() { }
+    /// <summary>
+    /// Convert the QueryParams to a string for injestion into a Uri
+    /// </summary>
+    /// <returns></returns>
     public override string ToString()
     {
         var list = new List<string>();
@@ -60,7 +71,7 @@ public class QueryParams : Dictionary<string, string>
         }
     }
     /// <summary>
-    ///
+    /// Add additional fields to be listed to a query dictionary
     /// </summary>
     /// <param name="objectType"></param>
     /// <param name="fieldNames"></param>
@@ -79,6 +90,7 @@ public class QueryParams : Dictionary<string, string>
             TryAdd($"filter", filters);
         }
     }
+    /// <summary>
     /// Add filter to a query dictionary
     /// </summary>
     /// <param name="filter"></param>
@@ -87,18 +99,20 @@ public class QueryParams : Dictionary<string, string>
     {
         if (filter != null) AddFilters(filter.ToString());
     }
+    /// <summary>
     /// Add filter to a query dictionary
     /// </summary>
-    /// <param name="filter"></param>
+    /// <param name="sortField"></param>
     /// <returns></returns>
     public void AddSort(string sortField)
     {
         if (!string.IsNullOrEmpty(sortField)) Add("sort", sortField);
     }
 
+    /// <summary>
     /// Add filter to a query dictionary
     /// </summary>
-    /// <param name="filter"></param>
+    /// <param name="includedRecords"></param>
     /// <returns></returns>
     public void AddIncludes(List<string> includedRecords)
     {

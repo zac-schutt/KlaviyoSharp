@@ -5,7 +5,9 @@ using KlaviyoSharp.Models;
 using KlaviyoSharp.Models.Filters;
 
 namespace KlaviyoSharp.Services;
-
+/// <summary>
+/// Interface for Klaviyo List Services
+/// </summary>
 public interface IListServices
 {
     /// <summary>

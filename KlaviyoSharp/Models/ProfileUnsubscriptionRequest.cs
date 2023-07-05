@@ -2,14 +2,23 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 
 namespace KlaviyoSharp.Models;
-
+/// <summary>
+/// Profile Unsubscription Request
+/// </summary>
 public class ProfileUnsubscriptionRequest : KlaviyoObjectBasic<ProfileUnsubscriptionAttributes>
 {
+    /// <summary>
+    /// Creates a new instance of the Profile Unsubscription Request class
+    /// </summary>
+    /// <returns></returns>
     public static new ProfileUnsubscriptionRequest Create()
     {
         return new ProfileUnsubscriptionRequest() { Type = "profile-unsubscription-bulk-create-job" };
     }
 }
+/// <summary>
+/// Profile Unsubscription Attributes
+/// </summary>
 public class ProfileUnsubscriptionAttributes
 {
     /// <summary>

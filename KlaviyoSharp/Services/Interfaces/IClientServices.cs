@@ -3,7 +3,9 @@ using System.Threading.Tasks;
 using KlaviyoSharp.Models;
 
 namespace KlaviyoSharp.Services;
-
+/// <summary>
+/// Interface for Klaviyo Client Services
+/// </summary>
 public interface IClientServices
 {
     /// <summary>

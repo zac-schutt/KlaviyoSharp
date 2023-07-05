@@ -3,14 +3,24 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 
 namespace KlaviyoSharp.Models;
+/// <summary>
+/// A Klaviyo Profile created for the client api
+/// </summary>
 
 public class ClientProfile : KlaviyoObjectBasic<ClientProfileAttributes>
 {
+    /// <summary>
+    /// Creates a new instance of the ClientProfile class
+    /// </summary>
+    /// <returns></returns>
     public static new ClientProfile Create()
     {
         return new() { Type = "profile" };
     }
 }
+/// <summary>
+/// Attributes for a Klaviyo Profile created for the client api
+/// </summary>
 public class ClientProfileAttributes
 {
     /// <summary>
@@ -82,7 +92,9 @@ public class ClientProfileAttributes
     [JsonProperty("properties")]
     public Dictionary<string, object> Properties { get; set; }
 }
-
+/// <summary>
+/// Location information for a Klaviyo Profile created for the client api
+/// </summary>
 public class ClientProfileLocation
 {
     /// <summary>

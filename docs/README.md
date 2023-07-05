@@ -1,5 +1,13 @@
 # KlaviyoSharp
 
+![GitHub Workflow Status (with event)](https://img.shields.io/github/actions/workflow/status/zac-schutt/KlaviyoSharp/test)
+![GitHub](https://img.shields.io/github/license/zac-schutt/KlaviyoSharp)
+![GitHub issues](https://img.shields.io/github/issues/zac-schutt/KlaviyoSharp)
+![GitHub last commit (branch)](https://img.shields.io/github/last-commit/zac-schutt/KlaviyoSharp/main)
+
+![Nuget](https://img.shields.io/nuget/v/KlaviyoSharp)
+![Nuget](https://img.shields.io/nuget/dt/KlaviyoSharp)
+
 KlaviyoSharp is a .NET 6.0 library that enables you to interact with the Klaviyo API in .NET. This project was started as there was no fully fleshed out and updated package available to interact with the Klaviyo API in .NET. **This project is still in development and is not ready for production use.** Version 1.0 will be released when all endpoints are implemented and tested.
 
 ## Installation
@@ -39,8 +47,8 @@ Endpoints are being developed from the [Klaviyo API Documentation](https://devel
 - Data Privacy
   - [x] Data Privacy
 - Events
-  - [ ] Events
-  - [ ] Relationships
+  - [x] Events
+  - [x] Relationships
 - Flows
   - [ ] Flows
   - [ ] Relationships

@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Net.Http;
-using System.Security.Cryptography;
 using System.Threading;
 using System.Threading.Tasks;
 using KlaviyoSharp.Infrastructure;
@@ -8,9 +7,15 @@ using KlaviyoSharp.Models;
 using KlaviyoSharp.Models.Filters;
 
 namespace KlaviyoSharp.Services;
-
+/// <summary>
+/// Klaviyo Event Services
+/// </summary>
 public class EventServices : KlaviyoServiceBase, IEventServices
 {
+    /// <summary>
+    /// Constructor for Klaviyo Event Services
+    /// </summary>
+    /// <param name="klaviyoService"></param>
     public EventServices(KlaviyoApiBase klaviyoService) : base("2023-06-15", klaviyoService) { }
     /// <inheritdoc />
     public async Task<DataListObjectWithIncluded<Event>> GetEvents(List<string> eventFields = null, List<string> metricFields = null, List<string> profileFields = null, IFilter filter = null, List<string> includedObjects = null, string sort = null, CancellationToken cancellationToken = default)

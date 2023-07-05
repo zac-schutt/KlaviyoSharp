@@ -5,7 +5,9 @@ using KlaviyoSharp.Models;
 using KlaviyoSharp.Models.Filters;
 
 namespace KlaviyoSharp.Services;
-
+/// <summary>
+/// Interface for Klaviyo Profile Services
+/// </summary>
 internal interface IProfileServices
 {
     /// <summary>

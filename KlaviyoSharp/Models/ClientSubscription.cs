@@ -2,15 +2,23 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 
 namespace KlaviyoSharp.Models;
-
+/// <summary>
+/// A subscription to a list created for the client api
+/// </summary>
 public class ClientSubscription : KlaviyoObjectBasic<ClientSubscriptionAttributes>
 {
+    /// <summary>
+    /// Creates a new instance of the ClientSubscription class
+    /// </summary>
+    /// <returns></returns>
     public static new ClientSubscription Create()
     {
         return new() { Type = "subscription" };
     }
 }
-
+/// <summary>
+/// Attributes for a subscription to a list created for the client api
+/// </summary>
 public class ClientSubscriptionAttributes
 {
     /// <summary>

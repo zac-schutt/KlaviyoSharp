@@ -5,6 +5,10 @@ namespace KlaviyoSharp;
 /// </summary>
 public class KlaviyoConfig
 {
+    /// <summary>
+    /// Creates a new instance of the Klaviyo Config
+    /// </summary>
+    /// <param name="apiKey">The API Key or company id for the Klaviyo Account</param>
     public KlaviyoConfig(string apiKey)
     {
         ApiKey = apiKey;

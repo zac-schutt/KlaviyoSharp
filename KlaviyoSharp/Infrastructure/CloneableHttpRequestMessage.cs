@@ -2,8 +2,17 @@ using System;
 using System.Net.Http;
 
 namespace KlaviyoSharp.Infrastructure;
-public class CloneableHttpRequestMessage : HttpRequestMessage
+/// <summary>
+/// HttpRequestMessage that has the Clone method so that it can be executed multiple times
+/// </summary>
+public class CloneableHttpRequestMessage : HttpRequestMessage, ICloneable
 {
+    /// <summary>
+    /// Creates a new instance of the CloneableHttpRequestMessage
+    /// </summary>
+    /// <param name="method">Http Method</param>
+    /// <param name="url"></param>
+    /// <param name="content"></param>
     public CloneableHttpRequestMessage(HttpMethod method, Uri url, HttpContent content = null) : base(method, url)
     {
         if (content != null)
@@ -33,5 +42,13 @@ public class CloneableHttpRequestMessage : HttpRequestMessage
         }
 
         return cloned;
+    }
+    /// <summary>
+    /// Explicitly implement the ICloneable interface so that it is not called by mistake
+    /// </summary>
+    /// <returns></returns>
+    object ICloneable.Clone()
+    {
+        return Clone();
     }
 }

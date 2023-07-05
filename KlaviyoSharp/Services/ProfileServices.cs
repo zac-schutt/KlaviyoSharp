@@ -7,9 +7,15 @@ using KlaviyoSharp.Models;
 using KlaviyoSharp.Models.Filters;
 
 namespace KlaviyoSharp.Services;
-
+/// <summary>
+/// Klaviyo Profile Services
+/// </summary>
 public class ProfileServices : KlaviyoServiceBase, IProfileServices
 {
+    /// <summary>
+    /// Constructor for Klaviyo Profile Services
+    /// </summary>
+    /// <param name="klaviyoService"></param>
     public ProfileServices(KlaviyoApiBase klaviyoService) : base("2023-06-15", klaviyoService) { }
     /// <inheritdoc />
     public async Task<DataListObject<Profile>> GetProfiles(List<string> fields = null, List<string> additionalFields = null, IFilter filter = null, string sort = null, CancellationToken cancellationToken = default)

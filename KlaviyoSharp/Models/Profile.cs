@@ -3,25 +3,44 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 
 namespace KlaviyoSharp.Models;
-
+/// <summary>
+/// Profiles returned from the Klaviyo API
+/// </summary>
 public class Profile : KlaviyoObject<ProfileAttributes>
 {
+    /// <summary>
+    /// Creates a new instance of the Profile class
+    /// </summary>
+    /// <returns></returns>
     public static new Profile Create()
     {
         return new Profile() { Type = "profile" };
     }
+    /// <summary>
+    /// Related objects for the Profile
+    /// </summary>
     [JsonProperty("relationships")]
     public ProfileRelationships Relationships { get; set; }
 }
-
+/// <summary>
+/// Profile Relationships
+/// </summary>
 public class ProfileRelationships
 {
+    /// <summary>
+    /// Lists associated with the Profile
+    /// </summary>
     [JsonProperty("lists")]
     public DataListObjectRelated<GenericObject> Lists { get; set; }
+    /// <summary>
+    /// Segments associated with the Profile
+    /// </summary>
     [JsonProperty("segments")]
     public DataListObjectRelated<GenericObject> Segments { get; set; }
 }
-
+/// <summary>
+/// Profile Attributes
+/// </summary>
 public class ProfileAttributes
 {
     /// <summary>
@@ -79,14 +98,25 @@ public class ProfileAttributes
     /// </summary>
     [JsonProperty("last_event_date")]
     public DateTime? LastEvent { get; set; }
+    /// <summary>
+    /// Location information for the profile
+    /// </summary>
     [JsonProperty("location")]
     public ProfileLocation Location { get; set; }
+    /// <summary>
+    /// Subscriptions for the profile
+    /// </summary>
     [JsonProperty("subscriptions")]
     public ProfileSubscriptions Subscriptions { get; set; }
+    /// <summary>
+    /// Analytics for the profile
+    /// </summary>
     [JsonProperty("predictive_analytics")]
     public ProfilePredictiveAnalytics PredictiveAnalytics { get; set; }
 }
-
+/// <summary>
+/// Location information for the profile
+/// </summary>
 public class ProfileLocation
 {
     /// <summary>
@@ -135,8 +165,9 @@ public class ProfileLocation
     [JsonProperty("timezone")]
     public string Timezone { get; set; }
 }
-
-
+/// <summary>
+/// Subscriptions associated with a profile
+/// </summary>
 public class ProfileSubscriptions
 {
     /// <summary>
@@ -150,7 +181,9 @@ public class ProfileSubscriptions
     [JsonProperty("sms")]
     public ProfileSmsSubscription Sms { get; set; }
 }
-
+/// <summary>
+/// Email Subscriptions associated with a profile
+/// </summary>
 public class ProfileEmailSubscription
 {
     /// <summary>
@@ -159,7 +192,9 @@ public class ProfileEmailSubscription
     [JsonProperty("marketing")]
     public ProfileEmailSubscriptionMarketing Marketing { get; set; }
 }
-
+/// <summary>
+/// Email Subscriptions associated with a profile
+/// </summary>
 public class ProfileEmailSubscriptionMarketing
 {
     /// <summary>
@@ -203,7 +238,9 @@ public class ProfileEmailSubscriptionMarketing
     [JsonProperty("list_suppressions")]
     public List<ProfileEmailSubscriptionMarketingListSupression> ListSuppressions { get; set; }
 }
-
+/// <summary>
+/// Email Subscriptions associated with a profile
+/// </summary>
 public class ProfileEmailSubscriptionMarketingListSupression
 {
     /// <summary>
@@ -222,7 +259,9 @@ public class ProfileEmailSubscriptionMarketingListSupression
     [JsonProperty("timestamp")]
     public DateTime? Timestamp { get; set; }
 }
-
+/// <summary>
+/// Email Subscriptions associated with a profile
+/// </summary>
 public class ProfileEmailSubscriptionMarketingEmailSupression
 {
     /// <summary>
@@ -236,13 +275,20 @@ public class ProfileEmailSubscriptionMarketingEmailSupression
     [JsonProperty("timestamp")]
     public DateTime? Timestamp { get; set; }
 }
-
+/// <summary>
+/// SMS Subscriptions associated with a profile
+/// </summary>
 public class ProfileSmsSubscription
 {
+    /// <summary>
+    /// The SMS marketing subscription.
+    /// </summary>
     [JsonProperty("marketing")]
     public ProfileSmsSubscriptionMarketing Marketing { get; set; }
 }
-
+/// <summary>
+/// SMS Subscriptions associated with a profile
+/// </summary>
 public class ProfileSmsSubscriptionMarketing
 {
     /// <summary>
@@ -266,7 +312,9 @@ public class ProfileSmsSubscriptionMarketing
     [JsonProperty("method_detail")]
     public string MethodDetail { get; set; }
 }
-
+/// <summary>
+/// A profile's predictive analytics
+/// </summary>
 public class ProfilePredictiveAnalytics
 {
     /// <summary>

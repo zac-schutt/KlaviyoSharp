@@ -14,13 +14,15 @@
   </PropertyGroup>
 
   <PropertyGroup>
+    <PackageId>KlaviyoSharp</PackageId>
     <Description>KlaviyoSharp is a .Net library that exposes the klaviyo API.</Description>
     <Authors>Zac Schutt</Authors>
     <Copyright>Zac Schutt</Copyright>
-    <PackageLicenseUrl>https://github.com/zac-schutt/KlaviyoSharp/blob/main/LICENSE</PackageLicenseUrl>
+    <PackageLicenseExpression>GPL-3.0-or-later</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/zac-schutt/KlaviyoSharp</PackageProjectUrl>
     <RepositoryUrl>https://github.com/zac-schutt/KlaviyoSharp</RepositoryUrl>
-    <PackageTags>klaviyo</PackageTags>
+    <PackageTags>klaviyo,marketing</PackageTags>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>

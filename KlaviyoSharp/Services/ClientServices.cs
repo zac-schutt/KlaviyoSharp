@@ -4,9 +4,15 @@ using System.Threading.Tasks;
 using KlaviyoSharp.Models;
 
 namespace KlaviyoSharp.Services;
-
+/// <summary>
+/// Klaviyo Client Services
+/// </summary>
 public class ClientServices : KlaviyoServiceBase, IClientServices
 {
+    /// <summary>
+    /// Constructor for Klaviyo Client Services
+    /// </summary>
+    /// <param name="klaviyoService"></param>
     public ClientServices(KlaviyoClientApi klaviyoService) : base("2023-06-15", klaviyoService) { }
 
     /// <inheritdoc/>

@@ -7,9 +7,15 @@ using KlaviyoSharp.Models;
 using KlaviyoSharp.Models.Filters;
 
 namespace KlaviyoSharp.Services;
-
+/// <summary>
+/// Klaviyo Metric Services
+/// </summary>
 public class MetricServices : KlaviyoServiceBase, IMetricServices
 {
+    /// <summary>
+    /// Constructor for Klaviyo Metric Services
+    /// </summary>
+    /// <param name="klaviyoService"></param>
     public MetricServices(KlaviyoApiBase klaviyoService) : base("2023-06-15", klaviyoService) { }
     /// <inheritdoc />
     public async Task<DataListObject<Metric>> GetMetrics(List<string> metricFields = null, IFilter filter = null, CancellationToken cancellationToken = default)

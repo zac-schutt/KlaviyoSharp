@@ -3,15 +3,22 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 
 namespace KlaviyoSharp.Models;
-
+/// <summary>
+/// Request to create a Klaviyo Event
+/// </summary>
 public class EventRequest : KlaviyoObjectBasic<EventRequestAttributes>
 {
+    /// <summary>
+    /// Creates a new instance of this type and sets the default properties
+    /// </summary>
     public new static EventRequest Create()
     {
         return new() { Type = "event" };
     }
 }
-
+/// <summary>
+/// Attributes of a Klaviyo Event
+/// </summary>
 public class EventRequestAttributes
 {
     /// <summary>
@@ -47,9 +54,9 @@ public class EventRequestAttributes
     public Dictionary<string, object> Properties { get; set; }
 
 }
-
-public class ClientEventProfile : Dictionary<string, string> { }
-
+/// <summary>
+/// The associated metric for the event. An account can have up to 200 unique metrics.
+/// </summary>
 public class ClientEventMetric
 {
     /// <summary>

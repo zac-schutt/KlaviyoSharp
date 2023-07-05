@@ -8,9 +8,15 @@ using KlaviyoSharp.Models.Filters;
 using System.Linq;
 
 namespace KlaviyoSharp.Services;
-
+/// <summary>
+/// Klaviyo List Services
+/// </summary>
 public class ListServices : KlaviyoServiceBase, IListServices
 {
+    /// <summary>
+    /// Constructor for Klaviyo List Services
+    /// </summary>
+    /// <param name="klaviyoService"></param>
     public ListServices(KlaviyoApiBase klaviyoService) : base("2023-06-15", klaviyoService) { }
     /// <inheritdoc />
     public async Task<DataListObject<List>> GetLists(List<string> listFields = null, IFilter filter = null, CancellationToken cancellationToken = default)

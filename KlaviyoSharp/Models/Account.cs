@@ -1,15 +1,23 @@
 using Newtonsoft.Json;
 
 namespace KlaviyoSharp.Models;
-
+/// <summary>
+/// Klaviyo Account Object
+/// </summary>
 public class Account : KlaviyoObject<AccountAttributes>
 {
+    /// <summary>
+    /// Creates a new instance of this type and sets the default properties
+    /// </summary>
+    /// <returns></returns>
     public static new Account Create()
     {
         return new() { Type = "account" };
     }
 }
-
+/// <summary>
+/// Attributes for a Klaviyo Account
+/// </summary>
 public class AccountAttributes
 {
     /// <summary>
@@ -70,7 +78,9 @@ public class AccountContactInformation
     [JsonProperty("street_address")]
     public AccountStreetAddress StreetAddress { get; set; }
 }
-
+/// <summary>
+/// Street address for a account
+/// </summary>
 public class AccountStreetAddress
 {
     /// <summary>

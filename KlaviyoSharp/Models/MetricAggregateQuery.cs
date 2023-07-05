@@ -2,15 +2,23 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 
 namespace KlaviyoSharp.Models;
-
+/// <summary>
+///
+/// </summary>
 public class MetricAggregateQuery : KlaviyoObject<MetricAggregateQueryAttributes>
 {
+    /// <summary>
+    /// Creates a new instance of the Metric Aggregate Query class
+    /// </summary>
+    /// <returns></returns>
     public static new MetricAggregateQuery Create()
     {
         return new MetricAggregateQuery() { Type = "metric-aggregate" };
     }
 }
-
+/// <summary>
+/// Attributes of a metric aggregate query
+/// </summary>
 public class MetricAggregateQueryAttributes
 {
     /// <summary>
@@ -54,7 +62,7 @@ public class MetricAggregateQueryAttributes
     /// The time range can be filtered by providing a greater-or-equal and a less-than filter on the datetime field.
     /// </summary>
     /// <remarks>
-    /// A <see cref="Models.IFilter"/> can be cast to string to get a valid filter string.
+    /// A <see cref="Filters.IFilter"/> can be cast to string to get a valid filter string.
     /// </remarks>
     [JsonProperty("filter")]
     public List<string> Filter { get; set; }
