@@ -6,8 +6,6 @@ name: .NET Build
 on:
   pull_request:
   push:
-    branches-ignore:
-      - "main"
     paths-ignore:
       - "docs/**"
       - "**.md"
