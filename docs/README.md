@@ -1,6 +1,6 @@
 # KlaviyoSharp
 
-![GitHub Workflow Status (with event)](https://img.shields.io/github/actions/workflow/status/zac-schutt/KlaviyoSharp/test)
+[![Build & Test](https://github.com/zac-schutt/KlaviyoSharp/actions/workflows/test.yml/badge.svg?branch=main)](https://github.com/zac-schutt/KlaviyoSharp/actions/workflows/test.yml)
 ![GitHub](https://img.shields.io/github/license/zac-schutt/KlaviyoSharp)
 ![GitHub issues](https://img.shields.io/github/issues/zac-schutt/KlaviyoSharp)
 ![GitHub last commit (branch)](https://img.shields.io/github/last-commit/zac-schutt/KlaviyoSharp/main)
