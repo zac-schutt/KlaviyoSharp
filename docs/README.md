@@ -61,8 +61,8 @@ Endpoints are being developed from the [Klaviyo API Documentation](https://devel
   - [x] Profiles
   - [x] Relationships
 - Segments
-  - [ ] Segments
-  - [ ] Relationships
+  - [x] Segments
+  - [x] Relationships
 - Tags
   - [ ] Tags
   - [ ] Tag Groups

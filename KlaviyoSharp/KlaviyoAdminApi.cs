@@ -39,4 +39,9 @@ public class KlaviyoAdminApi : KlaviyoApiBase
     /// </summary>
     public Services.EventServices EventServices { get { _EventServices ??= new(this); return _EventServices; } }
     private Services.EventServices _EventServices;
+    /// <summary>
+    /// Services for interacting with the Klaviyo Segments API
+    /// </summary>
+    public Services.SegmentServices SegmentServices { get { _SegmentServices ??= new(this); return _SegmentServices; } }
+    private Services.SegmentServices _SegmentServices;
 }
