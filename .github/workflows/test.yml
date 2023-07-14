@@ -24,10 +24,10 @@ jobs:
         run: dotnet restore
 
       - name: Build
-        run: dotnet build --configuration Debug --no-restore
+        run: dotnet build --configuration Release --no-restore
 
       - name: Test
-        run: dotnet test --no-build --verbosity normal
+        run: dotnet test --configuration Release --no-build --verbosity normal
         env:
           KLAVIYO_APIKEY: ${{ secrets.KLAVIYO_APIKEY }}
           KLAVIYO_COMPANYID: ${{ secrets.KLAVIYO_COMPANYID }}
