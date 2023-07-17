@@ -26,11 +26,16 @@ All services **MUST** be added with tests. The tests should attempt to call all 
 
 ## Testing Changes
 
+Whatever you do, do not use your production account for testing. Testing this API will create a bunch of garbage data in your account. You can create a free account for testing purposes. See the [Klaviyo API documentation](https://developers.klaviyo.com/en/docs/create_a_test_account) for how to create a test account.
+
 Changes should be able to be tested locally. To test your changes, you will need to copy the `appsettings.template.json` file to `appsettings.local.json` and fill in the values. You can then run the tests in your code editor. You can also provide the settings by setting the following environment variables:
 
-- `KLAVIYO_APIKEY` - Private API key beginning with pk_
+- `KLAVIYO_APIKEY` - Private API key beginning with pk\_
 - `KLAVIYO_COMPANYID` - 6 character company ID
 
 ### Account Config for Testing
 
-The account is required to have a list called `Sample Data List`, and this list needs to have Single opt-in enabled in it's settings. This can't be set with the API, but is required for testing profile subscriptions.
+ The following are required for testing:
+
+- The account is required to have a list called `Sample Data List`, and this list needs to have Single opt-in enabled in it's settings. This can't be set with the API, but is required for testing profile subscriptions.
+- The account is required to have a flow. The welcome series flow is a great one for testing.
