@@ -8,7 +8,12 @@ public class KlaviyoAdminApi : KlaviyoApiBase
     /// Creates a new instance of the Klaviyo Admin API.
     /// </summary>
     /// <param name="apiKey">Your private API key.</param>
-    public KlaviyoAdminApi(string apiKey) : base(new(apiKey)) { }
+    public KlaviyoAdminApi(string apiKey) : this(new KlaviyoConfig(apiKey)) { }
+    /// <summary>
+    /// Creates a new instance of the Klaviyo Admin API.
+    /// </summary>
+    /// <param name="config">The KlaviyoConfig object.</param>
+    public KlaviyoAdminApi(KlaviyoConfig config) : base(config) { }
     /// <summary>
     /// Services for interacting with the Klaviyo Account
     /// </summary>

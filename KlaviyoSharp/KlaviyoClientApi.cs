@@ -8,7 +8,12 @@ public class KlaviyoClientApi : KlaviyoApiBase
     /// Creates a new instance of the Klaviyo Client API.
     /// </summary>
     /// <param name="companyId">Your 6-character company ID, also known as a site ID.</param>
-    public KlaviyoClientApi(string companyId) : base(new(companyId) { ApiPath = "/client", UseAuthentication = false }) { }
+    public KlaviyoClientApi(string companyId) : this(new KlaviyoConfig(companyId) { ApiPath = "/client", UseAuthentication = false }) { }
+    /// <summary>
+    /// Creates a new instance of the Klaviyo Client API.
+    /// </summary>
+    /// <param name="config">The KlaviyoConfig object.</param>
+    public KlaviyoClientApi(KlaviyoConfig config) : base(config) { }
 
     private Services.ClientServices _ClientServices;
     /// <summary>
