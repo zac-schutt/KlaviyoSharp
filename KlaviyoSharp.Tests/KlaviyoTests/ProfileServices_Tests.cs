@@ -55,6 +55,7 @@ public class ProfileServices_Tests : IClassFixture<ProfileServices_Tests_Fixture
             }
         };
         await Fixture.AdminApi.ProfileServices.SuppressProfiles(request);
+
         DataObject<Profile> check = await Fixture.AdminApi.ProfileServices.GetProfile(result.Data.Id);
         Assert.Contains(check.Data.Attributes.Subscriptions.Email.Marketing.Suppressions, x => x.Reason == "USER_SUPPRESSED");
 
@@ -71,6 +72,7 @@ public class ProfileServices_Tests : IClassFixture<ProfileServices_Tests_Fixture
             }
         };
         await Fixture.AdminApi.ProfileServices.UnsuppressProfiles(request2);
+        Thread.Sleep(10 * 1000);
         DataObject<Profile> final = await Fixture.AdminApi.ProfileServices.GetProfile(result.Data.Id);
         Assert.DoesNotContain(final.Data.Attributes.Subscriptions.Email.Marketing.Suppressions, x => x.Reason == "USER_SUPPRESSED");
     }
@@ -99,8 +101,18 @@ public class ProfileServices_Tests : IClassFixture<ProfileServices_Tests_Fixture
             }
         };
         await Fixture.AdminApi.ProfileServices.SubscribeProfiles(request);
-        DataObject<Profile> check = await Fixture.AdminApi.ProfileServices.GetProfile(result.Data.Id, listFields: new() { "id" }, includedObjects: new() { "lists" });
-        Thread.Sleep(1000);
+        int checkCount = 0;
+
+        //Because the call is async, check a couple of times with a delay. This should fix failing tests.
+        DataObject<Profile> check;
+        do
+        {
+            if (checkCount > 0) Thread.Sleep(Fixture.SleepTime);
+            checkCount++;
+            check = await Fixture.AdminApi.ProfileServices.GetProfile(result.Data.Id, listFields: new() { "id" }, includedObjects: new() { "lists" });
+
+        } while (checkCount <= Fixture.Retries && !check.Data.Relationships.Lists.Data.Any(x => x.Id == ListId));
+
         Assert.Contains(check.Data.Relationships.Lists.Data, x => x.Id == ListId);
 
         //Unsubscribe profile and check
@@ -111,8 +123,17 @@ public class ProfileServices_Tests : IClassFixture<ProfileServices_Tests_Fixture
             Emails = new() { result.Data.Attributes.Email }
         };
         await Fixture.AdminApi.ProfileServices.UnsuscribeProfiles(request2);
-        DataObject<Profile> final = await Fixture.AdminApi.ProfileServices.GetProfile(result.Data.Id, listFields: new() { "id" }, includedObjects: new() { "lists" });
-        Thread.Sleep(1000);
+
+        //Because the call is async, check a couple of times with a delay. This should fix failing tests.
+        DataObject<Profile> final;
+        checkCount = 0;
+        do
+        {
+            if (checkCount > 0) Thread.Sleep(Fixture.SleepTime);
+            checkCount++;
+            final = await Fixture.AdminApi.ProfileServices.GetProfile(result.Data.Id, listFields: new() { "id" }, includedObjects: new() { "lists" });
+        } while (checkCount <= Fixture.Retries && final.Data.Relationships.Lists.Data.Any(x => x.Id == ListId));
+
         Assert.DoesNotContain(final.Data.Relationships.Lists.Data, x => x.Id == ListId);
     }
 
@@ -151,6 +172,8 @@ public class ProfileServices_Tests : IClassFixture<ProfileServices_Tests_Fixture
 public class ProfileServices_Tests_Fixture : IAsyncLifetime
 {
     public KlaviyoAdminApi AdminApi { get; } = new(Config.ApiKey);
+    public readonly int SleepTime = 10 * 1000; //10 Seconds
+    public readonly int Retries = 3;
     public Profile NewProfile
     {
         get

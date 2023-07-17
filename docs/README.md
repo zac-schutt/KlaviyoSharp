@@ -8,7 +8,7 @@
 ![Nuget](https://img.shields.io/nuget/v/KlaviyoSharp)
 ![Nuget](https://img.shields.io/nuget/dt/KlaviyoSharp)
 
-KlaviyoSharp is a .NET 6.0 library that enables you to interact with the Klaviyo API in .NET. This project was started as there was no fully fleshed out and updated package available to interact with the Klaviyo API in .NET. **This project is still in development and is not ready for production use.** Version 1.0 will be released when all endpoints are implemented and tested.
+KlaviyoSharp is a .NET Standard 2.0 library that enables you to interact with the Klaviyo API in .NET. This project was started as there was no fully fleshed out and updated package available to interact with the Klaviyo API in .NET. **This project is still in development and is not ready for production use.** Version 1.0 will be released when all endpoints are implemented and tested.
 
 ## Installation
 
@@ -30,45 +30,19 @@ Klaviyo's API is versioned by using dates in the request headers. The mapping of
 
 Endpoints are being developed from the [Klaviyo API Documentation](https://developers.klaviyo.com/en/reference/api_overview). A list of endpoints and their status can be found below.
 
-- Accounts
-  - [x] Accounts
-- Campaigns
-  - [ ] Campaigns
-  - [ ] Messages
-  - [ ] Jobs
-  - [ ] Relationships
-- Catalogs
-  - [ ] Items
-  - [ ] Variants
-  - [ ] Categories
-  - [ ] Relationships
-- Client (Public facing API)
-  - [x] Client
-- Data Privacy
-  - [x] Data Privacy
-- Events
-  - [x] Events
-  - [x] Relationships
-- Flows
-  - [ ] Flows
-  - [ ] Relationships
-- Lists
-  - [x] Lists
-  - [x] Relationships
-- Metrics
-  - [x] Metrics
-- Profiles
-  - [x] Profiles
-  - [x] Relationships
-- Segments
-  - [x] Segments
-  - [x] Relationships
-- Tags
-  - [ ] Tags
-  - [ ] Tag Groups
-  - [ ] Relationships
-- Templates
-  - [x] Templates
+- [x] Accounts
+- [ ] Campaigns
+- [ ] Catalogs
+- [x] Client (Public facing API)
+- [x] Data Privacy
+- [x] Events
+- [x] Flows
+- [x] Lists
+- [x] Metrics
+- [x] Profiles
+- [x] Segments
+- [ ] Tags
+- [x] Templates
 
 ## Contributing
 
