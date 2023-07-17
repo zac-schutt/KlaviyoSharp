@@ -49,4 +49,9 @@ public class KlaviyoAdminApi : KlaviyoApiBase
     /// </summary>
     public Services.SegmentServices SegmentServices { get { _SegmentServices ??= new(this); return _SegmentServices; } }
     private Services.SegmentServices _SegmentServices;
+    /// <summary>
+    /// Services for interacting with the Klaviyo Templates API
+    /// </summary>
+    public Services.TemplateServices TemplateServices { get { _TemplateServices ??= new(this); return _TemplateServices; } }
+    private Services.TemplateServices _TemplateServices;
 }

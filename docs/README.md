@@ -68,7 +68,7 @@ Endpoints are being developed from the [Klaviyo API Documentation](https://devel
   - [ ] Tag Groups
   - [ ] Relationships
 - Templates
-  - [ ] Templates
+  - [x] Templates
 
 ## Contributing
 
