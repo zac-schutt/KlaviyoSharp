@@ -54,4 +54,9 @@ public class KlaviyoAdminApi : KlaviyoApiBase
     /// </summary>
     public Services.TemplateServices TemplateServices { get { _TemplateServices ??= new(this); return _TemplateServices; } }
     private Services.TemplateServices _TemplateServices;
+    /// <summary>
+    /// Services for interacting with the Klaviyo Flows API
+    /// </summary>
+    public Services.FlowServices FlowServices { get { _FlowServices ??= new(this); return _FlowServices; } }
+    private Services.FlowServices _FlowServices;
 }
