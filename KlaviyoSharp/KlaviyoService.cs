@@ -192,9 +192,9 @@ public abstract class KlaviyoApiBase
     {
         HttpResponseMessage response = await _httpClient.SendAsync(requestMessage, cancellationToken);
         int retryCount = 0;
-        while (response.StatusCode.ToString() == "429")
+        while (response.StatusCode.ToString() == "TooManyRequests")
         {
-            if (retryCount > _config.MaxRetries) { throw new ApplicationException("Too many retries. Aborted."); }
+            if (retryCount >= _config.MaxRetries) { throw new ApplicationException("Too many retries. Aborted."); }
             retryCount++;
             response.Headers.TryGetValues("Retry-After", out IEnumerable<string> retryAfters);
             int retryAfter = retryAfters.FirstOrDefault() != null ? Convert.ToInt32(retryAfters.FirstOrDefault()) : 10;
@@ -203,7 +203,9 @@ public abstract class KlaviyoApiBase
             await Task.Delay(1000 * retryAfter, cancellationToken);
             response = await _httpClient.SendAsync(requestMessage.Clone(), cancellationToken);
         }
-        if (!response.IsSuccessStatusCode) { throw new KlaviyoException(KlaviyoError.FromHttpResponse(response)); }
+        if (!response.IsSuccessStatusCode) {
+             throw new KlaviyoException(KlaviyoError.FromHttpResponse(response));
+             }
         return response;
     }
 }
