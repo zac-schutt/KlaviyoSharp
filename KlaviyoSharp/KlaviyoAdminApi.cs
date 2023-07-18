@@ -59,4 +59,9 @@ public class KlaviyoAdminApi : KlaviyoApiBase
     /// </summary>
     public Services.FlowServices FlowServices { get { _FlowServices ??= new(this); return _FlowServices; } }
     private Services.FlowServices _FlowServices;
+    /// <summary>
+    /// Services for interacting with the Klaviyo Tags API
+    /// </summary>
+    public Services.TagServices TagServices { get { _TagServices ??= new(this); return _TagServices; } }
+    private Services.TagServices _TagServices;
 }

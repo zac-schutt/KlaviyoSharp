@@ -41,7 +41,7 @@ Endpoints are being developed from the [Klaviyo API Documentation](https://devel
 - [x] Metrics
 - [x] Profiles
 - [x] Segments
-- [ ] Tags
+- [x] Tags
 - [x] Templates
 
 ## Contributing
