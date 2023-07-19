@@ -22,7 +22,7 @@ public class SegmentServices : KlaviyoServiceBase, ISegmentServices
     {
         QueryParams query = new();
         query.AddFieldset("segment", segmentFields);
-        query.AddFilters(filter);
+        query.AddFilter(filter);
         return await _klaviyoService.HTTPRecursive<Segment>(HttpMethod.Get, $"segments/", _revision, query, null, null, cancellationToken);
     }
 
@@ -56,7 +56,7 @@ public class SegmentServices : KlaviyoServiceBase, ISegmentServices
         QueryParams query = new();
         query.AddAdditionalFields("profile", profileAdditionalFields);
         query.AddFieldset("profile", profileFields);
-        query.AddFilters(filter);
+        query.AddFilter(filter);
         return await _klaviyoService.HTTPRecursive<Profile>(HttpMethod.Get, $"segments/{segmentId}/profiles/", _revision, query, null, null, cancellationToken);
     }
     /// <inheritdoc />

@@ -25,7 +25,7 @@ public class TemplateServices : KlaviyoServiceBase, ITemplateServices
     {
         QueryParams query = new();
         query.AddFieldset("template", templateFields);
-        query.AddFilters(filter);
+        query.AddFilter(filter);
         query.AddSort(sort);
         return await _klaviyoService.HTTPRecursive<Template>(HttpMethod.Get, "templates/", _revision, query, null, null, cancellationToken);
     }

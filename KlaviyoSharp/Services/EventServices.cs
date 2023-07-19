@@ -24,7 +24,7 @@ public class EventServices : KlaviyoServiceBase, IEventServices
         query.AddFieldset("event", eventFields);
         query.AddFieldset("metric", metricFields);
         query.AddFieldset("profile", profileFields);
-        query.AddFilters(filter);
+        query.AddFilter(filter);
         query.AddSort(sort);
         query.AddIncludes(includedObjects);
         return await _klaviyoService.HTTPRecursiveWithIncluded<Event>(HttpMethod.Get, $"events/", _revision, query, null, null, cancellationToken);

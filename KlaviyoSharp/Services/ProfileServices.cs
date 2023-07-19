@@ -23,7 +23,7 @@ public class ProfileServices : KlaviyoServiceBase, IProfileServices
         QueryParams query = new();
         query.AddAdditionalFields("profile", additionalFields);
         query.AddFieldset("profile", fields);
-        query.AddFilters(filter);
+        query.AddFilter(filter);
         query.AddSort(sort);
         return await _klaviyoService.HTTPRecursive<Profile>(HttpMethod.Get, $"profiles/", _revision, query, null, null, cancellationToken);
     }

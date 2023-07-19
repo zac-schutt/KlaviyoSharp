@@ -23,7 +23,7 @@ public class ListServices : KlaviyoServiceBase, IListServices
     {
         QueryParams query = new();
         query.AddFieldset("list", listFields);
-        query.AddFilters(filter);
+        query.AddFilter(filter);
 
         DataListObject<List> output = new(new());
         string pageCursor = "";
@@ -88,7 +88,7 @@ public class ListServices : KlaviyoServiceBase, IListServices
     {
         QueryParams query = new();
         query.AddFieldset("profile", profileFields);
-        query.AddFilters(filter);
+        query.AddFilter(filter);
         query.AddAdditionalFields("profile", additionalFields);
 
         DataListObject<Profile> output = new(new());

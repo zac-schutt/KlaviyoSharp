@@ -28,7 +28,7 @@ public class FlowServices : KlaviyoServiceBase, IFlowServices
         query.AddFieldset("flow", flowFields);
         query.AddFieldset("flow-action", flowActionFields);
         query.AddIncludes(includedRecords);
-        query.AddFilters(filter);
+        query.AddFilter(filter);
         query.AddSort(sort);
         return await _klaviyoService.HTTPRecursiveWithIncluded<Flow>(HttpMethod.Get, "flows", _revision, query, null, null, cancellationToken);
     }
@@ -70,7 +70,7 @@ public class FlowServices : KlaviyoServiceBase, IFlowServices
     {
         QueryParams query = new();
         query.AddFieldset("flow-action", flowActionFields);
-        query.AddFilters(filter);
+        query.AddFilter(filter);
         query.AddSort(sort);
         return await _klaviyoService.HTTPRecursive<FlowAction>(HttpMethod.Get, $"flows/{flowId}/flow-actions", _revision, query, null, null, cancellationToken);
     }
@@ -93,7 +93,7 @@ public class FlowServices : KlaviyoServiceBase, IFlowServices
     {
         QueryParams query = new();
         query.AddFieldset("flow-message", flowMessageFields);
-        query.AddFilters(filter);
+        query.AddFilter(filter);
         query.AddSort(sort);
         return await _klaviyoService.HTTPRecursive<FlowMessage>(HttpMethod.Get, $"flow-actions/{flowActionId}/flow-messages", _revision, query, null, null, cancellationToken);
     }
@@ -108,7 +108,7 @@ public class FlowServices : KlaviyoServiceBase, IFlowServices
     public async Task<DataListObject<GenericObject>> GetFlowRelationshipsFlowActions(string flowId, IFilter filter = null, string sort = null, CancellationToken cancellationToken = default)
     {
         QueryParams query = new();
-        query.AddFilters(filter);
+        query.AddFilter(filter);
         query.AddSort(sort);
         return await _klaviyoService.HTTP<DataListObject<GenericObject>>(HttpMethod.Get, $"flows/{flowId}/relationships/flow-actions", _revision, query, null, null, cancellationToken);
     }
@@ -126,7 +126,7 @@ public class FlowServices : KlaviyoServiceBase, IFlowServices
     public async Task<DataListObject<GenericObject>> GetFlowActionRelationshipsMessages(string flowActionId, IFilter filter = null, string sort = null, CancellationToken cancellationToken = default)
     {
         QueryParams query = new();
-        query.AddFilters(filter);
+        query.AddFilter(filter);
         query.AddSort(sort);
         return await _klaviyoService.HTTPRecursive<GenericObject>(HttpMethod.Get, $"flow-actions/{flowActionId}/relationships/flow-messages", _revision, query, null, null, cancellationToken);
     }

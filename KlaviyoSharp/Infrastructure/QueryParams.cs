@@ -83,7 +83,7 @@ internal class QueryParams : Dictionary<string, string>
         }
     }
 
-    private void AddFilters(string filters)
+    private void AddFilter(string filters)
     {
         if (!string.IsNullOrEmpty(filters))
         {
@@ -95,9 +95,9 @@ internal class QueryParams : Dictionary<string, string>
     /// </summary>
     /// <param name="filter"></param>
     /// <returns></returns>
-    public void AddFilters(IFilter filter)
+    public void AddFilter(IFilter filter)
     {
-        if (filter != null) AddFilters(filter.ToString());
+        if (filter != null) AddFilter(filter.ToString());
     }
     /// <summary>
     /// Add filter to a query dictionary

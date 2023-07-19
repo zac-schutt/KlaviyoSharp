@@ -22,7 +22,7 @@ public class TagServices : KlaviyoServiceBase, ITagServices
     {
         QueryParams queryParams = new();
         queryParams.AddFieldset("tag", tagFields);
-        queryParams.AddFilters(filter);
+        queryParams.AddFilter(filter);
         queryParams.AddSort(sort);
         return await _klaviyoService.HTTPRecursive<Tag>(HttpMethod.Get, "tags/", _revision, queryParams, null, null, cancellationToken);
     }
@@ -60,7 +60,7 @@ public class TagServices : KlaviyoServiceBase, ITagServices
     {
         QueryParams queryParams = new();
         queryParams.AddFieldset("tag-group", tagGroupFields);
-        queryParams.AddFilters(filter);
+        queryParams.AddFilter(filter);
         queryParams.AddSort(sort);
         return await _klaviyoService.HTTPRecursive<TagGroup>(HttpMethod.Get, "tag-groups/", _revision, queryParams, null, null, cancellationToken);
     }

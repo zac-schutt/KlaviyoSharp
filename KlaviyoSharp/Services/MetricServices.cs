@@ -22,7 +22,7 @@ public class MetricServices : KlaviyoServiceBase, IMetricServices
     {
         QueryParams queryParams = new();
         queryParams.AddFieldset("metric", metricFields);
-        queryParams.AddFilters(filter);
+        queryParams.AddFilter(filter);
 
         return await _klaviyoService.HTTP<DataListObject<Metric>>(HttpMethod.Get, "metrics/", revision: _revision, query: queryParams, headers: null, data: null, cancellationToken: cancellationToken);
     }
