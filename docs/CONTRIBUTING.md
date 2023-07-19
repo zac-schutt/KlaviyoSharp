@@ -39,3 +39,11 @@ Changes should be able to be tested locally. To test your changes, you will need
 
 - The account is required to have a list called `Sample Data List`, and this list needs to have Single opt-in enabled in it's settings. This can't be set with the API, but is required for testing profile subscriptions.
 - The account is required to have a flow. The welcome series flow is a great one for testing.
+
+## Framework Targeting
+
+This package targets both the NETStandard 2.0 and NET6.0 frameworks. This is because there are multiple Klaviyo fields that benefit from having the `DateOnly` class available. To maintain compatibility with older frameworks, the `KlaviyoDateOnly` class has been created with implicit conversions to and from `DateOnly`. This allows the `KlaviyoDateOnly` and `DateOnly` to be used interchangeably in client applications.
+
+Any code that needs to be compiled only for one framework should be wrapped in a `#if NET6_0` block. This will allow the code to compile for both frameworks, but only be included in the NET6.0 build. A note should also be added to [FRAMEWORK-DIFFERENCES.md](FRAMEWORK-DIFFERENCES.md) for any differences in the code.
+
+It should be rare that there are differences in the code used in the frameworks, and logic built on NetStandard 2.0 is always preferred.

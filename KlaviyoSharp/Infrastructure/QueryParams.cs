@@ -122,7 +122,8 @@ internal class QueryParams : Dictionary<string, string>
         }
     }
 
-
+#if NETSTANDARD2_0
+    //TryAdd not available in NETStandard 2.0
     private void TryAdd(string key, string value)
     {
         if (!string.IsNullOrEmpty(value) && !ContainsKey(key))
@@ -130,5 +131,5 @@ internal class QueryParams : Dictionary<string, string>
             Add(key, value);
         }
     }
-
+#endif
 }

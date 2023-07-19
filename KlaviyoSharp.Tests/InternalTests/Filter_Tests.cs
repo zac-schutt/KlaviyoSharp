@@ -13,7 +13,7 @@ public class Filter_Tests
         Assert.Equal("less-than(value,25)", new Filter(FilterOperation.LessThan, "value", 25).ToString());
         Assert.Equal("less-or-equal(datetime,2001-01-01T11:00:00Z)", new Filter(FilterOperation.LessOrEqual, "datetime", new DateTime(2001, 1, 1, 11, 0, 0, DateTimeKind.Utc)).ToString());
         Assert.Equal("greater-than(datetime,2022-04-01T11:30:00Z)", new Filter(FilterOperation.GreaterThan, "datetime", new DateTime(2022, 4, 1, 11, 30, 0, DateTimeKind.Utc)).ToString());
-        Assert.Equal("greater-than(datetime,2022-04-01)", new Filter(FilterOperation.GreaterThan, "datetime", new DateTime(2022, 4, 1, 1, 2, 3, DateTimeKind.Utc), false).ToString());
+        Assert.Equal("greater-than(datetime,2022-04-01)", new Filter(FilterOperation.GreaterThan, "datetime", new DateOnly(2022, 4, 1)).ToString());
         Assert.Equal("greater-or-equal(percentage,33.33)", new Filter(FilterOperation.GreaterOrEqual, "percentage", 33.33m).ToString());
         Assert.Equal("contains(description,\"cooking\")", new Filter(FilterOperation.Contains, "description", "cooking").ToString());
         Assert.Equal("ends-with(description,\"End\")", new Filter(FilterOperation.EndsWith, "description", "End").ToString());
@@ -36,8 +36,8 @@ public class Filter_Tests
         Assert.Equal("equals(metric_id,\"UxxK4u\"),greater-or-equal(datetime,2023-02-07),less-than(datetime,2023-02-15)", new FilterList
         {
             new Filter(FilterOperation.Equals, "metric_id", "UxxK4u"),
-            new Filter(FilterOperation.GreaterOrEqual, "datetime", new DateTime(2023, 2, 7,0,0,0, DateTimeKind.Utc),false),
-            new Filter(FilterOperation.LessThan, "datetime", new DateTime(2023, 2, 15,0,0,0, DateTimeKind.Utc),false)
+            new Filter(FilterOperation.GreaterOrEqual, "datetime", new DateOnly(2023, 2, 7)),
+            new Filter(FilterOperation.LessThan, "datetime", new DateOnly(2023, 2, 15))
         }.ToString());
     }
 

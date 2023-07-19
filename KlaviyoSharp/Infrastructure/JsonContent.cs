@@ -32,7 +32,8 @@ public class JsonContent : ByteArrayContent
             NullValueHandling = NullValueHandling.Ignore,
             Converters = new List<JsonConverter> {
                 new DateTimeJsonConverter(),
-                new DateTimeNullableJsonConverter()
+                new DateTimeNullableJsonConverter(),
+                new KlaviyoDateOnlyNullableJsonConverter()
             }
         });
         return Encoding.UTF8.GetBytes(rawData);

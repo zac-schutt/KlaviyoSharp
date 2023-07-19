@@ -93,7 +93,7 @@ public class FlowActionTrackingOptions
     /// Undocumented
     /// </summary>
     [JsonProperty("utm_params")]
-    public List<FlowActionUTMParams> UTMParams { get; set; }
+    public List<UTMParams> UTMParams { get; set; }
     /// <summary>
     /// Undocumented
     /// </summary>
@@ -104,22 +104,6 @@ public class FlowActionTrackingOptions
     /// </summary>
     [JsonProperty("is_tracking_clicks")]
     public bool? IsTrackingClicks { get; set; }
-}
-/// <summary>
-/// Undocumented flow action settings
-/// </summary>
-public class FlowActionUTMParams
-{
-    /// <summary>
-    /// Undocumented
-    /// </summary>
-    [JsonProperty("name")]
-    public string Name { get; set; }
-    /// <summary>
-    /// Undocumented
-    /// </summary>
-    [JsonProperty("value")]
-    public string Value { get; set; }
 }
 
 /// <summary>

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using KlaviyoSharp.Infrastructure;
 
 namespace KlaviyoSharp.Models.Filters;
 
@@ -81,11 +82,24 @@ public class Filter : IFilter
     /// <param name="field"></param>
     /// <param name="value"></param>
     /// <param name="showTime"></param>
-    public Filter(FilterOperation operation, string field, DateTime value, bool showTime = true)
+    public Filter(FilterOperation operation, string field, DateTime value)
     {
         Operation = operation;
         Field = field;
-        Value = value.ToUniversalTime().ToString(showTime ? "yyyy-MM-ddTHH:mm:ssZ" : "yyyy-MM-dd");
+        Value = value.ToUniversalTime().ToString( "yyyy-MM-ddTHH:mm:ssZ");
+    }
+    /// <summary>
+    /// Create a filter
+    /// </summary>
+    /// <param name="operation"></param>
+    /// <param name="field"></param>
+    /// <param name="value"></param>
+    /// <param name="showTime"></param>
+    public Filter(FilterOperation operation, string field, KlaviyoDateOnly value)
+    {
+        Operation = operation;
+        Field = field;
+        Value = value.ToString("yyyy-MM-dd");
     }
     /// <summary>
     /// Create a filter
