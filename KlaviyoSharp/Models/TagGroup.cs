@@ -5,7 +5,7 @@ namespace KlaviyoSharp.Models;
 /// <summary>
 /// Tag Groups returned from the Klaviyo API
 /// </summary>
-public class TagGroup : KlaviyoObject<TagGroupAttributes>
+public class TagGroup : KlaviyoObject<TagGroupAttributes, TagGroupRelationships>
 {
     /// <summary>
     /// Creates a new instance of the Tag Group class
@@ -15,11 +15,6 @@ public class TagGroup : KlaviyoObject<TagGroupAttributes>
     {
         return new() { Type = "tag-group" };
     }
-    /// <summary>
-    /// Related objects for the Tag Group
-    /// </summary>
-    [JsonProperty("relationships")]
-    public TagGroupRelationships Relationships { get; set; }
 }
 /// <summary>
 /// Tag Group Relationships

@@ -5,7 +5,7 @@ namespace KlaviyoSharp.Models;
 /// <summary>
 /// Lists returned from the Klaviyo API
 /// </summary>
-public class List : KlaviyoObject<ListAttributes>
+public class List : KlaviyoObject<ListAttributes, ListRelationships>
 {
     /// <summary>
     /// Creates a new instance of the List class
@@ -15,11 +15,6 @@ public class List : KlaviyoObject<ListAttributes>
     {
         return new List() { Type = "list" };
     }
-    /// <summary>
-    /// Related objects for the List
-    /// </summary>
-    [JsonProperty("relationships")]
-    public ListRelationships Relationships { get; set; }
 }
 /// <summary>
 /// List Relationships

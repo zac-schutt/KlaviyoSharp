@@ -6,7 +6,7 @@ namespace KlaviyoSharp.Models;
 /// <summary>
 /// Profiles returned from the Klaviyo API
 /// </summary>
-public class Profile : KlaviyoObject<ProfileAttributes>
+public class Profile : KlaviyoObject<ProfileAttributes, ProfileRelationships>
 {
     /// <summary>
     /// Creates a new instance of the Profile class
@@ -16,11 +16,6 @@ public class Profile : KlaviyoObject<ProfileAttributes>
     {
         return new Profile() { Type = "profile" };
     }
-    /// <summary>
-    /// Related objects for the Profile
-    /// </summary>
-    [JsonProperty("relationships")]
-    public ProfileRelationships Relationships { get; set; }
 }
 /// <summary>
 /// Profile Relationships

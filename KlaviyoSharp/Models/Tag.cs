@@ -4,7 +4,7 @@ namespace KlaviyoSharp.Models;
 /// <summary>
 /// Tags returned from the Klaviyo API
 /// </summary>
-public class Tag : KlaviyoObject<TagAttributes>
+public class Tag : KlaviyoObject<TagAttributes, TagRelationships>
 {
     /// <summary>
     /// Creates a new instance of the Tag class
@@ -14,11 +14,6 @@ public class Tag : KlaviyoObject<TagAttributes>
     {
         return new() { Type = "tag" };
     }
-    /// <summary>
-    /// Related objects for the Tag
-    /// </summary>
-    [JsonProperty("relationships")]
-    public TagRelationships Relationships { get; set; }
 }
 /// <summary>
 /// Tag Relationships

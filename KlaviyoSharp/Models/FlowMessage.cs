@@ -5,7 +5,7 @@ namespace KlaviyoSharp.Models;
 /// <summary>
 /// Flow Messages returned from the API
 /// </summary>
-public class FlowMessage : KlaviyoObject<FlowMessageAttributes>
+public class FlowMessage : KlaviyoObject<FlowMessageAttributes, FlowMessageRelationships>
 {
     /// <summary>
     /// Creates a new instance of the Template class
@@ -15,11 +15,6 @@ public class FlowMessage : KlaviyoObject<FlowMessageAttributes>
     {
         return new Flow() { Type = "flow-message" };
     }
-    /// <summary>
-    /// Related objects for the flow
-    /// </summary>
-    [JsonProperty("relationships")]
-    public FlowMessageRelationships Relationships { get; set; }
 }
 /// <summary>
 /// Flow Messages relationships

@@ -6,7 +6,7 @@ namespace KlaviyoSharp.Models;
 /// <summary>
 /// Flow Actions returned from the API
 /// </summary>
-public class FlowAction : KlaviyoObject<FlowActionAttributes>
+public class FlowAction : KlaviyoObject<FlowActionAttributes, FlowActionsRelationships>
 {
     /// <summary>
     /// Creates a new instance of the Template class
@@ -16,11 +16,6 @@ public class FlowAction : KlaviyoObject<FlowActionAttributes>
     {
         return new Flow() { Type = "flow-action" };
     }
-    /// <summary>
-    /// Related objects for the flow actions
-    /// </summary>
-    [JsonProperty("relationships")]
-    public FlowActionsRelationships Relationships { get; set; }
 }
 /// <summary>
 /// Flow actions relationships

@@ -32,7 +32,7 @@ public abstract class KlaviyoObjectBasic<T>
 /// <summary>
 /// Klaviyo Account Object with ID and Links
 /// </summary>
-/// <typeparam name="T"></typeparam>
+/// <typeparam name="T">Attributes Type</typeparam>
 public abstract class KlaviyoObject<T> : KlaviyoObjectBasic<T>
 {
     /// <summary>
@@ -45,4 +45,28 @@ public abstract class KlaviyoObject<T> : KlaviyoObjectBasic<T>
     /// </summary>
     [JsonProperty("links")]
     public Links.SelfLink Links { get; set; }
+}
+
+/// <summary>
+/// Klaviyo Account Object with ID and Links
+/// </summary>
+/// <typeparam name="T">Attributes Type</typeparam>
+/// <typeparam name="U">Relationships Type</typeparam>
+public abstract class KlaviyoObject<T, U> : KlaviyoObjectBasic<T>
+{
+    /// <summary>
+    /// Unique identifier for the object
+    /// </summary>
+    [JsonProperty("id")]
+    public string Id { get; set; }
+    /// <summary>
+    /// Links to the object
+    /// </summary>
+    [JsonProperty("links")]
+    public Links.SelfLink Links { get; set; }
+    /// <summary>
+    /// Relationships to the object
+    /// </summary>
+    [JsonProperty("relationships")]
+    public U Relationships { get; set; }
 }

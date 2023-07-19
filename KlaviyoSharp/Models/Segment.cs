@@ -5,7 +5,7 @@ namespace KlaviyoSharp.Models;
 /// <summary>
 /// A Segment in Klaviyo
 /// </summary>
-public class Segment : KlaviyoObject<SegmentAttributes>
+public class Segment : KlaviyoObject<SegmentAttributes, SegmentRelationships>
 {
     /// <summary>
     /// Creates a new instance of the Segment class
@@ -15,11 +15,6 @@ public class Segment : KlaviyoObject<SegmentAttributes>
     {
         return new Segment() { Type = "segment" };
     }
-    /// <summary>
-    /// Related objects for the Profile
-    /// </summary>
-    [JsonProperty("relationships")]
-    public SegmentRelationships Relationships { get; set; }
 }
 /// <summary>
 /// Related objects for the Segment

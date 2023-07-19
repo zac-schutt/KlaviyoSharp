@@ -6,7 +6,7 @@ namespace KlaviyoSharp.Models;
 /// <summary>
 /// Klaviyo Event
 /// </summary>
-public class Event : KlaviyoObject<EventAttributes>
+public class Event : KlaviyoObject<EventAttributes, EventRelationships>
 {
     /// <summary>
     /// Creates a new instance of the Event class
@@ -16,11 +16,6 @@ public class Event : KlaviyoObject<EventAttributes>
     {
         return new() { Type = "event" };
     }
-    /// <summary>
-    /// Relationships for the Event
-    /// </summary>
-    [JsonProperty("relationships")]
-    public EventRelationships Relationships { get; set; }
 }
 /// <summary>
 /// Klaviyo Event Relationships
