@@ -8,7 +8,7 @@ namespace KlaviyoSharp.Services;
 /// <summary>
 /// Interface for Klaviyo Metric Services
 /// </summary>
-internal interface IMetricServices
+public interface IMetricServices
 {
     /// <summary>
     /// Get all metrics in an account.

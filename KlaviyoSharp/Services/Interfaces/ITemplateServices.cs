@@ -5,8 +5,10 @@ using KlaviyoSharp.Models;
 using KlaviyoSharp.Models.Filters;
 
 namespace KlaviyoSharp.Services;
-
-internal interface ITemplateServices
+/// <summary>
+/// Interface for Klaviyo Template Services
+/// </summary>
+public interface ITemplateServices
 {
     /// <summary>
     /// Get all templates in an account. Filter to request a subset of all templates. Templates can be sorted by the following fields, in ascending and descending order: id, name, created, updated.

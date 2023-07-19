@@ -5,8 +5,10 @@ using KlaviyoSharp.Models;
 using KlaviyoSharp.Models.Filters;
 
 namespace KlaviyoSharp.Services;
-
-internal interface IFlowServices
+/// <summary>
+/// Interface for Klaviyo Flow Services
+/// </summary>
+public interface IFlowServices
 {
     /// <summary>
     /// Get all flows in an account.

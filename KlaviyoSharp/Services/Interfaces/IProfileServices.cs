@@ -8,7 +8,7 @@ namespace KlaviyoSharp.Services;
 /// <summary>
 /// Interface for Klaviyo Profile Services
 /// </summary>
-internal interface IProfileServices
+public interface IProfileServices
 {
     /// <summary>
     /// Get all profiles in an account.

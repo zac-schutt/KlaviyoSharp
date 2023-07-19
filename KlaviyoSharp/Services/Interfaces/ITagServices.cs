@@ -5,8 +5,10 @@ using KlaviyoSharp.Models;
 using KlaviyoSharp.Models.Filters;
 
 namespace KlaviyoSharp.Services;
-
-internal interface ITagServices
+/// <summary>
+/// Interface for Klaviyo Tag Services
+/// </summary>
+public interface ITagServices
 {
     /// <summary>
     /// List all tags in an account. Tags can be filtered by name, and sorted by name or id in ascending or descending order.

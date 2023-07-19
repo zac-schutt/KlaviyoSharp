@@ -64,4 +64,9 @@ public class KlaviyoAdminApi : KlaviyoApiBase
     /// </summary>
     public Services.TagServices TagServices { get { _TagServices ??= new(this); return _TagServices; } }
     private Services.TagServices _TagServices;
+    /// <summary>
+    /// Services for interacting with the Klaviyo Campaigns API
+    /// </summary>
+    public Services.CampaignServices CampaignServices { get { _CampaignServices ??= new(this); return _CampaignServices; } }
+    private Services.CampaignServices _CampaignServices;
 }

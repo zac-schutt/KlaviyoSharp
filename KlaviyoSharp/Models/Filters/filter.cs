@@ -81,7 +81,6 @@ public class Filter : IFilter
     /// <param name="operation"></param>
     /// <param name="field"></param>
     /// <param name="value"></param>
-    /// <param name="showTime"></param>
     public Filter(FilterOperation operation, string field, DateTime value)
     {
         Operation = operation;
@@ -94,7 +93,6 @@ public class Filter : IFilter
     /// <param name="operation"></param>
     /// <param name="field"></param>
     /// <param name="value"></param>
-    /// <param name="showTime"></param>
     public Filter(FilterOperation operation, string field, KlaviyoDateOnly value)
     {
         Operation = operation;

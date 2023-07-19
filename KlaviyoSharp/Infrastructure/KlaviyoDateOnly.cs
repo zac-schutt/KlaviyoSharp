@@ -42,7 +42,15 @@ public readonly struct KlaviyoDateOnly
 
     //Operator for platforms that have access to Native DateOnly functionality
 #if NET6_0
+    /// <summary>
+    /// Converts a DateOnly to a KlaviyoDateOnly
+    /// </summary>
+    /// <param name="value"></param>
     public static implicit operator KlaviyoDateOnly(DateOnly value) => new(value.Year, value.Month, value.Day);
+    /// <summary>
+    /// Converts a KlaviyoDateOnly to a DateOnly
+    /// </summary>
+    /// <param name="value"></param>
     public static implicit operator DateOnly(KlaviyoDateOnly value) => new(value.Value.Year, value.Value.Month, value.Value.Day);
 #endif
 }
