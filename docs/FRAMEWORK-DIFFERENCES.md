@@ -9,3 +9,7 @@ NETStandard 2.0 does not contain the DateOnly type which is used in the Klaviyo 
 ## [QueryParams.cs](../KlaviyoSharp/Infrastructure/QueryParams.cs)
 
 The `QueryParams` class is derived from a `Dictionary<string, string>`. The `TryAdd` method is not available on NETStandard 2.0 and is implemented in this file.
+
+## [KlaviyoService.cs](../KlaviyoSharp/KlaviyoService.cs)
+
+The `HTTP<T>` method uses the `ReadAsStringAsync` method on the `HttpContent` object. This method supports passing a `CancellationToken` on NET 6.0 only.

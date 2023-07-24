@@ -108,7 +108,11 @@ public abstract class KlaviyoApiBase
     internal async Task<T> HTTP<T>(HttpMethod method, string path, string revision, QueryParams query, HeaderParams headers, object data, CancellationToken cancellationToken)
     {
         CloneableHttpRequestMessage requestMessage = PrepareRequest(method, BuildURI(path), revision, query, headers, data);
+#if NET6_0
         string TextResult = (await GetResponse(requestMessage, cancellationToken)).Content.ReadAsStringAsync(cancellationToken).Result;
+#else
+        string TextResult = (await GetResponse(requestMessage, cancellationToken)).Content.ReadAsStringAsync().Result;
+#endif
         return JsonConvert.DeserializeObject<T>(TextResult);
     }
     /// <summary>
@@ -203,9 +207,10 @@ public abstract class KlaviyoApiBase
             await Task.Delay(1000 * retryAfter, cancellationToken);
             response = await _httpClient.SendAsync(requestMessage.Clone(), cancellationToken);
         }
-        if (!response.IsSuccessStatusCode) {
-             throw new KlaviyoException(KlaviyoError.FromHttpResponse(response));
-             }
+        if (!response.IsSuccessStatusCode)
+        {
+            throw new KlaviyoException(KlaviyoError.FromHttpResponse(response));
+        }
         return response;
     }
 }
