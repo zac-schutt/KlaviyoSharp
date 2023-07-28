@@ -138,4 +138,71 @@ public interface ICatalogServices
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     Task<DataListObject<CatalogItem>> GetCatalogCategoryItems(string catalogCategoryId, List<string> catalogItemFields = null, List<string> catalogVariantFields = null, IFilter filter = null, List<string> includedRecords = null, string sort = null, CancellationToken cancellationToken = default);
+
+    //TODO: Insert Variant Services
+
+    //TODO: Insert Category Services
+
+    /// <summary>
+    /// Get all items in the given category ID.
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    Task<DataListObject<GenericObject>> GetCatalogCategoryRelationshipsItems(string id, CancellationToken cancellationToken);
+    /// <summary>
+    /// Create a new item relationship for the given category ID.
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="relationships"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    Task CreateCatalogCategoryRelationshipsItems(string id, DataListObject<GenericObject> relationships, CancellationToken cancellationToken = default);
+    /// <summary>
+    /// Update item relationships for the given category ID.
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="relationships"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    Task UpdateCatalogCategoryRelationshipsItems(string id, DataListObject<GenericObject> relationships, CancellationToken cancellationToken);
+    /// <summary>
+    /// Delete item relationships for the given category ID.
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="relationships"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    Task DeleteCatalogCategoryRelationshipsItems(string id, DataListObject<GenericObject> relationships, CancellationToken cancellationToken);
+    /// <summary>
+    /// Get all catalog categories that a particular item is in.
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    Task<DataListObject<GenericObject>> GetCatalogItemRelationshipsCategories(string id, CancellationToken cancellationToken);
+    /// <summary>
+    /// Create a new catalog category relationship for the given item ID.
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="relationships"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    Task CreateCatalogItemRelationshipsCategories(string id, DataListObject<GenericObject> relationships, CancellationToken cancellationToken);
+    /// <summary>
+    /// Update catalog category relationships for the given item ID.
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="relationships"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    Task UpdateCatalogItemRelationshipsCategories(string id, DataListObject<GenericObject> relationships, CancellationToken cancellationToken);
+    /// <summary>
+    /// Delete catalog category relationships for the given item ID.
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="relationships"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    Task DeleteCatalogItemRelationshipsCategories(string id, DataListObject<GenericObject> relationships, CancellationToken cancellationToken);
 }

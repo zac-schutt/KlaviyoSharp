@@ -128,4 +128,49 @@ public class CatalogServices : KlaviyoServiceBase, ICatalogServices
         query.AddSort(sort);
         return await _klaviyoService.HTTPRecursive<CatalogItem>(HttpMethod.Get, $"catalog-categories/{catalogCategoryId}/items", _revision, query, null, null, cancellationToken);
     }
+
+    //TODO: Insert Variant Services
+
+
+    //TODO: Insert Category Services
+    /// <inheritdoc />
+    public async Task<DataListObject<GenericObject>> GetCatalogCategoryRelationshipsItems(string id, CancellationToken cancellationToken = default)
+    {
+        return await _klaviyoService.HTTP<DataListObject<GenericObject>>(HttpMethod.Get, $"catalog-categories/{id}/relationships/items/", _revision, null, null, null, cancellationToken);
+    }
+    /// <inheritdoc />
+    public async Task CreateCatalogCategoryRelationshipsItems(string id, DataListObject<GenericObject> relationships, CancellationToken cancellationToken = default)
+    {
+        await _klaviyoService.HTTP(HttpMethod.Post, $"catalog-categories/{id}/relationships/items/", _revision, null, null, relationships, cancellationToken);
+    }
+    /// <inheritdoc />
+    public async Task UpdateCatalogCategoryRelationshipsItems(string id, DataListObject<GenericObject> relationships, CancellationToken cancellationToken = default)
+    {
+        await _klaviyoService.HTTP(new("PATCH"), $"catalog-categories/{id}/relationships/items/", _revision, null, null, relationships, cancellationToken);
+    }
+    /// <inheritdoc />
+    public async Task DeleteCatalogCategoryRelationshipsItems(string id, DataListObject<GenericObject> relationships, CancellationToken cancellationToken = default)
+    {
+        await _klaviyoService.HTTP(HttpMethod.Delete, $"catalog-categories/{id}/relationships/items/", _revision, null, null, relationships, cancellationToken);
+    }
+    /// <inheritdoc />
+    public async Task<DataListObject<GenericObject>> GetCatalogItemRelationshipsCategories(string id, CancellationToken cancellationToken = default)
+    {
+        return await _klaviyoService.HTTPRecursive<GenericObject>(HttpMethod.Get, $"catalog-items/{id}/relationships/categories/", _revision, null, null, null, cancellationToken);
+    }
+    /// <inheritdoc />
+    public async Task CreateCatalogItemRelationshipsCategories(string id, DataListObject<GenericObject> relationships, CancellationToken cancellationToken = default)
+    {
+        await _klaviyoService.HTTP(HttpMethod.Post, $"catalog-items/{id}/relationships/categories/", _revision, null, null, relationships, cancellationToken);
+    }
+    /// <inheritdoc />
+    public async Task UpdateCatalogItemRelationshipsCategories(string id, DataListObject<GenericObject> relationships, CancellationToken cancellationToken = default)
+    {
+        await _klaviyoService.HTTP(new("PATCH"), $"catalog-items/{id}/relationships/categories/", _revision, null, null, relationships, cancellationToken);
+    }
+    /// <inheritdoc />
+    public async Task DeleteCatalogItemRelationshipsCategories(string id, DataListObject<GenericObject> relationships, CancellationToken cancellationToken = default)
+    {
+        await _klaviyoService.HTTP(HttpMethod.Delete, $"catalog-items/{id}/relationships/categories/", _revision, null, null, relationships, cancellationToken);
+    }
 }
