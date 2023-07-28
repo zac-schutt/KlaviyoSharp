@@ -12,7 +12,7 @@ public class CatalogItem : KlaviyoObject<CatalogItemAttributes, CatalogItemRelat
     /// Creates a new instance of the CatalogItem class
     /// </summary>
     /// <returns></returns>
-    public static new Event Create()
+    public static new CatalogItem Create()
     {
         return new() { Type = "catalog-item" };
     }
