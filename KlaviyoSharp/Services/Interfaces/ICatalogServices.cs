@@ -137,9 +137,135 @@ public interface ICatalogServices
     /// <param name="sort">For more information please visit https://developers.klaviyo.com/en/reference/api-overview#sorting</param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    Task<DataListObject<CatalogItem>> GetCatalogCategoryItems(string catalogCategoryId, List<string> catalogItemFields = null, List<string> catalogVariantFields = null, IFilter filter = null, List<string> includedRecords = null, string sort = null, CancellationToken cancellationToken = default);
+    Task<DataListObject<CatalogItem>> GetCatalogCategoryItems(string catalogCategoryId, List<string> catalogItemFields, List<string> catalogVariantFields, IFilter filter, List<string> includedRecords, string sort, CancellationToken cancellationToken);
+    /// <summary>
+    /// Get all variants in an account. Variants can be sorted by the following fields, in ascending and descending order: created
+    /// </summary>
+    /// <param name="catalogVariantFields">For more information please visit https://developers.klaviyo.com/en/reference/api-overview#sparse-fieldsets</param>
+    /// <param name="filter">For more information please visit <see href="https://developers.klaviyo.com/en/reference/api-overview#filtering" />. Allowed fields: ids, item.id, sku, title, published</param>
+    /// <param name="sort">For more information please visit https://developers.klaviyo.com/en/reference/api-overview#sorting</param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    Task<DataListObject<CatalogVariant>> GetCatalogVariants(List<string> catalogVariantFields, IFilter filter, string sort, CancellationToken cancellationToken);
+    /// <summary>
+    /// Create a new variant for a related catalog item.
+    /// </summary>
+    /// <param name="catalogVariant"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    Task<DataObject<CatalogVariant>> CreateCatalogVariant(CatalogVariant catalogVariant, CancellationToken cancellationToken);
+    /// <summary>
+    /// Get a catalog item variant with the given variant ID.
+    /// </summary>
+    /// <param name="catalogVariantId">The catalog variant ID is a compound ID (string), with format: {integration}:::{catalog}:::{external_id}. Currently, the only supported integration type is $custom, and the only supported catalog is $default.</param>
+    /// <param name="catalogVariantFields">For more information please visit https://developers.klaviyo.com/en/reference/api-overview#sparse-fieldsets</param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    Task<DataObject<CatalogVariant>> GetCatalogVariant(string catalogVariantId, List<string> catalogVariantFields, CancellationToken cancellationToken);
+    /// <summary>
+    /// Update a catalog item variant with the given variant ID.
+    /// </summary>
+    /// <param name="catalogVariantId">The catalog variant ID is a compound ID (string), with format: {integration}:::{catalog}:::{external_id}. Currently, the only supported integration type is $custom, and the only supported catalog is $default.</param>
+    /// <param name="catalogVariant"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    Task<DataObject<CatalogVariant>> UpdateCatalogVariant(string catalogVariantId, CatalogVariant catalogVariant, CancellationToken cancellationToken);
+    /// <summary>
+    /// Delete a catalog item variant with the given variant ID.
+    /// </summary>
+    /// <param name="catalogVariantId">The catalog variant ID is a compound ID (string), with format: {integration}:::{catalog}:::{external_id}. Currently, the only supported integration type is $custom, and the only supported catalog is $default.</param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    Task DeleteCatalogVariant(string catalogVariantId, CancellationToken cancellationToken);
+    /// <summary>
+    /// Get all catalog variant bulk create jobs.
+    /// </summary>
+    /// <param name="CatalogVariantBulkJobFields">For more information please visit https://developers.klaviyo.com/en/reference/api-overview#sparse-fieldsets</param>
+    /// <param name="filter">For more information please visit <see href="https://developers.klaviyo.com/en/reference/api-overview#filtering" />. Allowed fields: status</param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    Task<DataListObject<CatalogVariantBulkJob>> GetCreateVariantsJobs(List<string> CatalogVariantBulkJobFields, IFilter filter, CancellationToken cancellationToken);
+    /// <summary>
+    /// Create a catalog variant bulk create job to create a batch of catalog variants.Accepts up to 100 catalog variants per request. The maximum allowed payload size is 4MB.
+    /// </summary>
+    /// <param name="catalogVariantBulkJob"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    Task<DataObject<CatalogVariantBulkJob>> SpawnCreateVariantsJob(CatalogVariantBulkJob catalogVariantBulkJob, CancellationToken cancellationToken);
+    /// <summary>
+    /// Get a catalog variant bulk create job with the given job ID. An include parameter can be provided to get the following related resource data: variants.
+    /// </summary>
+    /// <param name="catalogVariantBulkJobId">ID of the job to retrieve.</param>
+    /// <param name="CatalogVariantBulkJobFields">For more information please visit https://developers.klaviyo.com/en/reference/api-overview#sparse-fieldsets</param>
+    /// <param name="CatalogVariantFields"></param>
+    /// <param name="includedRecords"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    Task<DataObject<CatalogVariantBulkJob>> GetCreateVariantsJob(string catalogVariantBulkJobId, List<string> CatalogVariantBulkJobFields, List<string> CatalogVariantFields, List<string> includedRecords, CancellationToken cancellationToken);
 
-    //TODO: Insert Variant Services
+
+    /// <summary>
+    /// Get all catalog variant bulk update jobs.
+    /// </summary>
+    /// <param name="CatalogVariantBulkJobFields">For more information please visit https://developers.klaviyo.com/en/reference/api-overview#sparse-fieldsets</param>
+    /// <param name="filter">For more information please visit <see href="https://developers.klaviyo.com/en/reference/api-overview#filtering" />. Allowed fields: status</param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    Task<DataListObject<CatalogVariantBulkJob>> GetUpdateVariantsJobs(List<string> CatalogVariantBulkJobFields, IFilter filter, CancellationToken cancellationToken);
+    /// <summary>
+    /// Create a catalog variant bulk update job to update a batch of catalog variants. Accepts up to 100 catalog variants per request. The maximum allowed payload size is 4MB.
+    /// </summary>
+    /// <param name="catalogVariantBulkJob"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    Task<DataObject<CatalogVariantBulkJob>> SpawnUpdateVariantsJob(CatalogVariantBulkJob catalogVariantBulkJob, CancellationToken cancellationToken);
+    /// <summary>
+    /// Get a catalog variant bulk update job with the given job ID. An include parameter can be provided to get the following related resource data: variants.
+    /// </summary>
+    /// <param name="catalogVariantBulkJobId">ID of the job to retrieve.</param>
+    /// <param name="CatalogVariantBulkJobFields">For more information please visit https://developers.klaviyo.com/en/reference/api-overview#sparse-fieldsets</param>
+    /// <param name="CatalogVariantFields"></param>
+    /// <param name="includedRecords"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    Task<DataObject<CatalogVariantBulkJob>> GetUpdateVariantsJob(string catalogVariantBulkJobId, List<string> CatalogVariantBulkJobFields, List<string> CatalogVariantFields, List<string> includedRecords, CancellationToken cancellationToken);
+
+    /// <summary>
+    /// Get all catalog variant bulk delete jobs.
+    /// </summary>
+    /// <param name="CatalogVariantBulkJobFields">For more information please visit https://developers.klaviyo.com/en/reference/api-overview#sparse-fieldsets</param>
+    /// <param name="filter">For more information please visit <see href="https://developers.klaviyo.com/en/reference/api-overview#filtering" />. Allowed fields: status</param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    Task<DataListObject<CatalogVariantBulkJob>> GetDeleteVariantsJobs(List<string> CatalogVariantBulkJobFields, IFilter filter, CancellationToken cancellationToken);
+    /// <summary>
+    /// Create a catalog variant bulk delete job to delete a batch of catalog variants.Accepts up to 100 catalog variants per request. The maximum allowed payload size is 4MB.
+    /// </summary>
+    /// <param name="catalogVariantBulkJob"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    Task<DataObject<CatalogVariantBulkJob>> SpawnDeleteVariantsJob(CatalogVariantBulkJob catalogVariantBulkJob, CancellationToken cancellationToken);
+    /// <summary>
+    /// Get a catalog variant bulk delete job with the given job ID. An include parameter can be provided to get the following related resource data: variants.
+    /// </summary>
+    /// <param name="catalogVariantBulkJobId">ID of the job to retrieve.</param>
+    /// <param name="CatalogVariantBulkJobFields">For more information please visit https://developers.klaviyo.com/en/reference/api-overview#sparse-fieldsets</param>
+    /// <param name="CatalogVariantFields"></param>
+    /// <param name="includedRecords"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    Task<DataObject<CatalogVariantBulkJob>> GetDeleteVariantsJob(string catalogVariantBulkJobId, List<string> CatalogVariantBulkJobFields, List<string> CatalogVariantFields, List<string> includedRecords, CancellationToken cancellationToken);
+    /// <summary>
+    /// Get all variants related to the given item ID. Variants can be sorted by the following fields, in ascending and descending order: created
+    /// </summary>
+    /// <param name="catalogItemId"></param>
+    /// <param name="catalogVariantFields">For more information please visit https://developers.klaviyo.com/en/reference/api-overview#sparse-fieldsets</param>
+    /// <param name="filter">For more information please visit <see href="https://developers.klaviyo.com/en/reference/api-overview#filtering" />. Allowed fields: ids, item, sku, title, published</param>
+    /// <param name="sort">For more information please visit https://developers.klaviyo.com/en/reference/api-overview#sorting</param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    Task<DataListObject<CatalogVariant>> GetCatalogItemVariants(string catalogItemId, List<string> catalogVariantFields, IFilter filter, string sort, CancellationToken cancellationToken);
+
 
     //TODO: Insert Category Services
 
@@ -157,7 +283,7 @@ public interface ICatalogServices
     /// <param name="relationships"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    Task CreateCatalogCategoryRelationshipsItems(string id, DataListObject<GenericObject> relationships, CancellationToken cancellationToken = default);
+    Task CreateCatalogCategoryRelationshipsItems(string id, DataListObject<GenericObject> relationships, CancellationToken cancellationToken);
     /// <summary>
     /// Update item relationships for the given category ID.
     /// </summary>

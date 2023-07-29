@@ -3,6 +3,7 @@ using System.Linq.Expressions;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Threading.Tasks.Dataflow;
 using KlaviyoSharp.Infrastructure;
 using KlaviyoSharp.Models;
 using KlaviyoSharp.Models.Filters;
@@ -129,7 +130,117 @@ public class CatalogServices : KlaviyoServiceBase, ICatalogServices
         return await _klaviyoService.HTTPRecursive<CatalogItem>(HttpMethod.Get, $"catalog-categories/{catalogCategoryId}/items", _revision, query, null, null, cancellationToken);
     }
 
-    //TODO: Insert Variant Services
+    /// <inheritdoc />
+    public async Task<DataListObject<CatalogVariant>> GetCatalogVariants(List<string> catalogVariantFields = null, IFilter filter = null, string sort = null, CancellationToken cancellationToken = default)
+    {
+        QueryParams query = new();
+        query.AddFieldset("catalog-variant", catalogVariantFields);
+        query.AddFilter(filter);
+        query.AddSort(sort);
+        return await _klaviyoService.HTTPRecursive<CatalogVariant>(HttpMethod.Get, "catalog-variants", _revision, query, null, null, cancellationToken);
+    }
+
+    /// <inheritdoc />
+    public async Task<DataObject<CatalogVariant>> CreateCatalogVariant(CatalogVariant catalogVariant, CancellationToken cancellationToken = default)
+    {
+        return await _klaviyoService.HTTP<DataObject<CatalogVariant>>(HttpMethod.Post, "catalog-variants", _revision, null, null, new DataObject<CatalogVariant>(catalogVariant), cancellationToken);
+    }
+    /// <inheritdoc />
+    public async Task<DataObject<CatalogVariant>> GetCatalogVariant(string catalogVariantId, List<string> catalogVariantFields = null, CancellationToken cancellationToken = default)
+    {
+        QueryParams query = new();
+        query.AddFieldset("catalog-variant", catalogVariantFields);
+        return await _klaviyoService.HTTP<DataObject<CatalogVariant>>(HttpMethod.Get, $"catalog-variants/{catalogVariantId}/", _revision, query, null, null, cancellationToken);
+    }
+    /// <inheritdoc />
+    public async Task<DataObject<CatalogVariant>> UpdateCatalogVariant(string catalogVariantId, CatalogVariant catalogVariant, CancellationToken cancellationToken = default)
+    {
+        return await _klaviyoService.HTTP<DataObject<CatalogVariant>>(HttpMethod.Put, $"catalog-variants/{catalogVariantId}/", _revision, null, null, new DataObject<CatalogVariant>(catalogVariant), cancellationToken);
+    }
+    /// <inheritdoc />
+    public async Task DeleteCatalogVariant(string catalogVariantId, CancellationToken cancellationToken = default)
+    {
+        await _klaviyoService.HTTP(HttpMethod.Delete, $"catalog-variants/{catalogVariantId}/", _revision, null, null, null, cancellationToken);
+    }
+    /// <inheritdoc />
+    public async Task<DataListObject<CatalogVariantBulkJob>> GetCreateVariantsJobs(List<string> CatalogVariantBulkJobFields = null, IFilter filter = null, CancellationToken cancellationToken = default)
+    {
+        QueryParams query = new();
+        query.AddFieldset("catalog-variant-bulk-create-job", CatalogVariantBulkJobFields);
+        query.AddFilter(filter);
+        return await _klaviyoService.HTTPRecursive<CatalogVariantBulkJob>(HttpMethod.Get, "catalog-variant-bulk-create-jobs", _revision, query, null, null, cancellationToken);
+    }
+    /// <inheritdoc />
+    public async Task<DataObject<CatalogVariantBulkJob>> SpawnCreateVariantsJob(CatalogVariantBulkJob catalogVariantBulkJob, CancellationToken cancellationToken = default)
+    {
+        return await _klaviyoService.HTTP<DataObject<CatalogVariantBulkJob>>(HttpMethod.Post, "catalog-variant-bulk-create-jobs", _revision, null, null, new DataObject<CatalogVariantBulkJob>(catalogVariantBulkJob), cancellationToken);
+    }
+    /// <inheritdoc />
+    public async Task<DataObject<CatalogVariantBulkJob>> GetCreateVariantsJob(string catalogVariantBulkJobId, List<string> CatalogVariantBulkJobFields = null, List<string> CatalogVariantFields = null, List<string> includedRecords = null, CancellationToken cancellationToken = default)
+    {
+        QueryParams query = new();
+        query.AddFieldset("catalog-variant-bulk-create-job", CatalogVariantBulkJobFields);
+        query.AddFieldset("catalog-variant", CatalogVariantFields);
+        query.AddIncludes(includedRecords);
+        return await _klaviyoService.HTTP<DataObject<CatalogVariantBulkJob>>(HttpMethod.Get, $"catalog-variant-bulk-create-jobs/{catalogVariantBulkJobId}/", _revision, query, null, null, cancellationToken);
+    }
+    /// <inheritdoc />
+    public async Task<DataListObject<CatalogVariantBulkJob>> GetUpdateVariantsJobs(List<string> CatalogVariantBulkJobFields = null, IFilter filter = null, CancellationToken cancellationToken = default)
+    {
+        QueryParams query = new();
+        query.AddFieldset("catalog-variant-bulk-update-job", CatalogVariantBulkJobFields);
+        query.AddFilter(filter);
+        return await _klaviyoService.HTTPRecursive<CatalogVariantBulkJob>(HttpMethod.Get, "catalog-variant-bulk-update-jobs", _revision, query, null, null, cancellationToken);
+    }
+    /// <inheritdoc />
+    public async Task<DataObject<CatalogVariantBulkJob>> SpawnUpdateVariantsJob(CatalogVariantBulkJob catalogVariantBulkJob, CancellationToken cancellationToken = default)
+    {
+        return await _klaviyoService.HTTP<DataObject<CatalogVariantBulkJob>>(HttpMethod.Post, "catalog-variant-bulk-update-jobs", _revision, null, null, new DataObject<CatalogVariantBulkJob>(catalogVariantBulkJob), cancellationToken);
+    }
+    /// <inheritdoc />
+    public async Task<DataObject<CatalogVariantBulkJob>> GetUpdateVariantsJob(string catalogVariantBulkJobId, List<string> CatalogVariantBulkJobFields = null, List<string> CatalogVariantFields = null, List<string> includedRecords = null, CancellationToken cancellationToken = default)
+    {
+        QueryParams query = new();
+        query.AddFieldset("catalog-variant-bulk-update-job", CatalogVariantBulkJobFields);
+        query.AddFieldset("catalog-variant", CatalogVariantFields);
+        query.AddIncludes(includedRecords);
+        return await _klaviyoService.HTTP<DataObject<CatalogVariantBulkJob>>(HttpMethod.Get, $"catalog-variant-bulk-update-jobs/{catalogVariantBulkJobId}/", _revision, query, null, null, cancellationToken);
+    }
+    /// <inheritdoc />
+    public async Task<DataListObject<CatalogVariantBulkJob>> GetDeleteVariantsJobs(List<string> CatalogVariantBulkJobFields = null, IFilter filter = null, CancellationToken cancellationToken = default)
+    {
+        QueryParams query = new();
+        query.AddFieldset("catalog-variant-bulk-delete-job", CatalogVariantBulkJobFields);
+        query.AddFilter(filter);
+        return await _klaviyoService.HTTPRecursive<CatalogVariantBulkJob>(HttpMethod.Get, "catalog-variant-bulk-delete-jobs", _revision, query, null, null, cancellationToken);
+    }
+    /// <inheritdoc />
+    public async Task<DataObject<CatalogVariantBulkJob>> SpawnDeleteVariantsJob(CatalogVariantBulkJob catalogVariantBulkJob, CancellationToken cancellationToken = default)
+    {
+        return await _klaviyoService.HTTP<DataObject<CatalogVariantBulkJob>>(HttpMethod.Post, "catalog-variant-bulk-delete-jobs", _revision, null, null, new DataObject<CatalogVariantBulkJob>(catalogVariantBulkJob), cancellationToken);
+    }
+    /// <inheritdoc />
+    public async Task<DataObject<CatalogVariantBulkJob>> GetDeleteVariantsJob(string catalogVariantBulkJobId, List<string> CatalogVariantBulkJobFields = null, List<string> CatalogVariantFields = null, List<string> includedRecords = null, CancellationToken cancellationToken = default)
+    {
+        QueryParams query = new();
+        query.AddFieldset("catalog-variant-bulk-delete-job", CatalogVariantBulkJobFields);
+        query.AddFieldset("catalog-variant", CatalogVariantFields);
+        query.AddIncludes(includedRecords);
+        return await _klaviyoService.HTTP<DataObject<CatalogVariantBulkJob>>(HttpMethod.Get, $"catalog-variant-bulk-delete-jobs/{catalogVariantBulkJobId}/", _revision, query, null, null, cancellationToken);
+    }
+
+    /// <inheritdoc />
+    public async Task<DataListObject<CatalogVariant>> GetCatalogItemVariants(string catalogItemId, List<string> catalogVariantFields = null, IFilter filter = null, string sort = null, CancellationToken cancellationToken = default)
+    {
+        QueryParams query = new();
+        query.AddFieldset("catalog-variant", catalogVariantFields);
+        query.AddFilter(filter);
+        query.AddSort(sort);
+        return await _klaviyoService.HTTPRecursive<CatalogVariant>(HttpMethod.Get, $"catalog-items/{catalogItemId}/variants/", _revision, query, null, null, cancellationToken);
+    }
+
+
+
 
 
     //TODO: Insert Category Services
