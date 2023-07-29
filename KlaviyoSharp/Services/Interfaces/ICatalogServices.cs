@@ -265,9 +265,131 @@ public interface ICatalogServices
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     Task<DataListObject<CatalogVariant>> GetCatalogItemVariants(string catalogItemId, List<string> catalogVariantFields, IFilter filter, string sort, CancellationToken cancellationToken);
+    /// <summary>
+    /// Get all catalog categories in an account. Catalog categories can be sorted by the following fields, in ascending and descending order: created
+    /// </summary>
+    /// <param name="catalogCategoryFields">For more information please visit https://developers.klaviyo.com/en/reference/api-overview#sparse-fieldsets</param>
+    /// <param name="filter">For more information please visit <see href="https://developers.klaviyo.com/en/reference/api-overview#filtering" />. Allowed fields: ids, item, name</param>
+    /// <param name="sort">For more information please visit https://developers.klaviyo.com/en/reference/api-overview#sorting</param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    Task<DataListObject<CatalogCategory>> GetCatalogCategories(List<string> catalogCategoryFields, IFilter filter, string sort, CancellationToken cancellationToken);
+    /// <summary>
+    /// Create a new catalog category.
+    /// </summary>
+    /// <param name="catalogCategory"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    Task<DataObject<CatalogCategory>> CreateCatalogCategory(CatalogCategory catalogCategory, CancellationToken cancellationToken);
+    /// <summary>
+    /// Get a catalog category with the given category ID.
+    /// </summary>
+    /// <param name="catalogCategoryId">The catalog category ID is a compound ID (string), with format: {integration}:::{catalog}:::{external_id}. Currently, the only supported integration type is $custom, and the only supported catalog is $default.</param>
+    /// <param name="catalogCategoryFields">For more information please visit https://developers.klaviyo.com/en/reference/api-overview#sparse-fieldsets</param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    Task<DataObject<CatalogCategory>> GetCatalogCategory(string catalogCategoryId, List<string> catalogCategoryFields, CancellationToken cancellationToken);
+    /// <summary>
+    /// Update a catalog category with the given category ID.
+    /// </summary>
+    /// <param name="catalogCategoryId">The catalog category ID is a compound ID (string), with format: {integration}:::{catalog}:::{external_id}. Currently, the only supported integration type is $custom, and the only supported catalog is $default.</param>
+    /// <param name="catalogCategory"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    Task<DataObject<CatalogCategory>> UpdateCatalogCategory(string catalogCategoryId, CatalogCategory catalogCategory, CancellationToken cancellationToken);
+    /// <summary>
+    /// Delete a catalog category using the given category ID.
+    /// </summary>
+    /// <param name="catalogCategoryId">The catalog category ID is a compound ID (string), with format: {integration}:::{catalog}:::{external_id}. Currently, the only supported integration type is $custom, and the only supported catalog is $default.</param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    Task DeleteCatalogCategory(string catalogCategoryId, CancellationToken cancellationToken);
+    /// <summary>
+    /// Get all catalog category bulk create jobs.
+    /// </summary>
+    /// <param name="CatalogCategoryBulkJobFields">For more information please visit https://developers.klaviyo.com/en/reference/api-overview#sparse-fieldsets</param>
+    /// <param name="filter">For more information please visit <see href="https://developers.klaviyo.com/en/reference/api-overview#filtering" />. Allowed fields: status</param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    Task<DataListObject<CatalogCategoryBulkJob>> GetCreateCategoriesJobs(List<string> CatalogCategoryBulkJobFields, IFilter filter, CancellationToken cancellationToken);
+    /// <summary>
+    /// Create a catalog category bulk create job to create a batch of catalog categories. Accepts up to 100 catalog categories per request. The maximum allowed payload size is 4MB.
+    /// </summary>
+    /// <param name="catalogCategoryBulkJob"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    Task<DataObject<CatalogCategoryBulkJob>> SpawnCreateCategoriesJob(CatalogCategoryBulkJob catalogCategoryBulkJob, CancellationToken cancellationToken);
+    /// <summary>
+    /// Get a catalog category bulk create job with the given job ID. An include parameter can be provided to get the following related resource data: categories.
+    /// </summary>
+    /// <param name="catalogCategoryBulkJobId">ID of the job to retrieve.</param>
+    /// <param name="CatalogCategoryBulkJobFields">For more information please visit https://developers.klaviyo.com/en/reference/api-overview#sparse-fieldsets</param>
+    /// <param name="CatalogCategoryFields">For more information please visit https://developers.klaviyo.com/en/reference/api-overview#sparse-fieldsets</param>
+    /// <param name="includedRecords">For more information please visit https://developers.klaviyo.com/en/reference/api-overview#relationships</param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    Task<DataObject<CatalogCategoryBulkJob>> GetCreateCategoriesJob(string catalogCategoryBulkJobId, List<string> CatalogCategoryBulkJobFields, List<string> CatalogCategoryFields, List<string> includedRecords, CancellationToken cancellationToken);
+    /// <summary>
+    /// Get all catalog category bulk update jobs.
+    /// </summary>
+    /// <param name="CatalogCategoryBulkJobFields">For more information please visit https://developers.klaviyo.com/en/reference/api-overview#sparse-fieldsets</param>
+    /// <param name="filter">For more information please visit <see href="https://developers.klaviyo.com/en/reference/api-overview#filtering" />. Allowed fields: status</param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    Task<DataListObject<CatalogCategoryBulkJob>> GetUpdateCategoriesJobs(List<string> CatalogCategoryBulkJobFields, IFilter filter, CancellationToken cancellationToken);
+    /// <summary>
+    /// Create a catalog category bulk update job to update a batch of catalog categories. Accepts up to 100 catalog categories per request. The maximum allowed payload size is 4MB.
+    /// </summary>
+    /// <param name="catalogCategoryBulkJob"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    Task<DataObject<CatalogCategoryBulkJob>> SpawnUpdateCategoriesJob(CatalogCategoryBulkJob catalogCategoryBulkJob, CancellationToken cancellationToken);
+    /// <summary>
+    /// Get a catalog category bulk update job with the given job ID. An include parameter can be provided to get the following related resource data: categories.
+    /// </summary>
+    /// <param name="catalogCategoryBulkJobId">ID of the job to retrieve.</param>
+    /// <param name="CatalogCategoryBulkJobFields">For more information please visit https://developers.klaviyo.com/en/reference/api-overview#sparse-fieldsets</param>
+    /// <param name="CatalogCategoryFields">For more information please visit https://developers.klaviyo.com/en/reference/api-overview#sparse-fieldsets</param>
+    /// <param name="includedRecords">For more information please visit https://developers.klaviyo.com/en/reference/api-overview#relationships</param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    Task<DataObject<CatalogCategoryBulkJob>> GetUpdateCategoriesJob(string catalogCategoryBulkJobId, List<string> CatalogCategoryBulkJobFields, List<string> CatalogCategoryFields, List<string> includedRecords, CancellationToken cancellationToken);
+    /// <summary>
+    /// Get all catalog category bulk delete jobs.
+    /// </summary>
+    /// <param name="CatalogCategoryBulkJobFields">For more information please visit https://developers.klaviyo.com/en/reference/api-overview#sparse-fieldsets</param>
+    /// <param name="filter">For more information please visit <see href="https://developers.klaviyo.com/en/reference/api-overview#filtering" />. Allowed fields: status</param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    Task<DataListObject<CatalogCategoryBulkJob>> GetDeleteCategoriesJobs(List<string> CatalogCategoryBulkJobFields, IFilter filter, CancellationToken cancellationToken);
+    /// <summary>
+    /// Create a catalog category bulk delete job to delete a batch of catalog categories. Accepts up to 100 catalog categories per request. The maximum allowed payload size is 4MB.
+    /// </summary>
+    /// <param name="catalogCategoryBulkJob"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    Task<DataObject<CatalogCategoryBulkJob>> SpawnDeleteCategoriesJob(CatalogCategoryBulkJob catalogCategoryBulkJob, CancellationToken cancellationToken);
+    /// <summary>
+    /// Get a catalog category bulk delete job with the given job ID.
+    /// </summary>
+    /// <param name="catalogCategoryBulkJobId">ID of the job to retrieve.</param>
+    /// <param name="CatalogCategoryBulkJobFields">For more information please visit https://developers.klaviyo.com/en/reference/api-overview#sparse-fieldsets</param>
+    /// <param name="includedRecords"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    Task<DataObject<CatalogCategoryBulkJob>> GetDeleteCategoriesJob(string catalogCategoryBulkJobId, List<string> CatalogCategoryBulkJobFields, List<string> includedRecords, CancellationToken cancellationToken);
+    /// <summary>
+    /// Get all catalog categories that an item with the given item ID is in. Catalog categories can be sorted by the following fields, in ascending and descending order: created
+    /// </summary>
+    /// <param name="catalogItemId"></param>
+    /// <param name="catalogCategoryFields">For more information please visit https://developers.klaviyo.com/en/reference/api-overview#sparse-fieldsets</param>
+    /// <param name="filter">For more information please visit <see href="https://developers.klaviyo.com/en/reference/api-overview#filtering" />. Allowed fields: ids, item, name</param>
+    /// <param name="sort">For more information please visit https://developers.klaviyo.com/en/reference/api-overview#sorting</param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    Task<DataListObject<CatalogCategory>> GetCatalogItemCategories(string catalogItemId, List<string> catalogCategoryFields, IFilter filter, string sort, CancellationToken cancellationToken);
 
 
-    //TODO: Insert Category Services
 
     /// <summary>
     /// Get all items in the given category ID.
