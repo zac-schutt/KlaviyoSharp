@@ -13,11 +13,11 @@ public interface IFlowServices
     /// <summary>
     /// Get all flows in an account.
     /// </summary>
-    /// <param name="flowFields">For more information please visit https://developers.klaviyo.com/en/v2023-06-15/reference/api-overview#sparse-fieldsets</param>
-    /// <param name="flowActionFields">For more information please visit https://developers.klaviyo.com/en/v2023-06-15/reference/api-overview#sparse-fieldsets</param>
-    /// <param name="includedRecords">For more information please visit https://developers.klaviyo.com/en/v2023-06-15/reference/api-overview#relationships</param>
-    /// <param name="filter">For more information please visit <see href="https://developers.klaviyo.com/en/v2023-06-15/reference/api-overview#filtering" />. Allowed fields: id, name, status, archived, created, updated, trigger_type</param>
-    /// <param name="sort">For more information please visit https://developers.klaviyo.com/en/v2023-06-15/reference/api-overview#sorting</param>
+    /// <param name="flowFields">For more information please visit https://developers.klaviyo.com/en/i-overview#sparse-fieldsets</param>
+    /// <param name="flowActionFields">For more information please visit https://developers.klaviyo.com/en/reference/api-overview#sparse-fieldsets</param>
+    /// <param name="includedRecords">For more information please visit https://developers.klaviyo.com/en/reference/api-overview#relationships</param>
+    /// <param name="filter">For more information please visit <see href="https://developers.klaviyo.com/en/reference/api-overview#filtering" />. Allowed fields: id, name, status, archived, created, updated, trigger_type</param>
+    /// <param name="sort">For more information please visit https://developers.klaviyo.com/en/reference/api-overview#sorting</param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     Task<DataListObjectWithIncluded<Flow>> GetFlows(List<string> flowFields, List<string> flowActionFields, List<string> includedRecords, IFilter filter, string sort, CancellationToken cancellationToken);
@@ -25,9 +25,9 @@ public interface IFlowServices
     /// Get a flow with the given flow ID. Include parameters can be provided to get the following related resource data: flow-actions
     /// </summary>
     /// <param name="flowId">Flow ID</param>
-    /// <param name="flowFields">For more information please visit https://developers.klaviyo.com/en/v2023-06-15/reference/api-overview#sparse-fieldsets</param>
-    /// <param name="flowActionFields">For more information please visit https://developers.klaviyo.com/en/v2023-06-15/reference/api-overview#sparse-fieldsets</param>
-    /// <param name="includedRecords">For more information please visit https://developers.klaviyo.com/en/v2023-06-15/reference/api-overview#relationships</param>
+    /// <param name="flowFields">For more information please visit https://developers.klaviyo.com/en/reference/api-overview#sparse-fieldsets</param>
+    /// <param name="flowActionFields">For more information please visit https://developers.klaviyo.com/en/reference/api-overview#sparse-fieldsets</param>
+    /// <param name="includedRecords">For more information please visit https://developers.klaviyo.com/en/reference/api-overview#relationships</param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     Task<DataObjectWithIncluded<Flow>> GetFlow(string flowId, List<string> flowFields, List<string> flowActionFields, List<string> includedRecords, CancellationToken cancellationToken);
@@ -43,10 +43,10 @@ public interface IFlowServices
     /// Get a flow action from a flow with the given flow action ID. Include parameters can be provided to get the following related resource data: flows, flow-messages
     /// </summary>
     /// <param name="flowActionId">Flow Action ID</param>
-    /// <param name="flowActionFields">For more information please visit https://developers.klaviyo.com/en/v2023-06-15/reference/api-overview#sparse-fieldsets</param>
-    /// <param name="flowMessageFields">For more information please visit https://developers.klaviyo.com/en/v2023-06-15/reference/api-overview#sparse-fieldsets</param>
-    /// <param name="flowFields">For more information please visit https://developers.klaviyo.com/en/v2023-06-15/reference/api-overview#sparse-fieldsets</param>
-    /// <param name="includedRecords">For more information please visit https://developers.klaviyo.com/en/v2023-06-15/reference/api-overview#relationships</param>
+    /// <param name="flowActionFields">For more information please visit https://developers.klaviyo.com/en/reference/api-overview#sparse-fieldsets</param>
+    /// <param name="flowMessageFields">For more information please visit https://developers.klaviyo.com/en/reference/api-overview#sparse-fieldsets</param>
+    /// <param name="flowFields">For more information please visit https://developers.klaviyo.com/en/reference/api-overview#sparse-fieldsets</param>
+    /// <param name="includedRecords">For more information please visit https://developers.klaviyo.com/en/reference/api-overview#relationships</param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     Task<DataObject<FlowAction>> GetFlowAction(string flowActionId, List<string> flowActionFields, List<string> flowMessageFields, List<string> flowFields, List<string> includedRecords, CancellationToken cancellationToken);
@@ -54,9 +54,9 @@ public interface IFlowServices
     /// Get the flow message of a flow with the given message ID. Include parameters can be provided to get the following related resource data: 'flow-actions'
     /// </summary>
     /// <param name="flowMessageId">Flow Message ID</param>
-    /// <param name="flowActionFields">For more information please visit https://developers.klaviyo.com/en/v2023-06-15/reference/api-overview#sparse-fieldsets</param>
-    /// <param name="flowMessageFields">For more information please visit https://developers.klaviyo.com/en/v2023-06-15/reference/api-overview#sparse-fieldsets</param>
-    /// <param name="includedRecords">For more information please visit https://developers.klaviyo.com/en/v2023-06-15/reference/api-overview#relationships</param>
+    /// <param name="flowActionFields">For more information please visit https://developers.klaviyo.com/en/reference/api-overview#sparse-fieldsets</param>
+    /// <param name="flowMessageFields">For more information please visit https://developers.klaviyo.com/en/reference/api-overview#sparse-fieldsets</param>
+    /// <param name="includedRecords">For more information please visit https://developers.klaviyo.com/en/reference/api-overview#relationships</param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     Task<DataObject<FlowMessage>> GetFlowMessage(string flowMessageId, List<string> flowActionFields, List<string> flowMessageFields, List<string> includedRecords, CancellationToken cancellationToken);
@@ -64,9 +64,9 @@ public interface IFlowServices
     /// Get all flow actions associated with the given flow ID.
     /// </summary>
     /// <param name="flowId">Flow ID</param>
-    /// <param name="flowActionFields">For more information please visit https://developers.klaviyo.com/en/v2023-06-15/reference/api-overview#sparse-fieldsets</param>
-    /// <param name="filter">For more information please visit <see href="https://developers.klaviyo.com/en/v2023-06-15/reference/api-overview#filtering" />. Allowed fields: id, action_type, status, created, updated</param>
-    /// <param name="sort">For more information please visit https://developers.klaviyo.com/en/v2023-06-15/reference/api-overview#sorting</param>
+    /// <param name="flowActionFields">For more information please visit https://developers.klaviyo.com/en/reference/api-overview#sparse-fieldsets</param>
+    /// <param name="filter">For more information please visit <see href="https://developers.klaviyo.com/en/reference/api-overview#filtering" />. Allowed fields: id, action_type, status, created, updated</param>
+    /// <param name="sort">For more information please visit https://developers.klaviyo.com/en/reference/api-overview#sorting</param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     Task<DataListObject<FlowAction>> GetFlowActionsForFlow(string flowId, List<string> flowActionFields, IFilter filter, string sort, CancellationToken cancellationToken);
@@ -74,7 +74,7 @@ public interface IFlowServices
     /// Return all tags associated with the given flow ID.
     /// </summary>
     /// <param name="flowId">Flow ID</param>
-    /// <param name="tagFields">For more information please visit https://developers.klaviyo.com/en/v2023-06-15/reference/api-overview#sparse-fieldsets</param>
+    /// <param name="tagFields">For more information please visit https://developers.klaviyo.com/en/reference/api-overview#sparse-fieldsets</param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     Task<DataListObject<Tag>> GetFlowTags(string flowId, List<string> tagFields, CancellationToken cancellationToken);
@@ -82,7 +82,7 @@ public interface IFlowServices
     /// Get the flow associated with the given action ID.
     /// </summary>
     /// <param name="flowActionId">Flow Action ID</param>
-    /// <param name="flowFields">For more information please visit https://developers.klaviyo.com/en/v2023-06-15/reference/api-overview#sparse-fieldsets</param>
+    /// <param name="flowFields">For more information please visit https://developers.klaviyo.com/en/reference/api-overview#sparse-fieldsets</param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     Task<DataObject<Flow>> GetFlowForFlowAction(string flowActionId, List<string> flowFields, CancellationToken cancellationToken);
@@ -90,9 +90,9 @@ public interface IFlowServices
     /// Get all flow messages associated with the given flow action ID.
     /// </summary>
     /// <param name="flowActionId">Flow Action ID</param>
-    /// <param name="flowMessageFields">For more information please visit https://developers.klaviyo.com/en/v2023-06-15/reference/api-overview#sparse-fieldsets</param>
-    /// <param name="filter">For more information please visit <see href="https://developers.klaviyo.com/en/v2023-06-15/reference/api-overview#filtering" />. Allowed fields: id, name, created, updated</param>
-    /// <param name="sort">For more information please visit https://developers.klaviyo.com/en/v2023-06-15/reference/api-overview#sorting</param>
+    /// <param name="flowMessageFields">For more information please visit https://developers.klaviyo.com/en/reference/api-overview#sparse-fieldsets</param>
+    /// <param name="filter">For more information please visit <see href="https://developers.klaviyo.com/en/reference/api-overview#filtering" />. Allowed fields: id, name, created, updated</param>
+    /// <param name="sort">For more information please visit https://developers.klaviyo.com/en/reference/api-overview#sorting</param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     Task<DataListObject<FlowMessage>> GetMessagesForFlowAction(string flowActionId, List<string> flowMessageFields, IFilter filter, string sort, CancellationToken cancellationToken);
@@ -100,8 +100,8 @@ public interface IFlowServices
     /// Get all relationships for flow actions associated with the given flow ID.
     /// </summary>
     /// <param name="flowId">Flow ID</param>
-    /// <param name="filter">For more information please visit <see href="https://developers.klaviyo.com/en/v2023-06-15/reference/api-overview#filtering" />. Allowed fields: action_type, status, created, updated</param>
-    /// <param name="sort">For more information please visit https://developers.klaviyo.com/en/v2023-06-15/reference/api-overview#sorting</param>
+    /// <param name="filter">For more information please visit <see href="https://developers.klaviyo.com/en/reference/api-overview#filtering" />. Allowed fields: action_type, status, created, updated</param>
+    /// <param name="sort">For more information please visit https://developers.klaviyo.com/en/reference/api-overview#sorting</param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     Task<DataListObject<GenericObject>> GetFlowRelationshipsFlowActions(string flowId, IFilter filter, string sort, CancellationToken cancellationToken);
@@ -123,8 +123,8 @@ public interface IFlowServices
     /// Get all relationships for flow messages associated with the given flow action ID.
     /// </summary>
     /// <param name="flowActionId">Flow Action ID</param>
-    /// <param name="filter">For more information please visit <see href="https://developers.klaviyo.com/en/v2023-06-15/reference/api-overview#filtering" />. Allowed fields: name, created, updated</param>
-    /// <param name="sort">For more information please visit https://developers.klaviyo.com/en/v2023-06-15/reference/api-overview#sorting</param>
+    /// <param name="filter">For more information please visit <see href="https://developers.klaviyo.com/en/reference/api-overview#filtering" />. Allowed fields: name, created, updated</param>
+    /// <param name="sort">For more information please visit https://developers.klaviyo.com/en/reference/api-overview#sorting</param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     Task<DataListObject<GenericObject>> GetFlowActionRelationshipsMessages(string flowActionId, IFilter filter, string sort, CancellationToken cancellationToken);

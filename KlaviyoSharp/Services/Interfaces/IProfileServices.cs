@@ -14,10 +14,10 @@ public interface IProfileServices
     /// Get all profiles in an account.
     /// Profiles can be sorted by the following fields in ascending and descending order: id, created, updated, email
     /// </summary>
-    /// <param name="fields">For more information please visit https://developers.klaviyo.com/en/v2023-06-15/reference/api-overview#sparse-fieldsets</param>
+    /// <param name="fields">For more information please visit https://developers.klaviyo.com/en/reference/api-overview#sparse-fieldsets</param>
     /// <param name="additionalFields">Request additional fields not included by default in the response. Supported values: 'predictive_analytics'</param>
-    /// <param name="filter">For more information please visit <see href="https://developers.klaviyo.com/en/v2023-06-15/reference/api-overview#filtering" />. Allowed field(s): id, email, phone_number, external_id, _kx, created, updated</param>
-    /// <param name="sort">For more information please visit https://developers.klaviyo.com/en/v2023-06-15/reference/api-overview#sorting</param>
+    /// <param name="filter">For more information please visit <see href="https://developers.klaviyo.com/en/reference/api-overview#filtering" />. Allowed field(s): id, email, phone_number, external_id, _kx, created, updated</param>
+    /// <param name="sort">For more information please visit https://developers.klaviyo.com/en/reference/api-overview#sorting</param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     Task<DataListObject<Profile>> GetProfiles(List<string> fields, List<string> additionalFields, IFilter filter, string sort, CancellationToken cancellationToken = default);
@@ -26,11 +26,11 @@ public interface IProfileServices
     /// Include parameters can be provided to get the following related resource data: lists memberships, segments memberships
     /// </summary>
     /// <param name="profileId"></param>
-    /// <param name="listFields">For more information please visit https://developers.klaviyo.com/en/v2023-06-15/reference/api-overview#sparse-fieldsets</param>
-    /// <param name="profileFields">For more information please visit https://developers.klaviyo.com/en/v2023-06-15/reference/api-overview#sparse-fieldsets</param>
-    /// <param name="segmentFields">For more information please visit https://developers.klaviyo.com/en/v2023-06-15/reference/api-overview#sparse-fieldsets</param>
+    /// <param name="listFields">For more information please visit https://developers.klaviyo.com/en/reference/api-overview#sparse-fieldsets</param>
+    /// <param name="profileFields">For more information please visit https://developers.klaviyo.com/en/reference/api-overview#sparse-fieldsets</param>
+    /// <param name="segmentFields">For more information please visit https://developers.klaviyo.com/en/reference/api-overview#sparse-fieldsets</param>
     /// <param name="additionalFields">Request additional fields not included by default in the response. Supported values: 'predictive_analytics'</param>
-    /// <param name="includedObjects">For more information please visit https://developers.klaviyo.com/en/v2023-06-15/reference/api-overview#relationships</param>
+    /// <param name="includedObjects">For more information please visit https://developers.klaviyo.com/en/reference/api-overview#relationships</param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     Task<DataObjectWithIncluded<Profile>> GetProfile(string profileId, List<string> listFields, List<string> profileFields, List<string> segmentFields, List<string> additionalFields, List<string> includedObjects, CancellationToken cancellationToken = default);
@@ -93,7 +93,7 @@ public interface IProfileServices
     /// Get list memberships for a profile with the given profile ID.
     /// </summary>
     /// <param name="profileId"></param>
-    /// <param name="fields">For more information please visit https://developers.klaviyo.com/en/v2023-06-15/reference/api-overview#sparse-fieldsets</param>
+    /// <param name="fields">For more information please visit https://developers.klaviyo.com/en/reference/api-overview#sparse-fieldsets</param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     Task<DataListObject<List>> GetProfileLists(string profileId, List<string> fields, CancellationToken cancellationToken = default);
@@ -101,7 +101,7 @@ public interface IProfileServices
     /// Get segment memberships for a profile with the given profile ID.
     /// </summary>
     /// <param name="profileId"></param>
-    /// <param name="fields">For more information please visit https://developers.klaviyo.com/en/v2023-06-15/reference/api-overview#sparse-fieldsets</param>
+    /// <param name="fields">For more information please visit https://developers.klaviyo.com/en/reference/api-overview#sparse-fieldsets</param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     Task<DataListObject<List>> GetProfileSegments(string profileId, List<string> fields, CancellationToken cancellationToken = default);

@@ -13,9 +13,9 @@ public interface ITemplateServices
     /// <summary>
     /// Get all templates in an account. Filter to request a subset of all templates. Templates can be sorted by the following fields, in ascending and descending order: id, name, created, updated.
     /// </summary>
-    /// <param name="templateFields">For more information please visit https://developers.klaviyo.com/en/v2023-06-15/reference/api-overview#sparse-fieldsets</param>
-    /// <param name="filter">For more information please visit <see href="https://developers.klaviyo.com/en/v2023-06-15/reference/api-overview#filtering" />Allowed fields: id, name, created, updated</param>
-    /// <param name="sort">For more information please visit https://developers.klaviyo.com/en/v2023-06-15/reference/api-overview#sorting</param>
+    /// <param name="templateFields">For more information please visit https://developers.klaviyo.com/en/reference/api-overview#sparse-fieldsets</param>
+    /// <param name="filter">For more information please visit <see href="https://developers.klaviyo.com/en/reference/api-overview#filtering" />Allowed fields: id, name, created, updated</param>
+    /// <param name="sort">For more information please visit https://developers.klaviyo.com/en/reference/api-overview#sorting</param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     Task<DataListObject<Template>> GetTemplates(List<string> templateFields, IFilter filter, string sort, CancellationToken cancellationToken);
@@ -33,7 +33,7 @@ public interface ITemplateServices
     /// Get a template with the given template ID.
     /// </summary>
     /// <param name="templateId">The ID of template</param>
-    /// <param name="templateFields">For more information please visit https://developers.klaviyo.com/en/v2023-06-15/reference/api-overview#sparse-fieldsets</param>
+    /// <param name="templateFields">For more information please visit https://developers.klaviyo.com/en/reference/api-overview#sparse-fieldsets</param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     Task<DataObject<Template>> GetTemplate(string templateId, List<string> templateFields, CancellationToken cancellationToken);

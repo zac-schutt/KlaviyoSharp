@@ -104,7 +104,7 @@ public interface ICampaignServices
     /// Retrieve the status of a recipient estimation job triggered with the Create Campaign Recipient Estimation Job endpoint.
     /// </summary>
     /// <param name="campaignRecipientEstimationJobId">The ID of the campaign to get recipient estimation status</param>
-    /// <param name="campaignRecipientEstimationJobFields">For more information please visit https://developers.klaviyo.com/en/v2023-06-15/reference/api-overview#sparse-fieldsets</param>
+    /// <param name="campaignRecipientEstimationJobFields">For more information please visit https://developers.klaviyo.com/en/reference/api-overview#sparse-fieldsets</param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     Task<DataObject<CampaignRecipientEstimationJob>> GetCampaignRecipientEstimationJob(string campaignRecipientEstimationJobId, List<string> campaignRecipientEstimationJobFields, CancellationToken cancellationToken);
