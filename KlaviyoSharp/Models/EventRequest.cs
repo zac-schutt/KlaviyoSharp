@@ -26,12 +26,12 @@ public class EventRequestAttributes
     /// Other key value pairs can be used to create segments. For example, to create a list of people on trial plans, include a profile's plan type in the profile. The profile supports special fields. The fields include: $email (string), $first_name (string), $last_name (string), $phone_number (string), $city (string), $region (string; state or other region), $country (string), $zip (string), $image (string; url to a photo of a person), and $consent (list of strings; eg: ['sms', 'email', 'web', 'directmail', 'mobile']).
     /// </summary>
     [JsonProperty("profile")]
-    public Dictionary<string, object> Profile { get; set; }
+    public DataObject<Profile> Profile { get; set; }
     /// <summary>
     /// The associated metric for the event. An account can have up to 200 unique metrics.
     /// </summary>
     [JsonProperty("metric")]
-    public ClientEventMetric Metric { get; set; }
+    public DataObject<Metric> Metric { get; set; }
     /// <summary>
     /// When this event occurred. By default, the time the request was received will be used. The time is truncated to the second. The time must be after the year 2000 and can only be up to 1 year in the future.
     /// </summary>

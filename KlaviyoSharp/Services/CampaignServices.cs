@@ -19,7 +19,7 @@ public class CampaignServices : KlaviyoServiceBase, ICampaignServices
     /// <param name="klaviyoService"></param>
     public CampaignServices(string revision, KlaviyoApiBase klaviyoService) : base(revision, klaviyoService) { }
     /// <inheritdoc />
-    public async Task<DataListObjectWithIncluded<Campaign>> GetCampaigns(List<string> campaignFields = null, List<string> tagFields = null, IFilter filter = null, List<string> includedRecords = null, string sort = null, CancellationToken cancellationToken = default)
+    public async Task<DataListObjectWithIncluded<Campaign>> GetCampaigns(IFilter filter, List<string> campaignFields = null, List<string> tagFields = null, List<string> includedRecords = null, string sort = null, CancellationToken cancellationToken = default)
     {
         QueryParams query = new();
         query.AddFieldset("campaign", campaignFields);

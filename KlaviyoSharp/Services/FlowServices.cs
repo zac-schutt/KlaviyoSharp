@@ -95,7 +95,7 @@ public class FlowServices : KlaviyoServiceBase, IFlowServices
         query.AddFieldset("flow-message", flowMessageFields);
         query.AddFilter(filter);
         query.AddSort(sort);
-        return await _klaviyoService.HTTPRecursive<FlowMessage>(HttpMethod.Get, $"flow-actions/{flowActionId}/flow-messages", _revision, query, null, null, cancellationToken);
+        return await _klaviyoService.HTTP<DataListObject<FlowMessage>>(HttpMethod.Get, $"flow-actions/{flowActionId}/flow-messages", _revision, query, null, null, cancellationToken);
     }
     /// <inheritdoc />
     public async Task<DataObject<FlowAction>> GetFlowActionForMessage(string flowMessageId, List<string> flowActionFields = null, CancellationToken cancellationToken = default)

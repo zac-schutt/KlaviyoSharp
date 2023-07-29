@@ -1,3 +1,4 @@
+using KlaviyoSharp.Models;
 using KlaviyoSharp.Models.Filters;
 
 namespace KlaviyoSharp.Tests;
@@ -18,11 +19,15 @@ public class ClientServices_Tests : IClassFixture<ClientServices_Tests_Fixture>
     public async Task CreateEvent()
     {
         var profile = (await Fixture.AdminApi.ProfileServices.GetProfiles()).Data.First();
-        var newEvent = Models.EventRequest.Create();
+        var newEvent = EventRequest.Create();
+        Profile profile1 = Profile.Create();
+        profile1.Attributes = new() { Email = profile.Attributes.Email };
+        var metric = Metric.Create();
+        metric.Attributes = new() { Name = "C# Test" };
         newEvent.Attributes = new()
         {
-            Profile = new() { { "$email", profile.Attributes.Email } },
-            Metric = new() { Name = "C# Test" },
+            Profile = new(profile1),
+            Metric = new(metric),
             Time = DateTime.Now,
             Value = 12.99,
             UniqueId = Guid.NewGuid().ToString(),
@@ -39,13 +44,17 @@ public class ClientServices_Tests : IClassFixture<ClientServices_Tests_Fixture>
         //Get Sample Data List ID
         string _listId = Fixture.AdminApi.ListServices.GetLists(new() { "id" }, new Filter(FilterOperation.Equals, "name", "Sample Data List")).Result.Data.First().Id;
         Debug.WriteLine(_listId);
+        var profile = Profile.Create();
+        profile.Attributes = new() { Email = "test@test.com" };
         var newSubscription = Models.ClientSubscription.Create();
         newSubscription.Attributes = new()
         {
-            ListId = _listId,
             CustomSource = "C# Test",
-            Email = "test@test.com",
-            Properties = new() { { "test", "test" } }
+            Profile = new(profile)
+        };
+        newSubscription.Relationships = new()
+        {
+            List = new(new() { Type = "list", Id = _listId })
         };
         Fixture.ClientApi.ClientServices.CreateSubscription(newSubscription).Wait();
         Assert.True(true);

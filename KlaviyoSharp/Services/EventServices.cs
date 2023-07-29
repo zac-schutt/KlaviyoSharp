@@ -46,30 +46,30 @@ public class EventServices : KlaviyoServiceBase, IEventServices
         return await _klaviyoService.HTTP<DataObjectWithIncluded<Event>>(HttpMethod.Get, $"events/{id}/", _revision, query, null, null, cancellationToken);
     }
     /// <inheritdoc />
-    public async Task<DataListObject<Metric>> GetEventMetrics(string id, List<string> metricFields = null, CancellationToken cancellationToken = default)
+    public async Task<DataObject<Metric>> GetEventMetric(string id, List<string> metricFields = null, CancellationToken cancellationToken = default)
     {
         QueryParams query = new();
         query.AddFieldset("metric", metricFields);
-        return await _klaviyoService.HTTP<DataListObject<Metric>>(HttpMethod.Get, $"events/{id}/metrics/", _revision, query, null, null, cancellationToken);
+        return await _klaviyoService.HTTP<DataObject<Metric>>(HttpMethod.Get, $"events/{id}/metric/", _revision, query, null, null, cancellationToken);
     }
 
     /// <inheritdoc />
-    public async Task<DataListObject<Profile>> GetEventProfiles(string id, List<string> profileFields = null, List<string> additionalProfileFields = null, CancellationToken cancellationToken = default)
+    public async Task<DataObject<Profile>> GetEventProfile(string id, List<string> profileFields = null, List<string> additionalProfileFields = null, CancellationToken cancellationToken = default)
     {
         QueryParams query = new();
         query.AddFieldset("profile", profileFields);
         query.AddAdditionalFields("profile", additionalProfileFields);
-        return await _klaviyoService.HTTP<DataListObject<Profile>>(HttpMethod.Get, $"events/{id}/profiles/", _revision, query, null, null, cancellationToken);
+        return await _klaviyoService.HTTP<DataObject<Profile>>(HttpMethod.Get, $"events/{id}/profile/", _revision, query, null, null, cancellationToken);
     }
 
     /// <inheritdoc />
-    public async Task<DataListObject<GenericObject>> GetEventRelationshipsMetrics(string id, CancellationToken cancellationToken = default)
+    public async Task<DataObject<GenericObject>> GetEventRelationshipsMetric(string id, CancellationToken cancellationToken = default)
     {
-        return await _klaviyoService.HTTP<DataListObject<GenericObject>>(HttpMethod.Get, $"events/{id}/relationships/metrics/", _revision, null, null, null, cancellationToken);
+        return await _klaviyoService.HTTP<DataObject<GenericObject>>(HttpMethod.Get, $"events/{id}/relationships/metric/", _revision, null, null, null, cancellationToken);
     }
     /// <inheritdoc />
-    public async Task<DataListObject<GenericObject>> GetEventRelationshipsProfiles(string id, CancellationToken cancellationToken = default)
+    public async Task<DataObject<GenericObject>> GetEventRelationshipsProfile(string id, CancellationToken cancellationToken = default)
     {
-        return await _klaviyoService.HTTP<DataListObject<GenericObject>>(HttpMethod.Get, $"events/{id}/relationships/profiles/", _revision, null, null, null, cancellationToken);
+        return await _klaviyoService.HTTP<DataObject<GenericObject>>(HttpMethod.Get, $"events/{id}/relationships/profile/", _revision, null, null, null, cancellationToken);
     }
 }

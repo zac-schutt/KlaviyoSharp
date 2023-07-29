@@ -57,7 +57,7 @@ public class ProfileServices : KlaviyoServiceBase, IProfileServices
     /// <inheritdoc />
     public async Task UnsuppressProfiles(ProfileUnsuppressionRequest unsupressions, CancellationToken cancellationToken = default)
     {
-        await _klaviyoService.HTTP(HttpMethod.Post, "profile-unsuppression-bulk-create-jobs/", _revision, null, null, new DataObject<ProfileUnsuppressionRequest>(unsupressions), cancellationToken);
+        await _klaviyoService.HTTP(HttpMethod.Post, "profile-suppression-bulk-delete-jobs/", _revision, null, null, new DataObject<ProfileUnsuppressionRequest>(unsupressions), cancellationToken);
     }
     /// <inheritdoc />
     public async Task SubscribeProfiles(ProfileSubscriptionRequest profileSubscriptions, CancellationToken cancellationToken = default)
@@ -68,7 +68,7 @@ public class ProfileServices : KlaviyoServiceBase, IProfileServices
     /// <inheritdoc />
     public async Task UnsuscribeProfiles(ProfileUnsubscriptionRequest profileUnsubscriptions, CancellationToken cancellationToken = default)
     {
-        await _klaviyoService.HTTP(HttpMethod.Post, "profile-unsubscription-bulk-create-jobs/", _revision, null, null, new DataObject<ProfileUnsubscriptionRequest>(profileUnsubscriptions), cancellationToken);
+        await _klaviyoService.HTTP(HttpMethod.Post, "profile-subscription-bulk-delete-jobs/", _revision, null, null, new DataObject<ProfileUnsubscriptionRequest>(profileUnsubscriptions), cancellationToken);
     }
     /// <inheritdoc />
     public async Task<DataListObject<List>> GetProfileLists(string profileId, List<string> fields = null, CancellationToken cancellationToken = default)

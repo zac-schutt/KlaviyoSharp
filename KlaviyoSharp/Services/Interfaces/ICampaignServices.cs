@@ -15,12 +15,12 @@ public interface ICampaignServices
     /// </summary>
     /// <param name="campaignFields">For more information please visit https://developers.klaviyo.com/en/reference/api-overview#sparse-fieldsets</param>
     /// <param name="tagFields">For more information please visit https://developers.klaviyo.com/en/reference/api-overview#sparse-fieldsets</param>
-    /// <param name="filter">For more information please visit <see href="https://developers.klaviyo.com/en/reference/api-overview#filtering" />. Allowed fields: name, status, archived, created_at, scheduled_at, updated_at</param>
+    /// <param name="filter">A filter on messages.channel is required. For more information please visit <see href="https://developers.klaviyo.com/en/reference/api-overview#filtering" />. Allowed fields: name, status, archived, created_at, scheduled_at, updated_at</param>
     /// <param name="includedRecords">For more information please visit https://developers.klaviyo.com/en/reference/api-overview#relationships</param>
     /// <param name="sort">For more information please visit https://developers.klaviyo.com/en/reference/api-overview#sorting</param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    Task<DataListObjectWithIncluded<Campaign>> GetCampaigns(List<string> campaignFields, List<string> tagFields, IFilter filter, List<string> includedRecords, string sort, CancellationToken cancellationToken);
+    Task<DataListObjectWithIncluded<Campaign>> GetCampaigns(IFilter filter, List<string> campaignFields, List<string> tagFields, List<string> includedRecords, string sort, CancellationToken cancellationToken);
     /// <summary>
     /// Creates a campaign given a set of parameters, then returns it.
     /// </summary>

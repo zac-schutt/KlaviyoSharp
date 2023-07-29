@@ -31,4 +31,11 @@ public interface IClientServices
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     Task CreateSubscription(ClientSubscription subscription, CancellationToken cancellationToken);
+    /// <summary>
+    /// Subscribe a profile to receive back in stock notifications. Check out our Back in Stock API guide for more details.
+    /// </summary>
+    /// <param name="subscription"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    Task CreateClientBackInStockSubscription(ClientBackInStockSubscription subscription, CancellationToken cancellationToken);
 }

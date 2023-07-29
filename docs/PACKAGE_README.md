@@ -1,6 +1,6 @@
 # KlaviyoSharp
 
-KlaviyoSharp is a .NET Standard 2.0 library that enables you to interact with the Klaviyo API in .NET. This project was started as there was no fully fleshed out and updated package available to interact with the Klaviyo API in .NET. **This project is still in development and is not ready for production use.** Version 1.0 will be released when all endpoints are implemented and tested.
+KlaviyoSharp is a .NET Standard 2.0 library that enables you to interact with the Klaviyo API in .NET. This project was started as there was no fully fleshed out and updated package available to interact with the Klaviyo API in .NET.
 
 ## API Support
 
@@ -8,6 +8,7 @@ Klaviyo's API is versioned by using dates in the request headers. The mapping of
 
 | Klaviyo API Version                                                                | KlaviyoSharp Version |
 | ---------------------------------------------------------------------------------- | -------------------- |
+| [2023-07-15](https://developers.klaviyo.com/en/v2023-06-15/reference/api_overview) | 1.1.x                |
 | [2023-06-15](https://developers.klaviyo.com/en/v2023-06-15/reference/api_overview) | 1.0.x                |
 
 ## How to Use

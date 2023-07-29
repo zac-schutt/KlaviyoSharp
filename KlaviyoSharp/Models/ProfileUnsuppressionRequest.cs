@@ -14,7 +14,7 @@ public class ProfileUnsuppressionRequest : KlaviyoObjectBasic<ProfileUnsuppressi
     /// <returns></returns>
     public static new ProfileUnsuppressionRequest Create()
     {
-        return new ProfileUnsuppressionRequest() { Type = "profile-unsuppression-bulk-create-job" };
+        return new ProfileUnsuppressionRequest() { Type = "profile-suppression-bulk-delete-job" };
     }
 }
 /// <summary>
@@ -23,19 +23,8 @@ public class ProfileUnsuppressionRequest : KlaviyoObjectBasic<ProfileUnsuppressi
 public class ProfileUnsuppressionRequestAttributes
 {
     /// <summary>
-    /// One or more suppressions to be removed.
+    /// One or more profile to be unsupressed.
     /// </summary>
-    [JsonProperty("suppressions")]
-    public List<ProfileUnsuppressionRequestSuppressions> Suppressions { get; set; }
-}
-/// <summary>
-/// Email Suppression to be removed
-/// </summary>
-public class ProfileUnsuppressionRequestSuppressions
-{
-    /// <summary>
-    /// The email of the profile to suppress / unsuppress.
-    /// </summary>
-    [JsonProperty("email")]
-    public string Email { get; set; }
+    [JsonProperty("profiles")]
+    public DataListObject<Profile> Profiles { get; set; }
 }

@@ -5,7 +5,7 @@ namespace KlaviyoSharp.Models;
 /// <summary>
 /// A subscription to a list created for the client api
 /// </summary>
-public class ClientSubscription : KlaviyoObjectBasic<ClientSubscriptionAttributes>
+public class ClientSubscription : KlaviyoObject<ClientSubscriptionAttributes, ClientSubscriptionRelationships>
 {
     /// <summary>
     /// Creates a new instance of the ClientSubscription class
@@ -17,33 +17,30 @@ public class ClientSubscription : KlaviyoObjectBasic<ClientSubscriptionAttribute
     }
 }
 /// <summary>
+/// Relationships for a subscription to a list created for the client api
+/// </summary>
+public class ClientSubscriptionRelationships
+{
+    /// <summary>
+    /// List to subscribe to.
+    /// </summary>
+    [JsonProperty("list")]
+    public DataObject<GenericObject> List { get; set; }
+}
+
+/// <summary>
 /// Attributes for a subscription to a list created for the client api
 /// </summary>
 public class ClientSubscriptionAttributes
 {
-    /// <summary>
-    /// The list ID to add the newly subscribed profile to.
-    /// </summary>
-    [JsonProperty("list_id")]
-    public string ListId { get; set; }
     /// <summary>
     /// A custom method detail or source to store on the consent records for this subscription.
     /// </summary>
     [JsonProperty("custom_source")]
     public string CustomSource { get; set; }
     /// <summary>
-    /// Email address to create subscription and email consent record for.
+    /// The profile to subscribe.
     /// </summary>
-    [JsonProperty("email")]
-    public string Email { get; set; }
-    /// <summary>
-    /// Phone number to create subscription and SMS consent record for, in E.164 format.
-    /// </summary>
-    [JsonProperty("phone_number")]
-    public string PhoneNumber { get; set; }
-    /// <summary>
-    /// Profile properties to set on the newly subscribed profile.
-    /// </summary>
-    [JsonProperty("properties")]
-    public Dictionary<string, object> Properties { get; set; }
+    [JsonProperty("profile")]
+    public DataObject<Profile> Profile { get; set; }
 }

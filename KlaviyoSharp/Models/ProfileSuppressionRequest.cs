@@ -22,19 +22,8 @@ public class ProfileSuppressionRequest : KlaviyoObjectBasic<ProfileSuppressionRe
 public class ProfileSuppressionRequestAttributes
 {
     /// <summary>
-    /// One or more suppressions to be created.
+    /// One or more profiles to be suppressed.
     /// </summary>
-    [JsonProperty("suppressions")]
-    public List<ProfileSuppressionRequestSuppressions> Suppressions { get; set; }
-}
-/// <summary>
-/// Email Suppression to be added
-/// </summary>
-public class ProfileSuppressionRequestSuppressions
-{
-    /// <summary>
-    /// The email of the profile to suppress / unsuppress.
-    /// </summary>
-    [JsonProperty("email")]
-    public string Email { get; set; }
+    [JsonProperty("profiles")]
+    public DataListObject<Profile> Profiles { get; set; }
 }
