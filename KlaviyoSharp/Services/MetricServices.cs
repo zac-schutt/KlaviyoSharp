@@ -15,8 +15,9 @@ public class MetricServices : KlaviyoServiceBase, IMetricServices
     /// <summary>
     /// Constructor for Klaviyo Metric Services
     /// </summary>
+    /// <param name="revision"></param>
     /// <param name="klaviyoService"></param>
-    public MetricServices(KlaviyoApiBase klaviyoService) : base("2023-06-15", klaviyoService) { }
+    public MetricServices(string revision, KlaviyoApiBase klaviyoService) : base(revision, klaviyoService) { }
     /// <inheritdoc />
     public async Task<DataListObject<Metric>> GetMetrics(List<string> metricFields = null, IFilter filter = null, CancellationToken cancellationToken = default)
     {

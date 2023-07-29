@@ -15,8 +15,9 @@ public class SegmentServices : KlaviyoServiceBase, ISegmentServices
     /// <summary>
     /// Creates a new instance of the Segment Services class.
     /// </summary>
+    /// <param name="revision"></param>
     /// <param name="klaviyoService"></param>
-    public SegmentServices(KlaviyoApiBase klaviyoService) : base("2023-06-15", klaviyoService) { }
+    public SegmentServices(string revision, KlaviyoApiBase klaviyoService) : base(revision, klaviyoService) { }
     /// <inheritdoc/>
     public async Task<DataListObject<Segment>> GetSegments(List<string> segmentFields = null, IFilter filter = null, CancellationToken cancellationToken = default)
     {

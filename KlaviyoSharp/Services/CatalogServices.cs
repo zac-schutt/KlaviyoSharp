@@ -15,8 +15,9 @@ public class CatalogServices : KlaviyoServiceBase, ICatalogServices
     /// <summary>
     /// Creates a new instance of the CatalogServices class.
     /// </summary>
+    /// <param name="revision"></param>
     /// <param name="klaviyoService"></param>
-    public CatalogServices(KlaviyoApiBase klaviyoService) : base("2023-06-15", klaviyoService) { }
+    public CatalogServices(string revision, KlaviyoApiBase klaviyoService) : base(revision, klaviyoService) { }
     /// <inheritdoc />
     public async Task<DataListObject<CatalogItem>> GetCatalogItems(List<string> catalogItemFields = null, List<string> catalogVariantFields = null, IFilter filter = null, List<string> includedRecords = null, string sort = null, CancellationToken cancellationToken = default)
     {

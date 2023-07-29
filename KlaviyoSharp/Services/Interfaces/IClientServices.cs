@@ -14,7 +14,7 @@ public interface IClientServices
     /// <param name="clientEvent"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    Task CreateEvent(EventRequest clientEvent, CancellationToken cancellationToken = default);
+    Task CreateEvent(EventRequest clientEvent, CancellationToken cancellationToken);
 
     /// <summary>
     /// Create and update properties about a profile without tracking an associated event.
@@ -22,7 +22,7 @@ public interface IClientServices
     /// <param name="profile"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    Task UpsertProfile(ClientProfile profile, CancellationToken cancellationToken = default);
+    Task UpsertProfile(ClientProfile profile, CancellationToken cancellationToken);
 
     /// <summary>
     /// Create a new subscription for the given list ID and channel. Must contain either email or phone_number.
@@ -30,5 +30,5 @@ public interface IClientServices
     /// <param name="subscription"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    Task CreateSubscription(ClientSubscription subscription, CancellationToken cancellationToken = default);
+    Task CreateSubscription(ClientSubscription subscription, CancellationToken cancellationToken);
 }

@@ -13,13 +13,13 @@ namespace KlaviyoSharp.Services;
 /// </summary>
 public class FlowServices : KlaviyoServiceBase, IFlowServices
 {
-    //TODO: Implement and document
 
     /// <summary>
     /// Constructor for Flow Services
     /// </summary>
+    /// <param name="revision"></param>
     /// <param name="klaviyoService"></param>
-    public FlowServices(KlaviyoApiBase klaviyoService) : base("2023-06-15", klaviyoService) { }
+    public FlowServices(string revision, KlaviyoApiBase klaviyoService) : base(revision, klaviyoService) { }
 
     /// <inheritdoc />
     public async Task<DataListObjectWithIncluded<Flow>> GetFlows(List<string> flowFields = null, List<string> flowActionFields = null, List<string> includedRecords = null, IFilter filter = null, string sort = null, CancellationToken cancellationToken = default)

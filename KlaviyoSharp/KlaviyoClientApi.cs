@@ -4,6 +4,7 @@ namespace KlaviyoSharp;
 /// </summary>
 public class KlaviyoClientApi : KlaviyoApiBase
 {
+    const string REVISION = "2023-06-15";
     /// <summary>
     /// Creates a new instance of the Klaviyo Client API.
     /// </summary>
@@ -19,5 +20,5 @@ public class KlaviyoClientApi : KlaviyoApiBase
     /// <summary>
     /// Services for /client endpoints
     /// </summary>
-    public Services.ClientServices ClientServices { get { _ClientServices ??= new(this); return _ClientServices; } }
+    public Services.ClientServices ClientServices { get { _ClientServices ??= new(REVISION, this); return _ClientServices; } }
 }

@@ -15,8 +15,9 @@ public class TagServices : KlaviyoServiceBase, ITagServices
     /// <summary>
     /// Creates a new instance of the Tag Services
     /// </summary>
+    /// <param name="revision"></param>
     /// <param name="klaviyoService"></param>
-    public TagServices(KlaviyoApiBase klaviyoService) : base("2023-06-15", klaviyoService) { }
+    public TagServices(string revision, KlaviyoApiBase klaviyoService) : base(revision, klaviyoService) { }
     /// <inheritdoc />
     public async Task<DataListObject<Tag>> GetTags(List<string> tagFields = null, IFilter filter = null, string sort = null, CancellationToken cancellationToken = default)
     {

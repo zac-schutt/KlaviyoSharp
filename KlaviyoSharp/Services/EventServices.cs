@@ -15,8 +15,9 @@ public class EventServices : KlaviyoServiceBase, IEventServices
     /// <summary>
     /// Constructor for Klaviyo Event Services
     /// </summary>
+    /// <param name="revision"></param>
     /// <param name="klaviyoService"></param>
-    public EventServices(KlaviyoApiBase klaviyoService) : base("2023-06-15", klaviyoService) { }
+    public EventServices(string revision, KlaviyoApiBase klaviyoService) : base(revision, klaviyoService) { }
     /// <inheritdoc />
     public async Task<DataListObjectWithIncluded<Event>> GetEvents(List<string> eventFields = null, List<string> metricFields = null, List<string> profileFields = null, IFilter filter = null, List<string> includedObjects = null, string sort = null, CancellationToken cancellationToken = default)
     {

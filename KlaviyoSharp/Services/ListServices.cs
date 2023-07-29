@@ -16,8 +16,9 @@ public class ListServices : KlaviyoServiceBase, IListServices
     /// <summary>
     /// Constructor for Klaviyo List Services
     /// </summary>
+    /// <param name="revision"></param>
     /// <param name="klaviyoService"></param>
-    public ListServices(KlaviyoApiBase klaviyoService) : base("2023-06-15", klaviyoService) { }
+    public ListServices(string revision, KlaviyoApiBase klaviyoService) : base(revision, klaviyoService) { }
     /// <inheritdoc />
     public async Task<DataListObject<List>> GetLists(List<string> listFields = null, IFilter filter = null, CancellationToken cancellationToken = default)
     {

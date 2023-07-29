@@ -17,8 +17,9 @@ public class TemplateServices : KlaviyoServiceBase, ITemplateServices
     /// <summary>
     /// Creates a new instance of the TemplateServices class
     /// </summary>
+    /// <param name="revision"></param>
     /// <param name="klaviyoService"></param>
-    public TemplateServices(KlaviyoApiBase klaviyoService) : base("2023-06-15", klaviyoService) { }
+    public TemplateServices(string revision, KlaviyoApiBase klaviyoService) : base(revision, klaviyoService) { }
 
     /// <inheritdoc />
     public async Task<DataListObject<Template>> GetTemplates(List<string> templateFields = null, IFilter filter = null, string sort = null, CancellationToken cancellationToken = default)

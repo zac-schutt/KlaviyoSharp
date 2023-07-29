@@ -15,8 +15,9 @@ public class ProfileServices : KlaviyoServiceBase, IProfileServices
     /// <summary>
     /// Constructor for Klaviyo Profile Services
     /// </summary>
+    /// <param name="revision"></param>
     /// <param name="klaviyoService"></param>
-    public ProfileServices(KlaviyoApiBase klaviyoService) : base("2023-06-15", klaviyoService) { }
+    public ProfileServices(string revision, KlaviyoApiBase klaviyoService) : base(revision, klaviyoService) { }
     /// <inheritdoc />
     public async Task<DataListObject<Profile>> GetProfiles(List<string> fields = null, List<string> additionalFields = null, IFilter filter = null, string sort = null, CancellationToken cancellationToken = default)
     {

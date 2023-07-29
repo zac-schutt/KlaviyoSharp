@@ -15,8 +15,9 @@ public class CampaignServices : KlaviyoServiceBase, ICampaignServices
     /// <summary>
     /// Constructor for Klaviyo Campaign Services
     /// </summary>
+    /// <param name="revision"></param>
     /// <param name="klaviyoService"></param>
-    public CampaignServices(KlaviyoApiBase klaviyoService) : base("2023-06-15", klaviyoService) { }
+    public CampaignServices(string revision, KlaviyoApiBase klaviyoService) : base(revision, klaviyoService) { }
     /// <inheritdoc />
     public async Task<DataListObjectWithIncluded<Campaign>> GetCampaigns(List<string> campaignFields = null, List<string> tagFields = null, IFilter filter = null, List<string> includedRecords = null, string sort = null, CancellationToken cancellationToken = default)
     {

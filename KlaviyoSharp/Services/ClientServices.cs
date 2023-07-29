@@ -12,8 +12,9 @@ public class ClientServices : KlaviyoServiceBase, IClientServices
     /// <summary>
     /// Constructor for Klaviyo Client Services
     /// </summary>
+    /// <param name="revision"></param>
     /// <param name="klaviyoService"></param>
-    public ClientServices(KlaviyoClientApi klaviyoService) : base("2023-06-15", klaviyoService) { }
+    public ClientServices(string revision, KlaviyoClientApi klaviyoService) : base(revision, klaviyoService) { }
 
     /// <inheritdoc/>
     public async Task CreateEvent(EventRequest clientEvent, CancellationToken cancellationToken = default)
