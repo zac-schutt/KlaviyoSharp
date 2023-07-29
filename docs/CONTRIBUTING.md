@@ -35,10 +35,14 @@ Changes should be able to be tested locally. To test your changes, you will need
 
 ### Account Config for Testing
 
- The following are required for testing:
+The following are required for testing:
 
 - The account is required to have a list called `Sample Data List`, and this list needs to have Single opt-in enabled in it's settings. This can't be set with the API, but is required for testing profile subscriptions.
 - The account is required to have a flow. The welcome series flow is a great one for testing.
+
+### Warning for PiHole Users
+
+Testing with a PiHole DNS server will cause the tests to fail. This is because the PiHole blocks the request to the Klaviyo API. You can either disable the PiHole while testing, or add an exception for `a.klaviyo.com` to the PiHole. You'll know if this is the issue if you get a `HttpRequestException` with the message `The requested name is valid, but no data of the requested type was found`.
 
 ## Framework Targeting
 
