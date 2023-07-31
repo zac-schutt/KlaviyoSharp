@@ -40,4 +40,15 @@ public class ClientServices : KlaviyoServiceBase, IClientServices
         await _klaviyoService.HTTP(HttpMethod.Post, "back-in-stock-subscriptions", _revision, null, null, new DataObject<BackInStockSubscription>(subscription), cancellationToken);
     }
 
+    /// <inheritdoc />
+    public async Task CreateOrUpdateClientPushToken(PushToken pushToken, CancellationToken cancellationToken = default)
+    {
+        await _klaviyoService.HTTP(HttpMethod.Post, "push-tokens", _revision, null, null, new DataObject<PushToken>(pushToken), cancellationToken);
+    }
+    /// <inheritdoc />
+    public async Task UnregisterClientPushToken(PushTokenUnregister pushToken, CancellationToken cancellationToken = default)
+    {
+        await _klaviyoService.HTTP(HttpMethod.Post, "push-token-unregister", _revision, null, null, new DataObject<PushTokenUnregister>(pushToken), cancellationToken);
+    }
+
 }

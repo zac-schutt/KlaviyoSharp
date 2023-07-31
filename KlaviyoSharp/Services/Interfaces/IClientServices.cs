@@ -38,4 +38,18 @@ public interface IClientServices
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     Task CreateClientBackInStockSubscription(BackInStockSubscription subscription, CancellationToken cancellationToken);
+    /// <summary>
+    /// Create or update a push token. This endpoint is designed to be called from our mobile SDKs (iOS and Android). You must have push notifications enabled to use this endpoint.
+    /// </summary>
+    /// <param name="pushToken"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    Task CreateOrUpdateClientPushToken(PushToken pushToken, CancellationToken cancellationToken);
+    /// <summary>
+    /// Unregister a push token. This endpoint is designed to be called from our mobile SDKs (iOS and Android). You must have push notifications enabled to use this endpoint.
+    /// </summary>
+    /// <param name="pushToken"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    Task UnregisterClientPushToken(PushTokenUnregister pushToken, CancellationToken cancellationToken);
 }

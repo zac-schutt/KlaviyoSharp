@@ -93,6 +93,70 @@ public class ClientServices_Tests : IClassFixture<ClientServices_Tests_Fixture>
         Fixture.ClientApi.ClientServices.UpsertProfile(newProfile).Wait();
         Assert.True(true);
     }
+
+    [Fact]
+    public async void PushTokens()
+    {
+        var profile = (await Fixture.AdminApi.ProfileServices.GetProfiles()).Data.First();
+        var tokenProfile = Profile.Create();
+        tokenProfile.Attributes = new() { Email = profile.Attributes.Email };
+        var pushToken = PushToken.Create();
+        pushToken.Attributes = new()
+        {
+            Token = "1234567890",
+            Platform = "android",
+            EnablementStatus = "AUTHORIZED",
+            Vendor = "apns",
+            Background = "AVAILABLE",
+            Profile = new(tokenProfile),
+            DeviceMetadata = new()
+            {
+                DeviceId = "1234567890",
+                KlaviyoSdk = "swift",
+                SdkVersion = "1.0.0",
+                DeviceModel = "iPhone12,1",
+                OsName = "ios",
+                OsVersion = "14.0",
+                Manufacturer = "Apple",
+                AppName = "KlaviyoSharp",
+                AppVersion = System.Reflection.Assembly.GetAssembly(typeof(KlaviyoClientApi)).GetName().Version.ToString(),
+                AppBuild = "1",
+                AppId = "com.test.app",
+                Environment = "debug"
+            }
+        };
+        try
+        {
+            Fixture.ClientApi.ClientServices.CreateOrUpdateClientPushToken(pushToken).Wait();
+        }
+        catch (Exception ex)
+        {
+            //Catch the exception if the company is not setup for push tokens.
+            Assert.IsType<KlaviyoException>(ex.InnerException);
+            Assert.Equal("Company is not able to process push tokens", ex.InnerException.Message);
+        }
+
+        var pushTokenUnregister = PushTokenUnregister.Create();
+        pushTokenUnregister.Attributes = new()
+        {
+            Token = pushToken.Attributes.Token,
+            Platform = pushToken.Attributes.Platform,
+            Vendor = pushToken.Attributes.Vendor,
+            Profile = new(tokenProfile)
+        };
+
+        try
+        {
+            Fixture.ClientApi.ClientServices.UnregisterClientPushToken(pushTokenUnregister).Wait();
+        }
+        catch (Exception ex)
+        {
+            //Catch the exception if the company is not setup for push tokens.
+            Assert.IsType<KlaviyoException>(ex.InnerException);
+            Assert.Equal("Company is not able to process push tokens", ex.InnerException.Message);
+        }
+        Assert.True(true);
+    }
 }
 
 public class ClientServices_Tests_Fixture : IAsyncLifetime
