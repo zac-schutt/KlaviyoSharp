@@ -35,9 +35,9 @@ public class ClientServices : KlaviyoServiceBase, IClientServices
     }
 
     /// <inheritdoc />
-    public async Task CreateClientBackInStockSubscription(ClientBackInStockSubscription subscription, CancellationToken cancellationToken = default)
+    public async Task CreateClientBackInStockSubscription(BackInStockSubscription subscription, CancellationToken cancellationToken = default)
     {
-        await _klaviyoService.HTTP(HttpMethod.Post, "back-in-stock-subscriptions", _revision, null, null, new DataObject<ClientBackInStockSubscription>(subscription), cancellationToken);
+        await _klaviyoService.HTTP(HttpMethod.Post, "back-in-stock-subscriptions", _revision, null, null, new DataObject<BackInStockSubscription>(subscription), cancellationToken);
     }
 
 }

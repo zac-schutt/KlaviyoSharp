@@ -346,6 +346,11 @@ public class CatalogServices : KlaviyoServiceBase, ICatalogServices
         return await _klaviyoService.HTTPRecursive<CatalogCategory>(HttpMethod.Get, $"catalog-items/{catalogItemId}/categories/", _revision, query, null, null, cancellationToken);
     }
     /// <inheritdoc />
+    public async Task CreateBackInStockSubscription(BackInStockSubscription backInStockSubscription, CancellationToken cancellationToken = default)
+    {
+        await _klaviyoService.HTTP(HttpMethod.Post, "back-in-stock-subscriptions", _revision, null, null, new DataObject<BackInStockSubscription>(backInStockSubscription), cancellationToken);
+    }
+    /// <inheritdoc />
     public async Task<DataListObject<GenericObject>> GetCatalogCategoryRelationshipsItems(string id, CancellationToken cancellationToken = default)
     {
         return await _klaviyoService.HTTP<DataListObject<GenericObject>>(HttpMethod.Get, $"catalog-categories/{id}/relationships/items/", _revision, null, null, null, cancellationToken);

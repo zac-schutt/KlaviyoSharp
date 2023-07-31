@@ -37,5 +37,5 @@ public interface IClientServices
     /// <param name="subscription"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    Task CreateClientBackInStockSubscription(ClientBackInStockSubscription subscription, CancellationToken cancellationToken);
+    Task CreateClientBackInStockSubscription(BackInStockSubscription subscription, CancellationToken cancellationToken);
 }

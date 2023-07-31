@@ -5,13 +5,13 @@ namespace KlaviyoSharp.Models;
 /// <summary>
 /// Klaviyo Catalog Category
 /// </summary>
-public class CatalogCategory : KlaviyoObject<CatalogCategoryAttributes,CatalogCategoryRelationships>
+public class CatalogCategory : KlaviyoObject<CatalogCategoryAttributes, CatalogCategoryRelationships>
 {
     /// <summary>
     /// Create a new CatalogCategory with default values
     /// </summary>
     /// <returns></returns>
-    public static new CatalogCategory Create() => new(){Type = "catalog-category"};
+    public static new CatalogCategory Create() => new() { Type = "catalog-category" };
 }
 /// <summary>
 /// Klaviyo Catalog Category Relationships
@@ -44,4 +44,14 @@ public class CatalogCategoryAttributes
     /// </summary>
     [JsonProperty("updated")]
     public DateTime? Updated { get; set; }
+    /// <summary>
+    /// The type of catalog. Currently only "$default" is supported.
+    /// </summary>
+    [JsonProperty("catalog_type")]
+    public string CatalogType { get; set; }
+    /// <summary>
+    /// The integration type. Currently only "$custom" is supported.
+    /// </summary>
+    [JsonProperty("integration_type")]
+    public string IntegrationType { get; set; }
 }
