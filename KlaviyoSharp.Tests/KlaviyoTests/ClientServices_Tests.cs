@@ -97,6 +97,9 @@ public class ClientServices_Tests : IClassFixture<ClientServices_Tests_Fixture>
     [Fact]
     public async void PushTokens()
     {
+        //GitHub Issue #12 tracks an issue with this test.
+        //Should be able to confirm that the endpoint is working with a correctly configured account and request.
+
         var profile = (await Fixture.AdminApi.ProfileServices.GetProfiles()).Data.First();
         var tokenProfile = Profile.Create();
         tokenProfile.Attributes = new() { Email = profile.Attributes.Email };
