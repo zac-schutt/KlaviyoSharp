@@ -45,9 +45,9 @@ public class ProfileServices : KlaviyoServiceBase, IProfileServices
         return await _klaviyoService.HTTP<DataObjectWithIncluded<Profile>>(HttpMethod.Get, $"profiles/{profileId}/", _revision, query, null, null, cancellationToken);
     }
     /// <inheritdoc />
-    public async Task<DataObject<Profile>> UpdateProfile(string profileId, Profile profile, CancellationToken cancellationToken = default)
+    public async Task<DataObject<Profile>> UpdateProfile(string profileId, PatchProfile profile, CancellationToken cancellationToken = default)
     {
-        return await _klaviyoService.HTTP<DataObject<Profile>>(new("PATCH"), $"profiles/{profileId}/", _revision, null, null, new DataObject<Profile>(profile), cancellationToken);
+        return await _klaviyoService.HTTP<DataObject<Profile>>(new("PATCH"), $"profiles/{profileId}/", _revision, null, null, new DataObject<PatchProfile>(profile), cancellationToken);
     }
     /// <inheritdoc />
     public async Task SuppressProfiles(ProfileSuppressionRequest supressions, CancellationToken cancellationToken = default)

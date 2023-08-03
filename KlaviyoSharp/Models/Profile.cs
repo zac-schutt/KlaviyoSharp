@@ -18,6 +18,18 @@ public class Profile : KlaviyoObject<ProfileAttributes, ProfileRelationships>
     }
 }
 /// <summary>
+/// Klaviyo profile with meta properties for patcching
+/// </summary>
+public class PatchProfile : Profile
+{
+    /// <summary>
+    /// Meta properties for patching
+    /// </summary>
+    [JsonProperty("meta")]
+    public MetaProperties Meta { get; set; }
+}
+
+/// <summary>
 /// Profile Relationships
 /// </summary>
 public class ProfileRelationships
