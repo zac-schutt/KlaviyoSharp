@@ -52,4 +52,11 @@ public interface IClientServices
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     Task UnregisterClientPushToken(PushTokenUnregister pushToken, CancellationToken cancellationToken);
+    /// <summary>
+    /// Create new events to track a profile's activity. Accepts a maximum of 1000 events per request.
+    /// </summary>
+    /// <param name="clientEventBulkCreate"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    Task BulkCreateClientEvents(ClientEventBulkCreate clientEventBulkCreate, CancellationToken cancellationToken);
 }

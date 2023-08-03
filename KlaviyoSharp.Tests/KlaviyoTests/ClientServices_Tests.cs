@@ -160,6 +160,36 @@ public class ClientServices_Tests : IClassFixture<ClientServices_Tests_Fixture>
         }
         Assert.True(true);
     }
+
+    [Fact]
+    public async Task BulkCreateEvents()
+    {
+        var profile = (await Fixture.AdminApi.ProfileServices.GetProfiles()).Data[0];
+        var bulkEventRequest = ClientEventBulkCreate.Create();
+        bulkEventRequest.Attributes = new()
+        {
+            Profile = new(new() { Type = "profile", Attributes = new() { Email = profile.Attributes.Email } }),
+            Events = new()
+            {
+                Data = new(){
+                new(){
+                    Type="event",
+                    Attributes = new(){
+                        Properties = new(),
+                        Metric = new(new(){
+                            Type = "metric",
+                            Attributes = new(){
+                                Name = "C# Test"
+                            }
+                            } )
+                        },
+                    }
+                }
+            }
+        };
+        Fixture.ClientApi.ClientServices.BulkCreateClientEvents(bulkEventRequest).Wait();
+        Assert.True(true);
+    }
 }
 
 public class ClientServices_Tests_Fixture : IAsyncLifetime
