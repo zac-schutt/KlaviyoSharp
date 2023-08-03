@@ -31,7 +31,7 @@ public class ProfileServices_Tests : IClassFixture<ProfileServices_Tests_Fixture
         var update = Profile.Create();
         update.Attributes = new() { LastName = NewName };
         update.Id = result.Data.Id;
-        var updated = await Fixture.AdminApi.ProfileServices.UpdateProfile(result.Data.Id, update);
+        var updated = await Fixture.AdminApi.ProfileServices.UpdateProfile(result.Data.Id, (PatchProfile)update);
         Assert.Equal(NewName, updated.Data.Attributes.LastName);
     }
 
