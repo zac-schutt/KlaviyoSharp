@@ -60,11 +60,6 @@ public class TemplateAttributes
     [JsonProperty("updated")]
     public DateTime? Updated { get;  }
     /// <summary>
-    /// The ID of the company the template belongs to
-    /// </summary>
-    [JsonProperty("company_id")]
-    public string CompanyId { get;  }
-    /// <summary>
     /// Only used for template rendering. The context for the template render. This must be a JSON object which has values for any tags used in the template. See this doc for more details.
     /// </summary>
     [JsonProperty("context")]
