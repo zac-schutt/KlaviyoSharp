@@ -3,6 +3,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace KlaviyoSharp.Infrastructure;
 /// <summary>
@@ -34,6 +35,11 @@ public class JsonContent : ByteArrayContent
                 new DateTimeJsonConverter(),
                 new DateTimeNullableJsonConverter(),
                 new KlaviyoDateOnlyNullableJsonConverter()
+            },
+            ContractResolver = new DefaultContractResolver{
+                NamingStrategy = new SnakeCaseNamingStrategy{
+                    OverrideSpecifiedNames = false
+                }
             }
         });
         return Encoding.UTF8.GetBytes(rawData);
