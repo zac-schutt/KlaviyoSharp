@@ -100,6 +100,22 @@ public class CampaignMessageContent
     /// </summary>
     [JsonProperty("from_label")]
     public string FromLabel { get; set; }
+/// <summary>
+/// Optional Reply-To email address
+/// </summary>
+    [JsonProperty("reply_to_email")]
+    public string ReplyToEmail { get; set; }
+    /// <summary>
+    /// Optional CC email address
+    /// </summary>
+    [JsonProperty("cc_email")]
+    public string CcEmail { get; set; }
+    /// <summary>
+    /// Optional BCC email address
+    /// </summary>
+    [JsonProperty("bcc_email")]
+    public string BccEmail { get; set; }
+
 }
 
 /// <summary>

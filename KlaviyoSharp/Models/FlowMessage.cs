@@ -86,6 +86,26 @@ public class FlowMessageContent
     [JsonProperty("preview_text")]
     public string PreviewText { get; set; }
     /// <summary>
+    /// The label associated with the from_email
+    /// </summary>
+    [JsonProperty("from_label")]
+    public string FromLabel { get; set; }
+    /// <summary>
+    /// Optional Reply-To email address
+    /// </summary>
+    [JsonProperty("reply_to_email")]
+    public string ReplyToEmail { get; set; }
+    /// <summary>
+    /// Optional CC email address
+    /// </summary>
+    [JsonProperty("cc_email")]
+    public string CcEmail { get; set; }
+    /// <summary>
+    /// Optional BCC email address
+    /// </summary>
+    [JsonProperty("bcc_email")]
+    public string BccEmail { get; set; }
+    /// <summary>
     /// Undocumented. SMS only.
     /// </summary>
     [JsonProperty("body")]
