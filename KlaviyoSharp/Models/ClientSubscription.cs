@@ -40,6 +40,6 @@ public class ClientSubscriptionAttributes
     /// <summary>
     /// The profile to subscribe.
     /// </summary>
-    [JsonProperty("profiles")]
-    public DataListObject<Profile> Profile { get; set; }
+    [JsonProperty("profile")]
+    public DataObject<Profile> Profile { get; set; }
 }
