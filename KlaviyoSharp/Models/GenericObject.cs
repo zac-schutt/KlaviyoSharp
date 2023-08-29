@@ -6,6 +6,24 @@ namespace KlaviyoSharp.Models;
 /// </summary>
 public class GenericObject{
     /// <summary>
+    /// Generic constructor
+    /// </summary>
+    public GenericObject()
+    {
+    }
+
+    /// <summary>
+    /// Create a generic object with type and id
+    /// </summary>
+    /// <param name="type"></param>
+    /// <param name="id"></param>
+    public GenericObject(string type, string id)
+    {
+        this.Type = type;
+        this.Id = id;
+    }
+
+    /// <summary>
     /// Type of object
     /// </summary>
     [JsonProperty("type")]

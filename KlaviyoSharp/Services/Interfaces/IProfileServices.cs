@@ -50,7 +50,7 @@ public interface IProfileServices
     /// <param name="profileAttributes"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    Task<DataObject<Profile>> UpdateProfile(string profileId, Profile profileAttributes, CancellationToken cancellationToken = default);
+    Task<DataObject<Profile>> UpdateProfile(string profileId, PatchProfile profileAttributes, CancellationToken cancellationToken = default);
     /// <summary>
     /// Manually suppress one or more profiles. Such profiles will have USER_SUPPRESSED as their suppression reason. Manually suppressed profiles will not receive email marketing. Learn more about suppressed profiles in <see href="https://help.klaviyo.com/hc/en-us/articles/115005246108-Understanding-suppressed-email-profiles#what-is-a-suppressed-profile-1">this document</see>.
     /// Not supported for SMS marketing.

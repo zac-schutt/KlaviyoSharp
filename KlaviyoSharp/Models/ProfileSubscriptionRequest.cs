@@ -5,8 +5,7 @@ namespace KlaviyoSharp.Models;
 /// <summary>
 /// Request to subscribe a list of profiles
 /// </summary>
-public class ProfileSubscriptionRequest : KlaviyoObjectBasic<ProfileSubscriptionAttributes>
-{
+public class ProfileSubscriptionRequest : KlaviyoObject<ProfileSubscriptionAttributes,ProfileSubscriptionRequestRelationships>{
     /// <summary>
     /// Creates a new instance of the Profile Subscription Request class
     /// </summary>
@@ -17,26 +16,32 @@ public class ProfileSubscriptionRequest : KlaviyoObjectBasic<ProfileSubscription
     }
 }
 /// <summary>
-/// Attributes of a Profile Subscription Request
+/// Relationships of a Profile Subscription Request
 /// </summary>
-public class ProfileSubscriptionAttributes
+public class ProfileSubscriptionRequestRelationships
 {
     /// <summary>
     /// The list to add the newly subscribed profiles to
     /// </summary>
-    [JsonProperty("list_id")]
-    public string ListId { get; set; }
+    [JsonProperty("list")]
+    public DataObject<GenericObject> List { get; set; }
+}
+
+/// <summary>
+/// Attributes of a Profile Subscription Request
+/// </summary>
+public class ProfileSubscriptionAttributes
+{
     /// <summary>
     /// A custom method detail or source to store on the consent records.
     /// </summary>
     [JsonProperty("custom_source")]
     public string CustomSource { get; set; }
     /// <summary>
-    /// One or more subscriptions to be created.
+    /// The profiles to subscribe
     /// </summary>
-    [JsonProperty("subscriptions")]
-    public List<ProfileSubscriptionRequestSubscription> Subscriptions { get; set; }
-
+    [JsonProperty("profiles")]
+    public DataListObject<Profile> Profiles { get; set; }
 }
 /// <summary>
 /// Subscription to be created

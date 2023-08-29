@@ -48,7 +48,7 @@ internal interface IEventServices
     /// <param name="metricFields">For more information please visit https://developers.klaviyo.com/en/reference/api-overview#sparse-fieldsets</param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    Task<DataListObject<Metric>> GetEventMetrics(string id, List<string> metricFields = null, CancellationToken cancellationToken = default);
+    Task<DataObject<Metric>> GetEventMetric(string id, List<string> metricFields = null, CancellationToken cancellationToken = default);
     /// <summary>
     /// Get the profile associated with an event with the given event ID.
     /// </summary>
@@ -57,19 +57,19 @@ internal interface IEventServices
     /// <param name="additionalProfileFields">Request additional fields not included by default in the response. Supported values: 'predictive_analytics'</param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    Task<DataListObject<Profile>> GetEventProfiles(string id, List<string> profileFields = null, List<string> additionalProfileFields = null, CancellationToken cancellationToken = default);
+    Task<DataObject<Profile>> GetEventProfile(string id, List<string> profileFields = null, List<string> additionalProfileFields = null, CancellationToken cancellationToken = default);
     /// <summary>
     /// Get a list of related Metrics for an Event
     /// </summary>
     /// <param name="id"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    Task<DataListObject<GenericObject>> GetEventRelationshipsMetrics(string id, CancellationToken cancellationToken = default);
+    Task<DataObject<GenericObject>> GetEventRelationshipsMetric(string id, CancellationToken cancellationToken = default);
     /// <summary>
     /// Get profile relationships for an event with the given event ID.
     /// </summary>
     /// <param name="id"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    Task<DataListObject<GenericObject>> GetEventRelationshipsProfiles(string id, CancellationToken cancellationToken = default);
+    Task<DataObject<GenericObject>> GetEventRelationshipsProfile(string id, CancellationToken cancellationToken = default);
 }

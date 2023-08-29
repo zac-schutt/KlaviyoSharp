@@ -1,3 +1,5 @@
+using KlaviyoSharp.Models.Filters;
+
 namespace KlaviyoSharp.Tests;
 [Trait("Category", "CampaignServices")]
 public class CampaignServices_Tests : IClassFixture<CampaignServices_Tests_Fixture>
@@ -11,7 +13,7 @@ public class CampaignServices_Tests : IClassFixture<CampaignServices_Tests_Fixtu
     [Fact]
     public async Task GetCampaigns()
     {
-        var campaigns = await Fixture.AdminApi.CampaignServices.GetCampaigns();
+        var campaigns = await Fixture.AdminApi.CampaignServices.GetCampaigns(new Filter(FilterOperation.Equals, "messages.channel", "email"));
         Assert.NotNull(campaigns);
     }
 

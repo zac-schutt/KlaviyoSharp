@@ -48,7 +48,7 @@ public abstract class KlaviyoObject<T> : KlaviyoObjectBasic<T>
 }
 
 /// <summary>
-/// Klaviyo Account Object with ID and Links
+/// Klaviyo Account Object with ID, Links, and Relationships
 /// </summary>
 /// <typeparam name="T">Attributes Type</typeparam>
 /// <typeparam name="U">Relationships Type</typeparam>

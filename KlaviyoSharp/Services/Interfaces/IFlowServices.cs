@@ -118,7 +118,7 @@ public interface IFlowServices
     /// <param name="flowActionId">Flow Action ID</param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    Task<DataListObject<GenericObject>> GetFlowActionRelationshipsFlow(string flowActionId, CancellationToken cancellationToken);
+    Task<DataObject<GenericObject>> GetFlowActionRelationshipsFlow(string flowActionId, CancellationToken cancellationToken);
     /// <summary>
     /// Get all relationships for flow messages associated with the given flow action ID.
     /// </summary>

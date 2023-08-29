@@ -15,8 +15,9 @@ public class AccountServices : KlaviyoServiceBase, IAccountServices
     /// <summary>
     /// Constructor for Klaviyo Account Services
     /// </summary>
+    /// <param name="revision"></param>
     /// <param name="klaviyoService"></param>
-    public AccountServices(KlaviyoApiBase klaviyoService) : base("2023-06-15", klaviyoService) { }
+    public AccountServices(string revision, KlaviyoApiBase klaviyoService) : base(revision, klaviyoService) { }
     /// <inheritdoc />
     public async Task<DataListObject<Account>> GetAccounts(List<string> accountFields = null, CancellationToken cancellationToken = default)
     {

@@ -70,11 +70,6 @@ public class CampaignAttributes
     [JsonProperty("send_options")]
     public CampaignSendOptions SendOptions { get; set; }
     /// <summary>
-    /// The id of the message associated with the campaign
-    /// </summary>
-    [JsonProperty("message")]
-    public string Message { get; set; }
-    /// <summary>
     /// The tracking options associated with the campaign
     /// </summary>
     [JsonProperty("tracking_options")]

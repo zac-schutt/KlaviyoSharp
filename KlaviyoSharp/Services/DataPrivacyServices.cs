@@ -12,8 +12,9 @@ public class DataPrivacyServices : KlaviyoServiceBase, IDataPrivacyServices
     /// <summary>
     /// Constructor for Klaviyo Data Privacy Services
     /// </summary>
+    /// <param name="revision"></param>
     /// <param name="klaviyoService"></param>
-    public DataPrivacyServices(KlaviyoApiBase klaviyoService) : base("2023-06-15", klaviyoService) { }
+    public DataPrivacyServices(string revision, KlaviyoApiBase klaviyoService) : base(revision, klaviyoService) { }
     /// <inheritdoc />
     public async Task RequestProfileDeletion(ProfileDeletionRequest profileDeletionRequest, CancellationToken cancellationToken = default)
     {

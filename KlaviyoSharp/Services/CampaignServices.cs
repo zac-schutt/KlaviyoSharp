@@ -15,10 +15,11 @@ public class CampaignServices : KlaviyoServiceBase, ICampaignServices
     /// <summary>
     /// Constructor for Klaviyo Campaign Services
     /// </summary>
+    /// <param name="revision"></param>
     /// <param name="klaviyoService"></param>
-    public CampaignServices(KlaviyoApiBase klaviyoService) : base("2023-06-15", klaviyoService) { }
+    public CampaignServices(string revision, KlaviyoApiBase klaviyoService) : base(revision, klaviyoService) { }
     /// <inheritdoc />
-    public async Task<DataListObjectWithIncluded<Campaign>> GetCampaigns(List<string> campaignFields = null, List<string> tagFields = null, IFilter filter = null, List<string> includedRecords = null, string sort = null, CancellationToken cancellationToken = default)
+    public async Task<DataListObjectWithIncluded<Campaign>> GetCampaigns(IFilter filter, List<string> campaignFields = null, List<string> tagFields = null, List<string> includedRecords = null, string sort = null, CancellationToken cancellationToken = default)
     {
         QueryParams query = new();
         query.AddFieldset("campaign", campaignFields);
@@ -72,10 +73,13 @@ public class CampaignServices : KlaviyoServiceBase, ICampaignServices
         return await _klaviyoService.HTTP<DataListObject<Tag>>(HttpMethod.Get, $"campaigns/{campaignId}/tags/", _revision, query, null, null, cancellationToken);
     }
     /// <inheritdoc />
-    public async Task<DataObject<CampaignMessage>> GetCampaignMessage(string campaignMessageId, List<string> campaignMessageFields = null, CancellationToken cancellationToken = default)
+    public async Task<DataObject<CampaignMessage>> GetCampaignMessage(string campaignMessageId, List<string> campaignMessageFields = null, List<string> campaignFields = null, List<string> templateFields = null, List<string> includedRecords = null, CancellationToken cancellationToken = default)
     {
         QueryParams query = new();
         query.AddFieldset("campaign-message", campaignMessageFields);
+        query.AddFieldset("campaign", campaignFields);
+        query.AddFieldset("template", templateFields);
+        query.AddIncludes(includedRecords);
         return await _klaviyoService.HTTP<DataObject<CampaignMessage>>(HttpMethod.Get, $"campaign-messages/{campaignMessageId}/", _revision, query, null, null, cancellationToken);
     }
     /// <inheritdoc />

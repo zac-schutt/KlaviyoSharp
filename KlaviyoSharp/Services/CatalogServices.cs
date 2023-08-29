@@ -15,8 +15,9 @@ public class CatalogServices : KlaviyoServiceBase, ICatalogServices
     /// <summary>
     /// Creates a new instance of the CatalogServices class.
     /// </summary>
+    /// <param name="revision"></param>
     /// <param name="klaviyoService"></param>
-    public CatalogServices(KlaviyoApiBase klaviyoService) : base("2023-06-15", klaviyoService) { }
+    public CatalogServices(string revision, KlaviyoApiBase klaviyoService) : base(revision, klaviyoService) { }
     /// <inheritdoc />
     public async Task<DataListObject<CatalogItem>> GetCatalogItems(List<string> catalogItemFields = null, List<string> catalogVariantFields = null, IFilter filter = null, List<string> includedRecords = null, string sort = null, CancellationToken cancellationToken = default)
     {
@@ -343,6 +344,11 @@ public class CatalogServices : KlaviyoServiceBase, ICatalogServices
         query.AddFilter(filter);
         query.AddSort(sort);
         return await _klaviyoService.HTTPRecursive<CatalogCategory>(HttpMethod.Get, $"catalog-items/{catalogItemId}/categories/", _revision, query, null, null, cancellationToken);
+    }
+    /// <inheritdoc />
+    public async Task CreateBackInStockSubscription(BackInStockSubscription backInStockSubscription, CancellationToken cancellationToken = default)
+    {
+        await _klaviyoService.HTTP(HttpMethod.Post, "back-in-stock-subscriptions", _revision, null, null, new DataObject<BackInStockSubscription>(backInStockSubscription), cancellationToken);
     }
     /// <inheritdoc />
     public async Task<DataListObject<GenericObject>> GetCatalogCategoryRelationshipsItems(string id, CancellationToken cancellationToken = default)

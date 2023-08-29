@@ -28,7 +28,7 @@ public class ProfileServices_Tests : IClassFixture<ProfileServices_Tests_Fixture
         var result = await Fixture.AdminApi.ProfileServices.CreateProfile(Fixture.NewProfile);
         Assert.NotNull(result);
         string NewName = "Name Updated";
-        var update = Profile.Create();
+        var update = PatchProfile.Create();
         update.Attributes = new() { LastName = NewName };
         update.Id = result.Data.Id;
         var updated = await Fixture.AdminApi.ProfileServices.UpdateProfile(result.Data.Id, update);
@@ -46,12 +46,9 @@ public class ProfileServices_Tests : IClassFixture<ProfileServices_Tests_Fixture
         var request = ProfileSuppressionRequest.Create();
         request.Attributes = new()
         {
-            Suppressions = new()
+            Profiles = new()
             {
-                new()
-                {
-                    Email = result.Data.Attributes.Email
-                }
+                Data = new() { new() { Type = "profile", Attributes = new() { Email = result.Data.Attributes.Email } } }
             }
         };
         await Fixture.AdminApi.ProfileServices.SuppressProfiles(request);
@@ -63,13 +60,11 @@ public class ProfileServices_Tests : IClassFixture<ProfileServices_Tests_Fixture
         var request2 = ProfileUnsuppressionRequest.Create();
         request2.Attributes = new()
         {
-            Suppressions = new()
+            Profiles = new()
             {
-                new()
-                {
-                    Email = result.Data.Attributes.Email
-                }
+                Data = new() { new() { Type = "profile", Attributes = new() { Email = result.Data.Attributes.Email } } }
             }
+
         };
         await Fixture.AdminApi.ProfileServices.UnsuppressProfiles(request2);
         Thread.Sleep(10 * 1000);
@@ -90,14 +85,19 @@ public class ProfileServices_Tests : IClassFixture<ProfileServices_Tests_Fixture
         var request = Models.ProfileSubscriptionRequest.Create();
         request.Attributes = new()
         {
-            ListId = ListId,
-            Subscriptions = new()
+            Profiles = new()
             {
-                new()
+                Data = new()
                 {
-                    Email = result.Data.Attributes.Email,
-                    Channels = new (){Email = new (){"MARKETING"}}
+                    new() { Type = "profile", Attributes = new() { Email = result.Data.Attributes.Email } }
                 }
+            }
+        };
+        request.Relationships = new()
+        {
+            List = new()
+            {
+                Data = new() { Type = "list", Id = ListId }
             }
         };
         await Fixture.AdminApi.ProfileServices.SubscribeProfiles(request);
@@ -119,8 +119,19 @@ public class ProfileServices_Tests : IClassFixture<ProfileServices_Tests_Fixture
         var request2 = ProfileUnsubscriptionRequest.Create();
         request2.Attributes = new()
         {
-            ListId = ListId,
-            Emails = new() { result.Data.Attributes.Email }
+            Profiles = new()
+            {
+                Data = new() {
+                    new() { Type = "profile", Attributes = new() { Email = result.Data.Attributes.Email } }
+                }
+            }
+        };
+        request2.Relationships = new()
+        {
+            List = new()
+            {
+                Data = new() { Type = "list", Id = ListId }
+            }
         };
         await Fixture.AdminApi.ProfileServices.UnsuscribeProfiles(request2);
 

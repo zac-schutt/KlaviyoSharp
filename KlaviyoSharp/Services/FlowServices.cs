@@ -13,13 +13,13 @@ namespace KlaviyoSharp.Services;
 /// </summary>
 public class FlowServices : KlaviyoServiceBase, IFlowServices
 {
-    //TODO: Implement and document
 
     /// <summary>
     /// Constructor for Flow Services
     /// </summary>
+    /// <param name="revision"></param>
     /// <param name="klaviyoService"></param>
-    public FlowServices(KlaviyoApiBase klaviyoService) : base("2023-06-15", klaviyoService) { }
+    public FlowServices(string revision, KlaviyoApiBase klaviyoService) : base(revision, klaviyoService) { }
 
     /// <inheritdoc />
     public async Task<DataListObjectWithIncluded<Flow>> GetFlows(List<string> flowFields = null, List<string> flowActionFields = null, List<string> includedRecords = null, IFilter filter = null, string sort = null, CancellationToken cancellationToken = default)
@@ -95,7 +95,7 @@ public class FlowServices : KlaviyoServiceBase, IFlowServices
         query.AddFieldset("flow-message", flowMessageFields);
         query.AddFilter(filter);
         query.AddSort(sort);
-        return await _klaviyoService.HTTPRecursive<FlowMessage>(HttpMethod.Get, $"flow-actions/{flowActionId}/flow-messages", _revision, query, null, null, cancellationToken);
+        return await _klaviyoService.HTTP<DataListObject<FlowMessage>>(HttpMethod.Get, $"flow-actions/{flowActionId}/flow-messages", _revision, query, null, null, cancellationToken);
     }
     /// <inheritdoc />
     public async Task<DataObject<FlowAction>> GetFlowActionForMessage(string flowMessageId, List<string> flowActionFields = null, CancellationToken cancellationToken = default)
@@ -118,9 +118,9 @@ public class FlowServices : KlaviyoServiceBase, IFlowServices
         return await _klaviyoService.HTTP<DataListObject<GenericObject>>(HttpMethod.Get, $"flows/{flowId}/relationships/tags", _revision, null, null, null, cancellationToken);
     }
     /// <inheritdoc />
-    public async Task<DataListObject<GenericObject>> GetFlowActionRelationshipsFlow(string flowActionId, CancellationToken cancellationToken = default)
+    public async Task<DataObject<GenericObject>> GetFlowActionRelationshipsFlow(string flowActionId, CancellationToken cancellationToken = default)
     {
-        return await _klaviyoService.HTTP<DataListObject<GenericObject>>(HttpMethod.Get, $"flow-actions/{flowActionId}/relationships/flow", _revision, null, null, null, cancellationToken);
+        return await _klaviyoService.HTTP<DataObject<GenericObject>>(HttpMethod.Get, $"flow-actions/{flowActionId}/relationships/flow", _revision, null, null, null, cancellationToken);
     }
     /// <inheritdoc />
     public async Task<DataListObject<GenericObject>> GetFlowActionRelationshipsMessages(string flowActionId, IFilter filter = null, string sort = null, CancellationToken cancellationToken = default)

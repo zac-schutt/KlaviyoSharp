@@ -23,7 +23,9 @@ public class DataPrivacyServices_Tests : IClassFixture<DataPrivacyServices_Tests
         };
         var tempProfileId = Fixture.AdminApi.ProfileServices.CreateProfile(tempProfile).Result.Data.Id;
         var deletionRequest = Models.ProfileDeletionRequest.Create();
-        deletionRequest.Attributes = new() { ProfileId = tempProfileId };
+        var profile = Models.Profile.Create();
+        profile.Attributes = new() { Email = tempProfile.Attributes.Email };
+        deletionRequest.Attributes = new() { Profile = new(profile) };
 
 
 

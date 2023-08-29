@@ -389,7 +389,13 @@ public interface ICatalogServices
     /// <returns></returns>
     Task<DataListObject<CatalogCategory>> GetCatalogItemCategories(string catalogItemId, List<string> catalogCategoryFields, IFilter filter, string sort, CancellationToken cancellationToken);
 
-
+    /// <summary>
+    /// Subscribe a profile to receive back in stock notifications. Check out our Back in Stock API guide for more details. This endpoint is specifically designed to be called from server-side applications. To create subscriptions from client-side contexts, use POST /client/back-in-stock-subscriptions.
+    /// </summary>
+    /// <param name="backInStockSubscription"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    Task CreateBackInStockSubscription(BackInStockSubscription backInStockSubscription, CancellationToken cancellationToken);
 
     /// <summary>
     /// Get all items in the given category ID.
