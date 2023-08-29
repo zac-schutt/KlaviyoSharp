@@ -23,8 +23,8 @@ public class TagRelationships
     /// <summary>
     /// The tag group that this tag belongs to.
     /// </summary>
-    [JsonProperty("tag_group")]
-    public DataListObjectRelated<GenericObject> TagGroup { get; set; }
+    [JsonProperty("tag-group")]
+    public DataObject<GenericObject> TagGroup { get; set; }
     /// <summary>
     /// Lists that this tag is applied to.
     /// </summary>
@@ -56,9 +56,4 @@ public class TagAttributes
     /// </summary>
     [JsonProperty("name")]
     public string Name { get; set; }
-    /// <summary>
-    /// The ID of the Tag Group to associate the Tag with. If this field is not specified, the Tag will be associated with the company's Default Tag Group.
-    /// </summary>
-    [JsonProperty("tag_group_id")]
-    public string TagGroupId { get; set; }
 }

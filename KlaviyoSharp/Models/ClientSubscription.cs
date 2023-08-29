@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using Newtonsoft.Json;
 
 namespace KlaviyoSharp.Models;
@@ -41,6 +40,6 @@ public class ClientSubscriptionAttributes
     /// <summary>
     /// The profile to subscribe.
     /// </summary>
-    [JsonProperty("profile")]
-    public DataObject<Profile> Profile { get; set; }
+    [JsonProperty("profiles")]
+    public DataListObject<Profile> Profile { get; set; }
 }

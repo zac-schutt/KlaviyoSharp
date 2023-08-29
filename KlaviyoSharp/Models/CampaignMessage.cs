@@ -6,7 +6,7 @@ namespace KlaviyoSharp.Models;
 /// <summary>
 /// Klaviyo Campaign Message
 /// </summary>
-public class CampaignMessage : KlaviyoObject<CampaignMessageAttributes>
+public class CampaignMessage : KlaviyoObject<CampaignMessageAttributes,CampaignMessageRelationships>
 {
     /// <summary>
     /// Creates a new Campaign Message with default values
@@ -17,6 +17,23 @@ public class CampaignMessage : KlaviyoObject<CampaignMessageAttributes>
         return new() { Type = "campaign-message" };
     }
 }
+/// <summary>
+///
+/// </summary>
+public class CampaignMessageRelationships
+{
+    /// <summary>
+    /// The parent campaign
+    /// </summary>
+    [JsonProperty("campaign")]
+    public DataObject<GenericObject> Campaign { get; set; }
+    /// <summary>
+    /// The template associated with the message
+    /// </summary>
+    [JsonProperty("template")]
+    public DataObject<GenericObject> Template { get; set; }
+}
+
 /// <summary>
 /// Campaign Message Attributes
 /// </summary>
@@ -83,16 +100,6 @@ public class CampaignMessageContent
     /// </summary>
     [JsonProperty("from_label")]
     public string FromLabel { get; set; }
-    /// <summary>
-    /// The ID of the template associated to the message
-    /// </summary>
-    [JsonProperty("template_id")]
-    public string TemplateId { get; set; }
-    /// <summary>
-    /// The name of the template associated to the message
-    /// </summary>
-    [JsonProperty("template_name")]
-    public string TemplateName { get; set; }
 }
 
 /// <summary>

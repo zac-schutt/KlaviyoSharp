@@ -118,9 +118,9 @@ public class FlowServices : KlaviyoServiceBase, IFlowServices
         return await _klaviyoService.HTTP<DataListObject<GenericObject>>(HttpMethod.Get, $"flows/{flowId}/relationships/tags", _revision, null, null, null, cancellationToken);
     }
     /// <inheritdoc />
-    public async Task<DataListObject<GenericObject>> GetFlowActionRelationshipsFlow(string flowActionId, CancellationToken cancellationToken = default)
+    public async Task<DataObject<GenericObject>> GetFlowActionRelationshipsFlow(string flowActionId, CancellationToken cancellationToken = default)
     {
-        return await _klaviyoService.HTTP<DataListObject<GenericObject>>(HttpMethod.Get, $"flow-actions/{flowActionId}/relationships/flow", _revision, null, null, null, cancellationToken);
+        return await _klaviyoService.HTTP<DataObject<GenericObject>>(HttpMethod.Get, $"flow-actions/{flowActionId}/relationships/flow", _revision, null, null, null, cancellationToken);
     }
     /// <inheritdoc />
     public async Task<DataListObject<GenericObject>> GetFlowActionRelationshipsMessages(string flowActionId, IFilter filter = null, string sort = null, CancellationToken cancellationToken = default)

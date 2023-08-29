@@ -25,29 +25,19 @@ public class EventRelationships
     /// <summary>
     /// Klaviyo Profiles associated with the Event
     /// </summary>
-    [JsonProperty("profiles")]
-    public DataListObjectRelated<GenericObject> Profiles { get; set; }
+    [JsonProperty("profile")]
+    public DataObject<GenericObject> Profile { get; set; }
     /// <summary>
     /// Klaviyo Metrics associated with the Event
     /// </summary>
-    [JsonProperty("metrics")]
-    public DataListObjectRelated<GenericObject> Metrics { get; set; }
+    [JsonProperty("metric")]
+    public DataObject<GenericObject> Metric { get; set; }
 }
 /// <summary>
 /// Klaviyo Event Attributes
 /// </summary>
 public class EventAttributes
 {
-    /// <summary>
-    /// The Metric ID
-    /// </summary>
-    [JsonProperty("metric_id")]
-    public string MetricId { get; set; }
-    /// <summary>
-    /// Profile ID of the associated profile, if available
-    /// </summary>
-    [JsonProperty("profile_id")]
-    public string ProfileId { get; set; }
     /// <summary>
     /// Event timestamp in seconds
     /// </summary>

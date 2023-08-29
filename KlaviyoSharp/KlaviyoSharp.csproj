@@ -10,7 +10,7 @@
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <AssemblyVersion>$(VersionPrefix)</AssemblyVersion>
     <FileVersion>$(VersionPrefix)</FileVersion>
-    <LangVersion>latest</LangVersion>
+    <LangVersion>10.0</LangVersion>
     <DebugType>embedded</DebugType>
   </PropertyGroup>
 

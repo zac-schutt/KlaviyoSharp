@@ -25,8 +25,8 @@ public class FlowActionsRelationships
     /// <summary>
     /// Flow actions associated with the flow
     /// </summary>
-    [JsonProperty("flows")]
-    public DataListObjectRelated<GenericObject> Flows { get; set; }
+    [JsonProperty("flow")]
+    public DataObject<GenericObject> Flow { get; set; }
     /// <summary>
     /// Flow actions associated with the flow
     /// </summary>

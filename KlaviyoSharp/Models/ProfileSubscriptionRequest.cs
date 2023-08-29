@@ -5,8 +5,7 @@ namespace KlaviyoSharp.Models;
 /// <summary>
 /// Request to subscribe a list of profiles
 /// </summary>
-public class ProfileSubscriptionRequest : KlaviyoObject<ProfileSubscriptionAttributes,ProfileSubscriptionRequestRelationships>
-{
+public class ProfileSubscriptionRequest : KlaviyoObject<ProfileSubscriptionAttributes,ProfileSubscriptionRequestRelationships>{
     /// <summary>
     /// Creates a new instance of the Profile Subscription Request class
     /// </summary>

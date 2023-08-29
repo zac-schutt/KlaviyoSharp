@@ -73,9 +73,12 @@ public interface ICampaignServices
     /// </summary>
     /// <param name="campaignMessageId">The message ID to be retrieved</param>
     /// <param name="campaignMessageFields">For more information please visit https://developers.klaviyo.com/en/reference/api-overview#sparse-fieldsets</param>
+    /// <param name="campaignFields">For more information please visit https://developers.klaviyo.com/en/reference/api-overview#sparse-fieldsets</param>
+    /// <param name="templateFields">For more information please visit https://developers.klaviyo.com/en/reference/api-overview#sparse-fieldsets</param>
+    /// <param name="includedRecords">For more information please visit https://developers.klaviyo.com/en/reference/api-overview#relationships</param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    Task<DataObject<CampaignMessage>> GetCampaignMessage(string campaignMessageId, List<string> campaignMessageFields, CancellationToken cancellationToken);
+    Task<DataObject<CampaignMessage>> GetCampaignMessage(string campaignMessageId, List<string> campaignMessageFields, List<string> campaignFields, List<string> templateFields, List<string> includedRecords, CancellationToken cancellationToken);
     /// <summary>
     /// Update a campaign message
     /// </summary>
