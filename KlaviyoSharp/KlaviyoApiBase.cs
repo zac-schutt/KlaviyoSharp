@@ -113,7 +113,7 @@ public abstract class KlaviyoApiBase
 #else
         string TextResult = (await GetResponse(requestMessage, cancellationToken)).Content.ReadAsStringAsync().Result;
 #endif
-        return JsonConvert.DeserializeObject<T>(TextResult);
+        return JsonConvert.DeserializeObject<T>(TextResult, JsonContent.KlaviyoJsonSerializerSettings);
     }
     /// <summary>
     /// Performs an HTTP request to the Klaviyo API and does not return a response

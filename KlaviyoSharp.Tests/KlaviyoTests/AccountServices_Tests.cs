@@ -15,6 +15,9 @@ public class AccountServices_Tests : IClassFixture<AccountServices_Tests_Fixture
         Assert.Single(accounts.Data);
         var account = await Fixture.AdminApi.AccountServices.GetAccount(accounts.Data[0].Id, new List<string>() { "public_api_key", "contact_information.street_address" });
         Assert.NotNull(account.Data);
+        Assert.NotNull(account.Data.Attributes);
+        Assert.NotNull(account.Data.Attributes.ContactInformation);
+        Assert.NotNull(account.Data.Attributes.PublicApiKey);
     }
 
 }

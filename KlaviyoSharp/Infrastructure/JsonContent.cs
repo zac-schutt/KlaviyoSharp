@@ -28,21 +28,33 @@ public class JsonContent : ByteArrayContent
     /// <returns></returns>
     private static byte[] ToBytes(object data)
     {
-        string rawData = JsonConvert.SerializeObject(data, Formatting.None, new JsonSerializerSettings
+        string rawData = JsonConvert.SerializeObject(data, Formatting.None, KlaviyoJsonSerializerSettings);
+        return Encoding.UTF8.GetBytes(rawData);
+    }
+    /// <summary>
+    /// The JsonSerializerSettings to use for all JsonContent
+    /// </summary>
+    internal static JsonSerializerSettings KlaviyoJsonSerializerSettings
+    {
+        get
         {
-            NullValueHandling = NullValueHandling.Ignore,
-            Converters = new List<JsonConverter> {
+            return new JsonSerializerSettings
+            {
+                NullValueHandling = NullValueHandling.Ignore,
+                Converters = new List<JsonConverter> {
                 new DateTimeJsonConverter(),
                 new DateTimeNullableJsonConverter(),
                 new KlaviyoDateOnlyNullableJsonConverter()
             },
-            ContractResolver = new DefaultContractResolver{
-                NamingStrategy = new SnakeCaseNamingStrategy{
-                    OverrideSpecifiedNames = false
+                ContractResolver = new DefaultContractResolver
+                {
+                    NamingStrategy = new SnakeCaseNamingStrategy
+                    {
+                        OverrideSpecifiedNames = false
+                    }
                 }
-            }
-        });
-        return Encoding.UTF8.GetBytes(rawData);
+            };
+        }
     }
     /// <summary>
     /// Clones the JsonContent

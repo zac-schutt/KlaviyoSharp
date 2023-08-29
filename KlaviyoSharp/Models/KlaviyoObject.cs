@@ -11,12 +11,10 @@ public abstract class KlaviyoObjectBasic<T>
     /// <summary>
     /// Type of object
     /// </summary>
-    [JsonProperty("type")]
     public string Type { get; set; }
     /// <summary>
     /// Object attributes
     /// </summary>
-    [JsonProperty("attributes")]
     public T Attributes { get; set; }
     /// <summary>
     /// Creates a new instance of this type and sets the default properties
@@ -38,12 +36,10 @@ public abstract class KlaviyoObject<T> : KlaviyoObjectBasic<T>
     /// <summary>
     /// Unique identifier for the object
     /// </summary>
-    [JsonProperty("id")]
     public string Id { get; set; }
     /// <summary>
     /// Links to the object
     /// </summary>
-    [JsonProperty("links")]
     public Links.SelfLink Links { get; set; }
 }
 
@@ -57,16 +53,13 @@ public abstract class KlaviyoObject<T, U> : KlaviyoObjectBasic<T>
     /// <summary>
     /// Unique identifier for the object
     /// </summary>
-    [JsonProperty("id")]
     public string Id { get; set; }
     /// <summary>
     /// Links to the object
     /// </summary>
-    [JsonProperty("links")]
     public Links.SelfLink Links { get; set; }
     /// <summary>
     /// Relationships to the object
     /// </summary>
-    [JsonProperty("relationships")]
     public U Relationships { get; set; }
 }
