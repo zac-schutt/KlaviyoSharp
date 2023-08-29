@@ -8,7 +8,7 @@ Klaviyo's API is versioned by using dates in the request headers. The mapping of
 
 | Klaviyo API Version                                                                | KlaviyoSharp Version |
 | ---------------------------------------------------------------------------------- | -------------------- |
-| [2023-07-15](https://developers.klaviyo.com/en/v2023-06-15/reference/api_overview) | 1.1.x                |
+| [2023-07-15](https://developers.klaviyo.com/en/v2023-07-15/reference/api_overview) | 1.1.x                |
 | [2023-06-15](https://developers.klaviyo.com/en/v2023-06-15/reference/api_overview) | 1.0.x                |
 
 ## How to Use
