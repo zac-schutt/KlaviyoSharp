@@ -1,5 +1,5 @@
-using System;
 namespace KlaviyoSharp.Infrastructure;
+
 /// <summary>
 /// A Date Only struct that can be used in place of DateTime when only the Date is to be represented.
 /// </summary>
@@ -51,6 +51,7 @@ public readonly struct KlaviyoDateOnly
     /// Converts a KlaviyoDateOnly to a DateOnly
     /// </summary>
     /// <param name="value"></param>
-    public static implicit operator DateOnly(KlaviyoDateOnly value) => new(value.Value.Year, value.Value.Month, value.Value.Day);
+    public static implicit operator DateOnly(KlaviyoDateOnly value) =>
+        new(value.Value.Year, value.Value.Month, value.Value.Day);
 #endif
 }

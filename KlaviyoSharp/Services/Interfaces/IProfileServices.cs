@@ -1,10 +1,10 @@
-using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using KlaviyoSharp.Models;
 using KlaviyoSharp.Models.Filters;
 
 namespace KlaviyoSharp.Services;
+
 /// <summary>
 /// Interface for Klaviyo Profile Services
 /// </summary>
@@ -14,109 +14,157 @@ public interface IProfileServices
     /// Get all profiles in an account.
     /// Profiles can be sorted by the following fields in ascending and descending order: id, created, updated, email
     /// </summary>
-    /// <param name="fields">For more information please visit https://developers.klaviyo.com/en/reference/api-overview#sparse-fieldsets</param>
-    /// <param name="additionalFields">Request additional fields not included by default in the response. Supported values: 'predictive_analytics'</param>
-    /// <param name="filter">For more information please visit <see href="https://developers.klaviyo.com/en/reference/api-overview#filtering" />. Allowed field(s): id, email, phone_number, external_id, _kx, created, updated</param>
-    /// <param name="sort">For more information please visit https://developers.klaviyo.com/en/reference/api-overview#sorting</param>
+    /// <param name="fields">For more information please visit
+    /// https://developers.klaviyo.com/en/reference/api-overview#sparse-fieldsets</param>
+    /// <param name="additionalFields">Request additional fields not included by default in the response. Supported
+    /// values: 'predictive_analytics'</param>
+    /// <param name="filter">For more information please visit
+    /// <see href="https://developers.klaviyo.com/en/reference/api-overview#filtering" />. Allowed field(s): id, email,
+    /// phone_number, external_id, _kx, created, updated</param>
+    /// <param name="sort">For more information please visit
+    /// https://developers.klaviyo.com/en/reference/api-overview#sorting</param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    Task<DataListObject<Profile>> GetProfiles(List<string> fields, List<string> additionalFields, IFilter filter, string sort, CancellationToken cancellationToken = default);
+    Task<DataListObject<Profile>> GetProfiles(List<string> fields,
+                                              List<string> additionalFields,
+                                              IFilter filter,
+                                              string sort,
+                                              CancellationToken cancellationToken);
     /// <summary>
     /// Get the profile with the given profile ID.
-    /// Include parameters can be provided to get the following related resource data: lists memberships, segments memberships
+    /// Include parameters can be provided to get the following related resource data: lists memberships, segments
+    /// memberships
     /// </summary>
     /// <param name="profileId"></param>
-    /// <param name="listFields">For more information please visit https://developers.klaviyo.com/en/reference/api-overview#sparse-fieldsets</param>
-    /// <param name="profileFields">For more information please visit https://developers.klaviyo.com/en/reference/api-overview#sparse-fieldsets</param>
-    /// <param name="segmentFields">For more information please visit https://developers.klaviyo.com/en/reference/api-overview#sparse-fieldsets</param>
-    /// <param name="additionalFields">Request additional fields not included by default in the response. Supported values: 'predictive_analytics'</param>
-    /// <param name="includedObjects">For more information please visit https://developers.klaviyo.com/en/reference/api-overview#relationships</param>
+    /// <param name="listFields">For more information please visit
+    /// https://developers.klaviyo.com/en/reference/api-overview#sparse-fieldsets</param>
+    /// <param name="profileFields">For more information please visit
+    /// https://developers.klaviyo.com/en/reference/api-overview#sparse-fieldsets</param>
+    /// <param name="segmentFields">For more information please visit
+    /// https://developers.klaviyo.com/en/reference/api-overview#sparse-fieldsets</param>
+    /// <param name="additionalFields">Request additional fields not included by default in the response. Supported
+    /// values: 'predictive_analytics'</param>
+    /// <param name="includedObjects">For more information please visit
+    /// https://developers.klaviyo.com/en/reference/api-overview#relationships</param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    Task<DataObjectWithIncluded<Profile>> GetProfile(string profileId, List<string> listFields, List<string> profileFields, List<string> segmentFields, List<string> additionalFields, List<string> includedObjects, CancellationToken cancellationToken = default);
+    Task<DataObjectWithIncluded<Profile>> GetProfile(string profileId,
+                                                     List<string> listFields,
+                                                     List<string> profileFields,
+                                                     List<string> segmentFields,
+                                                     List<string> additionalFields,
+                                                     List<string> includedObjects,
+                                                     CancellationToken cancellationToken);
     /// <summary>
     /// Create a new profile.
-    /// If you use a phone number as the profile identifier and SMS is not set up in the Klaviyo account, you'll need to include at least one other identifier attribute (email or external_id) in addition to the phone_number attribute for the API call to work.
+    /// If you use a phone number as the profile identifier and SMS is not set up in the Klaviyo account, you'll need to
+    /// include at least one other identifier attribute (email or external_id) in addition to the phone_number attribute
+    /// for the API call to work.
     /// </summary>
     /// <param name="profileAttributes"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    Task<DataObject<Profile>> CreateProfile(Profile profileAttributes, CancellationToken cancellationToken = default);
+    Task<DataObject<Profile>> CreateProfile(Profile profileAttributes, CancellationToken cancellationToken);
     /// <summary>
     /// Update the profile with the given profile ID.
-    /// If you use a phone number as the profile identifier and SMS is not set up in the Klaviyo account, you'll need to include at least one other identifier attribute (email or external_id) in addition to the phone_number attribute for the API call to work.
+    /// If you use a phone number as the profile identifier and SMS is not set up in the Klaviyo account, you'll need to
+    /// include at least one other identifier attribute (email or external_id) in addition to the phone_number attribute
+    /// for the API call to work.
     /// </summary>
     /// <param name="profileId">Primary key that uniquely identifies this profile. Generated by Klaviyo.</param>
     /// <param name="profileAttributes"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    Task<DataObject<Profile>> UpdateProfile(string profileId, PatchProfile profileAttributes, CancellationToken cancellationToken = default);
+    Task<DataObject<Profile>> UpdateProfile(string profileId,
+                                            PatchProfile profileAttributes,
+                                            CancellationToken cancellationToken);
     /// <summary>
-    /// Manually suppress one or more profiles. Such profiles will have USER_SUPPRESSED as their suppression reason. Manually suppressed profiles will not receive email marketing. Learn more about suppressed profiles in <see href="https://help.klaviyo.com/hc/en-us/articles/115005246108-Understanding-suppressed-email-profiles#what-is-a-suppressed-profile-1">this document</see>.
+    /// Manually suppress one or more profiles. Such profiles will have USER_SUPPRESSED as their suppression reason.
+    /// Manually suppressed profiles will not receive email marketing. Learn more about suppressed profiles in
+    /// <see href="https://help.klaviyo.com/hc/en-us/articles/115005246108-Understanding-suppressed-email-profiles#what-is-a-suppressed-profile-1">
+    /// this document</see>.
     /// Not supported for SMS marketing.
     /// Maximum number of profile can be submitted for suppression: 100
     /// </summary>
-    /// <remarks>Suppresses one or more profiles from receiving marketing. Currently, supports email only. If a profile is not found with the given email, one will be created and immediately suppressed.</remarks>
+    /// <remarks>Suppresses one or more profiles from receiving marketing. Currently, supports email only. If a profile
+    /// is not found with the given email, one will be created and immediately suppressed.</remarks>
     /// <param name="supressions"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    Task SuppressProfiles(ProfileSuppressionRequest supressions, CancellationToken cancellationToken = default);
+    Task SuppressProfiles(ProfileSuppressionRequest supressions, CancellationToken cancellationToken);
     /// <summary>
-    /// Unsuppress one or more profiles, this will remove any Manual Suppressions (USER_SUPPRESSED) on these profiles. A profile may receive email marketing after a manual suppression is removed so long as they have not revoked consent, i.e. unsubscribed.
-    /// Not supported for SMS marketing. Only manual suppressions (USER_SUPPRESSED) will be removed. UNSUBSCRIBE and SPAM_REPORT suppressions are removed whenever a profile resubscribes. INVALID_EMAIL and HARD_BOUNCE suppressions cannot be removed by the API.
+    /// Unsuppress one or more profiles, this will remove any Manual Suppressions (USER_SUPPRESSED) on these profiles. A
+    /// profile may receive email marketing after a manual suppression is removed so long as they have not revoked
+    /// consent, i.e. unsubscribed.
+    /// Not supported for SMS marketing. Only manual suppressions (USER_SUPPRESSED) will be removed. UNSUBSCRIBE and
+    /// SPAM_REPORT suppressions are removed whenever a profile resubscribes. INVALID_EMAIL and HARD_BOUNCE suppressions
+    /// cannot be removed by the API.
     /// Maximum number of profile can be submitted for unsuppression: 100
     /// </summary>
     /// <param name="unsupressions"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    Task UnsuppressProfiles(ProfileUnsuppressionRequest unsupressions, CancellationToken cancellationToken = default);
+    Task UnsuppressProfiles(ProfileUnsuppressionRequest unsupressions, CancellationToken cancellationToken);
     /// <summary>
-    /// Subscribe one or more profiles to email marketing, SMS marketing, or both. If the list has double opt-in enabled, profiles will receive a message requiring their confirmation before subscribing. Otherwise, profiles will be immediately subscribed without receiving a confirmation message.
-    /// To add someone to a list without changing their subscription status, use <see href="https://developers.klaviyo.com/en/reference/create_list_relationships">Add Profile to List</see>.
-    /// This API will remove any UNSUBSCRIBE, SPAM_REPORT or USER_SUPPRESSED suppressions from the provided profiles. Learn more about suppressed profiles in <see href="https://help.klaviyo.com/hc/en-us/articles/115005246108-Understanding-suppressed-email-profiles#what-is-a-suppressed-profile-1">this document</see>.
+    /// Subscribe one or more profiles to email marketing, SMS marketing, or both. If the list has double opt-in
+    /// enabled, profiles will receive a message requiring their confirmation before subscribing. Otherwise, profiles
+    /// will be immediately subscribed without receiving a confirmation message.
+    /// To add someone to a list without changing their subscription status, use
+    /// <see href="https://developers.klaviyo.com/en/reference/create_list_relationships">Add Profile to List</see>.
+    /// This API will remove any UNSUBSCRIBE, SPAM_REPORT or USER_SUPPRESSED suppressions from the provided profiles.
+    /// Learn more about suppressed profiles in
+    /// <see href="https://help.klaviyo.com/hc/en-us/articles/115005246108-Understanding-suppressed-email-profiles#what-is-a-suppressed-profile-1">
+    /// this document</see>.
     /// Maximum number of profile can be submitted for subscription: 100
     /// </summary>
     /// <param name="profileSubscriptions"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    Task SubscribeProfiles(ProfileSubscriptionRequest profileSubscriptions, CancellationToken cancellationToken = default);
+    Task SubscribeProfiles(ProfileSubscriptionRequest profileSubscriptions, CancellationToken cancellationToken);
     /// <summary>
     /// Unsubscribe one or more profiles to email marketing, SMS marketing, or both.
-    /// To remove someone from a list without changing their subscription status, use <see href="https://developers.klaviyo.com/en/reference/delete_list_relationships">Remove Profile from List</see>.
+    /// To remove someone from a list without changing their subscription status, use
+    /// <see href="https://developers.klaviyo.com/en/reference/delete_list_relationships">Remove Profile from List</see>
     /// Maximum number of profile can be submitted for unsubscription: 100
     /// </summary>
     /// <param name="profileUnsubscriptions"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    Task UnsuscribeProfiles(ProfileUnsubscriptionRequest profileUnsubscriptions, CancellationToken cancellationToken = default);
+    Task UnsuscribeProfiles(ProfileUnsubscriptionRequest profileUnsubscriptions, CancellationToken cancellationToken);
     /// <summary>
     /// Get list memberships for a profile with the given profile ID.
     /// </summary>
     /// <param name="profileId"></param>
-    /// <param name="fields">For more information please visit https://developers.klaviyo.com/en/reference/api-overview#sparse-fieldsets</param>
+    /// <param name="fields">For more information please visit
+    /// https://developers.klaviyo.com/en/reference/api-overview#sparse-fieldsets</param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    Task<DataListObject<List>> GetProfileLists(string profileId, List<string> fields, CancellationToken cancellationToken = default);
+    Task<DataListObject<List>> GetProfileLists(string profileId,
+                                               List<string> fields,
+                                               CancellationToken cancellationToken);
     /// <summary>
     /// Get segment memberships for a profile with the given profile ID.
     /// </summary>
     /// <param name="profileId"></param>
-    /// <param name="fields">For more information please visit https://developers.klaviyo.com/en/reference/api-overview#sparse-fieldsets</param>
+    /// <param name="fields">For more information please visit
+    /// https://developers.klaviyo.com/en/reference/api-overview#sparse-fieldsets</param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    Task<DataListObject<List>> GetProfileSegments(string profileId, List<string> fields, CancellationToken cancellationToken = default);
+    Task<DataListObject<List>> GetProfileSegments(string profileId,
+                                                  List<string> fields,
+                                                  CancellationToken cancellationToken);
     /// <summary>
     /// Get list memberships for a profile with the given profile ID.
     /// </summary>
     /// <param name="id"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    Task<DataListObject<GenericObject>> GetProfileRelationshipsLists(string id, CancellationToken cancellationToken = default);
+    Task<DataListObject<GenericObject>> GetProfileRelationshipsLists(string id, CancellationToken cancellationToken);
     /// <summary>
     /// Get segment membership relationships for a profile with the given profile ID.
     /// </summary>
     /// <param name="id"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    Task<DataListObject<GenericObject>> GetProfileRelationshipsSegments(string id, CancellationToken cancellationToken = default);
+    Task<DataListObject<GenericObject>> GetProfileRelationshipsSegments(string id, CancellationToken cancellationToken);
 }

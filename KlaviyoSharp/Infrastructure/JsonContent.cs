@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -6,6 +5,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
 namespace KlaviyoSharp.Infrastructure;
+
 /// <summary>
 /// A custom HttpContent for JSON data
 /// </summary>

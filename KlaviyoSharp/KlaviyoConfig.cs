@@ -26,7 +26,8 @@ public class KlaviyoConfig
     /// </summary>
     public string ApiPath { get; set; } = "/api";
     /// <summary>
-    /// Whether to use authentication (API Key in header), or just append the apikey in the company_id query string. Defaults to true.
+    /// Whether to use authentication (API Key in header), or just append the apikey in the company_id query string.
+    /// Defaults to true.
     /// </summary>
     public bool UseAuthentication { get; set; } = true;
     /// <summary>

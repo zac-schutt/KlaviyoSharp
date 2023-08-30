@@ -1,7 +1,5 @@
-using System;
-using Newtonsoft.Json;
-
 namespace KlaviyoSharp.Models;
+
 /// <summary>
 /// Lists returned from the Klaviyo API
 /// </summary>
@@ -16,6 +14,7 @@ public class List : KlaviyoObject<ListAttributes, ListRelationships>
         return new List() { Type = "list" };
     }
 }
+
 /// <summary>
 /// List Relationships
 /// </summary>
@@ -24,14 +23,13 @@ public class ListRelationships
     /// <summary>
     /// Profiles associated with the List
     /// </summary>
-    [JsonProperty("profiles")]
     public DataListObjectRelated<GenericObject> Profiles { get; set; }
     /// <summary>
     /// Tags associated with the List
     /// </summary>
-    [JsonProperty("tags")]
     public DataListObjectRelated<GenericObject> Tags { get; set; }
 }
+
 /// <summary>
 /// List Attributes
 /// </summary>
@@ -40,16 +38,13 @@ public class ListAttributes
     /// <summary>
     /// A helpful name to label the list
     /// </summary>
-    [JsonProperty("name")]
     public string Name { get; set; }
     /// <summary>
     /// Date and time when the list was created, in ISO 8601 format (YYYY-MM-DDTHH:MM:SS.mmmmmm)
     /// </summary>
-    [JsonProperty("created")]
     public DateTime? Created { get; set; }
     /// <summary>
     /// Date and time when the list was last updated, in ISO 8601 format (YYYY-MM-DDTHH:MM:SS.mmmmmm)
     /// </summary>
-    [JsonProperty("updated")]
     public DateTime? Updated { get; set; }
 }

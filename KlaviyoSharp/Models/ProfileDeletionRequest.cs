@@ -1,6 +1,5 @@
-using Newtonsoft.Json;
-
 namespace KlaviyoSharp.Models;
+
 /// <summary>
 /// Request to delete a profile
 /// </summary>
@@ -15,6 +14,7 @@ public class ProfileDeletionRequest : KlaviyoObjectBasic<ProfileDeletionRequestA
         return new() { Type = "data-privacy-deletion-job" };
     }
 }
+
 /// <summary>
 /// Attributes of a Profile Deletion Request
 /// </summary>
@@ -23,6 +23,5 @@ public class ProfileDeletionRequestAttributes
     /// <summary>
     /// The profile to delete.
     /// </summary>
-    [JsonProperty("profile")]
     public DataObject<Profile> Profile { get; set; }
 }

@@ -1,7 +1,5 @@
-using System;
-using Newtonsoft.Json;
-
 namespace KlaviyoSharp.Models;
+
 /// <summary>
 /// Base class for Klaviyo objects
 /// </summary>
@@ -27,6 +25,7 @@ public abstract class KlaviyoObjectBasic<T>
         throw new NotImplementedException("Method not implemented for type");
     }
 }
+
 /// <summary>
 /// Klaviyo Account Object with ID and Links
 /// </summary>

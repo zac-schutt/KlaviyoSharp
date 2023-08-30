@@ -1,6 +1,3 @@
-using System.Collections.Generic;
-using Newtonsoft.Json;
-
 namespace KlaviyoSharp.Models;
 
 /// <summary>
@@ -24,10 +21,9 @@ public class DataObject<T>
     /// <summary>
     /// The data property
     /// </summary>
-    [JsonProperty("data")]
     public T Data { get; set; }
-
 }
+
 /// <summary>
 /// A generic data object with an additional property called "included"
 /// </summary>
@@ -37,9 +33,9 @@ public class DataObjectWithIncluded<T> : DataObject<T>
     /// <summary>
     /// Included records
     /// </summary>
-    [JsonProperty("included")]
     public List<object> Included { get; set; }
 }
+
 /// <summary>
 /// Generic object with a single list property called "data"
 /// </summary>
@@ -61,14 +57,13 @@ public class DataListObject<T>
     /// <summary>
     /// The data property
     /// </summary>
-    [JsonProperty("data")]
     public List<T> Data { get; set; }
     /// <summary>
     /// Links to paginate through the list
     /// </summary>
-    [JsonProperty("links")]
     public Links.NavLink Links { get; set; }
 }
+
 /// <summary>
 /// A generic data list object with an additional property called "included"
 /// </summary>
@@ -78,9 +73,9 @@ public class DataListObjectWithIncluded<T> : DataListObject<T>
     /// <summary>
     /// Included records
     /// </summary>
-    [JsonProperty("included")]
     public List<object> Included { get; set; }
 }
+
 /// <summary>
 /// A generic data list object for relationships
 /// </summary>
@@ -102,11 +97,9 @@ public class DataListObjectRelated<T>
     /// <summary>
     /// The data property
     /// </summary>
-    [JsonProperty("data")]
     public List<T> Data { get; set; }
     /// <summary>
     /// Links to paginate through the list
     /// </summary>
-    [JsonProperty("links")]
     public Links.RelatedLink Links { get; set; }
 }

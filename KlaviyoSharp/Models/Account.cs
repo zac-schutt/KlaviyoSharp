@@ -1,6 +1,5 @@
-using Newtonsoft.Json;
-
 namespace KlaviyoSharp.Models;
+
 /// <summary>
 /// Klaviyo Account Object
 /// </summary>
@@ -15,6 +14,7 @@ public class Account : KlaviyoObject<AccountAttributes>
         return new() { Type = "account" };
     }
 }
+
 /// <summary>
 /// Attributes for a Klaviyo Account
 /// </summary>
@@ -25,7 +25,8 @@ public class AccountAttributes
     /// </summary>
     public AccountContactInformation ContactInformation { get; set; }
     /// <summary>
-    /// The kind of business and/or types of goods that the business sells. This is leveraged in Klaviyo analytics and guidance.
+    /// The kind of business and/or types of goods that the business sells. This is leveraged in Klaviyo analytics and
+    /// guidance.
     /// </summary>
     public string Industry { get; set; }
     /// <summary>
@@ -33,7 +34,8 @@ public class AccountAttributes
     /// </summary>
     public string Timezone { get; set; }
     /// <summary>
-    /// The preferred currency for the account. This is the currency used for currency-based metrics in dashboards, analytics, coupons, and templates.
+    /// The preferred currency for the account. This is the currency used for currency-based metrics in dashboards,
+    /// analytics, coupons, and templates.
     /// </summary>
     public string PreferredCurrency { get; set; }
     /// <summary>
@@ -68,6 +70,7 @@ public class AccountContactInformation
     /// </summary>
     public AccountStreetAddress StreetAddress { get; set; }
 }
+
 /// <summary>
 /// Street address for a account
 /// </summary>

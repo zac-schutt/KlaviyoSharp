@@ -1,4 +1,5 @@
 namespace KlaviyoSharp;
+
 /// <summary>
 /// The Klaviyo Client API. All /client endpoints use a public API key, your 6-character company ID, also known as a site ID.
 /// </summary>

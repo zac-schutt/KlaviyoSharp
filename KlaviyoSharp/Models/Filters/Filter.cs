@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using KlaviyoSharp.Infrastructure;
 
 namespace KlaviyoSharp.Models.Filters;
@@ -31,6 +29,7 @@ public class Filter : IFilter
     /// </summary>
     /// <param name="filter"></param>
     public static implicit operator string(Filter filter) => filter.ToString();
+
     /// <summary>
     /// Converts the filter to a string that can be added to a query string
     /// </summary>
@@ -39,6 +38,7 @@ public class Filter : IFilter
     {
         return $"{Operation.ToEnumString()}({Field},{Value})";
     }
+
     /// <summary>
     /// Create a filter
     /// </summary>
@@ -51,6 +51,7 @@ public class Filter : IFilter
         Field = field;
         Value = $"\"{value}\"";
     }
+
     /// <summary>
     /// Create a filter
     /// </summary>
@@ -63,6 +64,7 @@ public class Filter : IFilter
         Field = field;
         Value = value ? "true" : "false";
     }
+
     /// <summary>
     /// Create a filter
     /// </summary>
@@ -75,6 +77,7 @@ public class Filter : IFilter
         Field = field;
         Value = value.ToString();
     }
+
     /// <summary>
     /// Create a filter
     /// </summary>
@@ -85,8 +88,9 @@ public class Filter : IFilter
     {
         Operation = operation;
         Field = field;
-        Value = value.ToUniversalTime().ToString( "yyyy-MM-ddTHH:mm:ssZ");
+        Value = value.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ssZ");
     }
+
     /// <summary>
     /// Create a filter
     /// </summary>
@@ -99,6 +103,7 @@ public class Filter : IFilter
         Field = field;
         Value = value.ToString("yyyy-MM-dd");
     }
+
     /// <summary>
     /// Create a filter
     /// </summary>
@@ -113,6 +118,7 @@ public class Filter : IFilter
         value.ForEach(x => list.Add($"\"{x}\""));
         Value = $"[{string.Join(",", list)}]";
     }
+
     /// <summary>
     /// Create a filter
     /// </summary>

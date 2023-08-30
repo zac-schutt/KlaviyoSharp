@@ -1,7 +1,7 @@
-using System;
 using System.Linq;
 
 namespace KlaviyoSharp;
+
 /// <summary>
 /// An exception thrown by the Klaviyo API
 /// </summary>

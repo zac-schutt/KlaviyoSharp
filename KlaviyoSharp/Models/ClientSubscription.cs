@@ -1,6 +1,5 @@
-using Newtonsoft.Json;
-
 namespace KlaviyoSharp.Models;
+
 /// <summary>
 /// A subscription to a list created for the client api
 /// </summary>
@@ -15,6 +14,7 @@ public class ClientSubscription : KlaviyoObject<ClientSubscriptionAttributes, Cl
         return new() { Type = "subscription" };
     }
 }
+
 /// <summary>
 /// Relationships for a subscription to a list created for the client api
 /// </summary>
@@ -23,7 +23,6 @@ public class ClientSubscriptionRelationships
     /// <summary>
     /// List to subscribe to.
     /// </summary>
-    [JsonProperty("list")]
     public DataObject<GenericObject> List { get; set; }
 }
 
@@ -35,11 +34,9 @@ public class ClientSubscriptionAttributes
     /// <summary>
     /// A custom method detail or source to store on the consent records for this subscription.
     /// </summary>
-    [JsonProperty("custom_source")]
     public string CustomSource { get; set; }
     /// <summary>
     /// The profile to subscribe.
     /// </summary>
-    [JsonProperty("profile")]
     public DataObject<Profile> Profile { get; set; }
 }
