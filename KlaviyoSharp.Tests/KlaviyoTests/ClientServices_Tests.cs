@@ -64,17 +64,16 @@ public class ClientServices_Tests : IClassFixture<ClientServices_Tests_Fixture>
     public void UpsertProfile()
     {
         var newProfile = Models.ClientProfile.Create();
-
+        newProfile.Id = "01H42N4KX4N2NV2CT2595KCG6Z";
         newProfile.Attributes = new()
         {
-            Id = "01H42N4KX4N2NV2CT2595KCG6Z",
             Email = "test@test.com",
             FirstName = "Test",
             LastName = "Profile",
             ExternalId = "TestAccount",
             Organization = "Test Organization",
             Title = "Test Title",
-            ImageUrl = "https://dummyimage.com/300",
+            Image = "https://dummyimage.com/300",
             Location = new()
             {
                 Address1 = "1 Main St",

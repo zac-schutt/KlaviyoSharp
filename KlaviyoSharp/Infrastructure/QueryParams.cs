@@ -1,8 +1,7 @@
-using System;
-using System.Collections.Generic;
 using KlaviyoSharp.Models.Filters;
 
 namespace KlaviyoSharp.Infrastructure;
+
 /// <summary>
 /// Class to represent a HTTP query string. Prevents accidentally passing the params to the wrong method parameter.
 /// </summary>

@@ -8,7 +8,11 @@ namespace KlaviyoSharp.Infrastructure;
 /// </summary>
 internal class DateTimeNullableJsonConverter : JsonConverter<DateTime?>
 {
-    public override DateTime? ReadJson(JsonReader reader, Type objectType, DateTime? existingValue, bool hasExistingValue, JsonSerializer serializer)
+    public override DateTime? ReadJson(JsonReader reader,
+                                       Type objectType,
+                                       DateTime? existingValue,
+                                       bool hasExistingValue,
+                                       JsonSerializer serializer)
     {
         if (reader.Value is null)
         {
@@ -29,12 +33,17 @@ internal class DateTimeNullableJsonConverter : JsonConverter<DateTime?>
         }
     }
 }
+
 /// <summary>
 /// Converts a DateTime to a string in the format yyyy-MM-ddTHH:mm:ssZ when converting to JSON
 /// </summary>
 internal class DateTimeJsonConverter : JsonConverter<DateTime>
 {
-    public override DateTime ReadJson(JsonReader reader, Type objectType, DateTime existingValue, bool hasExistingValue, JsonSerializer serializer)
+    public override DateTime ReadJson(JsonReader reader,
+                                      Type objectType,
+                                      DateTime existingValue,
+                                      bool hasExistingValue,
+                                      JsonSerializer serializer)
     {
         if (reader.Value is null)
         {
@@ -53,7 +62,11 @@ internal class DateTimeJsonConverter : JsonConverter<DateTime>
 /// </summary>
 internal class KlaviyoDateOnlyNullableJsonConverter : JsonConverter<KlaviyoDateOnly?>
 {
-    public override KlaviyoDateOnly? ReadJson(JsonReader reader, Type objectType, KlaviyoDateOnly? existingValue, bool hasExistingValue, JsonSerializer serializer)
+    public override KlaviyoDateOnly? ReadJson(JsonReader reader,
+                                              Type objectType,
+                                              KlaviyoDateOnly? existingValue,
+                                              bool hasExistingValue,
+                                              JsonSerializer serializer)
     {
         if (reader.Value is null)
         {

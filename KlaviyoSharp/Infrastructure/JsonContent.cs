@@ -1,10 +1,11 @@
-using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace KlaviyoSharp.Infrastructure;
+
 /// <summary>
 /// A custom HttpContent for JSON data
 /// </summary>
@@ -27,16 +28,33 @@ public class JsonContent : ByteArrayContent
     /// <returns></returns>
     private static byte[] ToBytes(object data)
     {
-        string rawData = JsonConvert.SerializeObject(data, Formatting.None, new JsonSerializerSettings
+        string rawData = JsonConvert.SerializeObject(data, Formatting.None, KlaviyoJsonSerializerSettings);
+        return Encoding.UTF8.GetBytes(rawData);
+    }
+    /// <summary>
+    /// The JsonSerializerSettings to use for all JsonContent
+    /// </summary>
+    internal static JsonSerializerSettings KlaviyoJsonSerializerSettings
+    {
+        get
         {
-            NullValueHandling = NullValueHandling.Ignore,
-            Converters = new List<JsonConverter> {
+            return new JsonSerializerSettings
+            {
+                NullValueHandling = NullValueHandling.Ignore,
+                Converters = new List<JsonConverter> {
                 new DateTimeJsonConverter(),
                 new DateTimeNullableJsonConverter(),
                 new KlaviyoDateOnlyNullableJsonConverter()
-            }
-        });
-        return Encoding.UTF8.GetBytes(rawData);
+            },
+                ContractResolver = new DefaultContractResolver
+                {
+                    NamingStrategy = new SnakeCaseNamingStrategy
+                    {
+                        OverrideSpecifiedNames = false
+                    }
+                }
+            };
+        }
     }
     /// <summary>
     /// Clones the JsonContent

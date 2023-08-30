@@ -19,9 +19,12 @@ public class KlaviyoError
     /// <returns></returns>
     public static KlaviyoError FromHttpResponse(HttpResponseMessage response)
     {
-        return JsonConvert.DeserializeObject<KlaviyoError>(response.Content.ReadAsStringAsync().Result);
+        return JsonConvert.DeserializeObject<KlaviyoError>(
+            response.Content.ReadAsStringAsync().Result,
+            Infrastructure.JsonContent.KlaviyoJsonSerializerSettings);
     }
 }
+
 /// <summary>
 /// Details of the error returned from the Klaviyo API
 /// </summary>
@@ -48,6 +51,7 @@ public class KlaviyoErrorDetails
     /// </summary>
     public KlaviyoErrorSource Source { get; set; }
 }
+
 /// <summary>
 /// Source of the error in the request
 /// </summary>

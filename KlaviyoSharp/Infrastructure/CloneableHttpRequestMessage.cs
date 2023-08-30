@@ -1,7 +1,7 @@
-using System;
 using System.Net.Http;
 
 namespace KlaviyoSharp.Infrastructure;
+
 /// <summary>
 /// HttpRequestMessage that has the Clone method so that it can be executed multiple times
 /// </summary>

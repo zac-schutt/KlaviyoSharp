@@ -1,6 +1,3 @@
-using System.Collections.Generic;
-using Newtonsoft.Json;
-
 namespace KlaviyoSharp.Models;
 
 /// <summary>
@@ -17,6 +14,7 @@ public class ProfileUnsuppressionRequest : KlaviyoObjectBasic<ProfileUnsuppressi
         return new ProfileUnsuppressionRequest() { Type = "profile-suppression-bulk-delete-job" };
     }
 }
+
 /// <summary>
 /// Attributes of a Profile Unsuppression Request
 /// </summary>
@@ -25,6 +23,5 @@ public class ProfileUnsuppressionRequestAttributes
     /// <summary>
     /// One or more profile to be unsupressed.
     /// </summary>
-    [JsonProperty("profiles")]
     public DataListObject<Profile> Profiles { get; set; }
 }

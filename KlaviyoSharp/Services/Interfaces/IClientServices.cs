@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using KlaviyoSharp.Models;
 
 namespace KlaviyoSharp.Services;
+
 /// <summary>
 /// Interface for Klaviyo Client Services
 /// </summary>
@@ -32,21 +33,24 @@ public interface IClientServices
     /// <returns></returns>
     Task CreateSubscription(ClientSubscription subscription, CancellationToken cancellationToken);
     /// <summary>
-    /// Subscribe a profile to receive back in stock notifications. Check out our Back in Stock API guide for more details.
+    /// Subscribe a profile to receive back in stock notifications. Check out our Back in Stock API guide for
+    /// more details.
     /// </summary>
     /// <param name="subscription"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     Task CreateClientBackInStockSubscription(BackInStockSubscription subscription, CancellationToken cancellationToken);
     /// <summary>
-    /// Create or update a push token. This endpoint is designed to be called from our mobile SDKs (iOS and Android). You must have push notifications enabled to use this endpoint.
+    /// Create or update a push token. This endpoint is designed to be called from our mobile SDKs (iOS and Android).
+    /// You must have push notifications enabled to use this endpoint.
     /// </summary>
     /// <param name="pushToken"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     Task CreateOrUpdateClientPushToken(PushToken pushToken, CancellationToken cancellationToken);
     /// <summary>
-    /// Unregister a push token. This endpoint is designed to be called from our mobile SDKs (iOS and Android). You must have push notifications enabled to use this endpoint.
+    /// Unregister a push token. This endpoint is designed to be called from our mobile SDKs (iOS and Android).
+    /// You must have push notifications enabled to use this endpoint.
     /// </summary>
     /// <param name="pushToken"></param>
     /// <param name="cancellationToken"></param>
