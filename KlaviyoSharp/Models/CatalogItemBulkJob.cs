@@ -96,5 +96,5 @@ public class CatalogItemBulkJobAttributes
     /// <summary>
     /// Array of catalog items to create.
     /// </summary>
-    public List<CatalogItem> Items { get; set; }
+    public DataListObject<CatalogItem> Items { get; set; }
 }
