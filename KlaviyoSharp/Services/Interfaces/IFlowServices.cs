@@ -206,4 +206,23 @@ public interface IFlowServices
     /// <returns></returns>
     Task<DataListObject<GenericObject>> GetFlowMessageRelationshipAction(string flowMessageId,
                                                                          CancellationToken cancellationToken);
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="flowMessageId">Flow Message ID</param>
+    /// <param name="templateFields">For more information please visit
+    /// https://developers.klaviyo.com/en/reference/api-overview#sparse-fieldsets</param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    Task<DataListObject<GenericObject>> GetFlowMessageTemplate(string flowMessageId,
+                                                               List<string> templateFields = null,
+                                                               CancellationToken cancellationToken = default);
+    /// <summary>
+    /// Returns the ID of the related template
+    /// </summary>
+    /// <param name="flowMessageId">Flow Message ID</param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    Task<DataListObject<Template>> GetFlowMessageRelationshipTemplate(string flowMessageId,
+                                                                      CancellationToken cancellationToken = default);
 }

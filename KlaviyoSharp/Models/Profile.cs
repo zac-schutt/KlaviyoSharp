@@ -115,7 +115,7 @@ public class ProfileAttributes
     /// <summary>
     /// Subscriptions for the profile
     /// </summary>
-    public ProfileSubscriptions Subscriptions { get; set; }
+    public ProfileSubscriptions? Subscriptions { get; set; }
     /// <summary>
     /// Analytics for the profile
     /// </summary>
@@ -197,13 +197,22 @@ public class ProfileEmailSubscription
 public class ProfileEmailSubscriptionMarketing
 {
     /// <summary>
+    /// Whether or not this profile has implicit consent to receive email marketing.
+    /// True if it does profile does not have any global suppressions.
+    /// </summary>
+    public bool CanReceiveEmailMarketing { get; set; }
+    /// <summary>
     /// The consent status for marketing.
     /// </summary>
     public string Consent { get; set; }
     /// <summary>
     /// The timestamp when consent record or updated for marketing, in ISO 8601 format (YYYY-MM-DDTHH:MM:SS.mmmmmm).
     /// </summary>
-    public DateTime? Timestamp { get; set; }
+    public DateTime? ConsentTimestamp { get; set; }
+    /// <summary>
+    /// The timestamp when a field on the email marketing object was last modified.
+    /// </summary>
+    public DateTime? LastUpdated { get; set; }
     /// <summary>
     /// The method by which the profile was subscribed to marketing.
     /// </summary>
@@ -225,7 +234,7 @@ public class ProfileEmailSubscriptionMarketing
     /// <summary>
     /// The global email marketing suppressions for this profile.
     /// </summary>
-    public List<ProfileEmailSubscriptionMarketingEmailSupression> Suppressions { get; set; }
+    public List<ProfileEmailSubscriptionMarketingEmailSupression> Suppression { get; set; }
     /// <summary>
     /// The list suppressions for this profile.
     /// </summary>
@@ -283,13 +292,21 @@ public class ProfileSmsSubscription
 public class ProfileSmsSubscriptionMarketing
 {
     /// <summary>
+    /// Whether or not this profile is subscribed to receive SMS marketing.
+    /// </summary>
+    public bool CanReceiveSmsMarketing { get; set; }
+    /// <summary>
     /// The consent status for marketing.
     /// </summary>
     public string Consent { get; set; }
     /// <summary>
     /// The timestamp when consent record or updated for marketing, in ISO 8601 format (YYYY-MM-DDTHH:MM:SS.mmmmmm).
     /// </summary>
-    public DateTime? Timestamp { get; set; }
+    public DateTime? ConsentTimestamp { get; set; }
+    /// <summary>
+    /// The timestamp when the SMS consent record was last modified, in ISO 8601 format (YYYY-MM-DDTHH:MM:SS.mmmmmm).
+    /// </summary>
+    public DateTime? LastUpdated { get; set; }
     /// <summary>
     /// The method by which the profile was subscribed to marketing.
     /// </summary>

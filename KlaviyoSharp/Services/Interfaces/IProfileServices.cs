@@ -1,7 +1,12 @@
+using System.Diagnostics;
+using System.Net;
+using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using KlaviyoSharp.Models;
 using KlaviyoSharp.Models.Filters;
+using Newtonsoft.Json.Linq;
+using static System.Net.WebRequestMethods;
 
 namespace KlaviyoSharp.Services;
 
@@ -78,6 +83,39 @@ public interface IProfileServices
     Task<DataObject<Profile>> UpdateProfile(string profileId,
                                             PatchProfile profileAttributes,
                                             CancellationToken cancellationToken);
+    /// <summary>
+    /// Given a set of profile attributes and optionally an ID, create or update a profile.
+    /// </summary>
+    /// <param name="profile"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    Task<DataObject<Profile>> CreateOrUpdateProfile(Profile profile, CancellationToken cancellationToken = default);
+    /// <summary>
+    /// Merge a given related profile into a profile with the given profile ID.
+    /// The profile provided under relationships(the "source" profile) will be merged into the profile provided by the ID in the base data object (the "destination" profile).
+    /// This endpoint queues an asynchronous task which will merge data from the source profile into the destination profile, deleting the source profile in the process.This endpoint accepts only one source profile.
+    /// To learn more about how profile data is preserved or overwritten during a merge, please <see href="https://help.klaviyo.com/hc/en-us/articles/115005073847#merge-2-profiles3">visit our Help Center</see>.
+    /// </summary>
+    /// <param name="sources">The source profile(s) to merge into the destination profile</param>
+    /// <param name="destination">The destination profile to merge into</param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    Task<DataObject<ProfileMerge>> MergeProfiles(List<string> sources,
+                                                 DataObject<Profile> destination,
+                                                 CancellationToken cancellationToken = default);
+    /// <summary>
+    /// Merge a given related profile into a profile with the given profile ID.
+    /// The profile provided under relationships(the "source" profile) will be merged into the profile provided by the ID in the base data object (the "destination" profile).
+    /// This endpoint queues an asynchronous task which will merge data from the source profile into the destination profile, deleting the source profile in the process.This endpoint accepts only one source profile.
+    /// To learn more about how profile data is preserved or overwritten during a merge, please <see href="https://help.klaviyo.com/hc/en-us/articles/115005073847#merge-2-profiles3">visit our Help Center</see>.
+    /// </summary>
+    /// <param name="sources">The source profile(s) to merge into the destination profile</param>
+    /// <param name="destination">The destination profile to merge into</param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    Task<DataObject<ProfileMerge>> MergeProfiles(List<DataObject<Profile>> sources,
+                                                 DataObject<Profile> destination,
+                                                 CancellationToken cancellationToken = default);
     /// <summary>
     /// Manually suppress one or more profiles. Such profiles will have USER_SUPPRESSED as their suppression reason.
     /// Manually suppressed profiles will not receive email marketing. Learn more about suppressed profiles in
@@ -167,4 +205,16 @@ public interface IProfileServices
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     Task<DataListObject<GenericObject>> GetProfileRelationshipsSegments(string id, CancellationToken cancellationToken);
+    /// <summary>
+    /// Create or update a push token.
+    /// </summary>
+    /// <remarks>
+    /// <para>This endpoint can be used to migrate push tokens from another platform to Klaviyo.</para>
+    /// <para>Please use our mobile SDKs (iOS and Android) to create push tokens from users' devices.</para>
+    /// </remarks>
+    /// <param name="pushToken"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    Task CreateOrUpdateClientPushToken(PushToken pushToken, CancellationToken cancellationToken = default);
+
 }

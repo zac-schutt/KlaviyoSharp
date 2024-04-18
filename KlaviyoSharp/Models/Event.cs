@@ -40,7 +40,7 @@ public class EventAttributes
     /// </summary>
     public string Timestamp { get; set; }
     /// <summary>
-    /// Event properties, can include attribution data, identifiers and extra properties
+    /// Event properties, can include identifiers and extra properties
     /// </summary>
     public Dictionary<string, object> EventProperties { get; set; }
     /// <summary>

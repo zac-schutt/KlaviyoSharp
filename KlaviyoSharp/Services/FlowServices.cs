@@ -199,4 +199,23 @@ public class FlowServices : KlaviyoServiceBase, IFlowServices
                                                                          $"flow-messages/{flowMessageId}/relationships/flow-action",
                                                                          _revision, null, null, null, cancellationToken);
     }
+    /// <inheritdoc />
+    public async Task<DataListObject<GenericObject>> GetFlowMessageTemplate(string flowMessageId,
+                                                                            List<string> templateFields = null,
+                                                                            CancellationToken cancellationToken = default)
+    {
+        QueryParams query = new();
+        query.AddFieldset("template", templateFields);
+        return await _klaviyoService.HTTP<DataListObject<GenericObject>>(HttpMethod.Get,
+                                                                         $"flow-messages/{flowMessageId}/template",
+                                                                         _revision, query, null, null, cancellationToken);
+    }
+    /// <inheritdoc />
+    public async Task<DataListObject<Template>> GetFlowMessageRelationshipTemplate(string flowMessageId,
+                                                                                   CancellationToken cancellationToken = default)
+    {
+        return await _klaviyoService.HTTP<DataListObject<Template>>(HttpMethod.Get,
+                                                                         $"flow-messages/{flowMessageId}/relationships/template",
+                                                                         _revision, null, null, null, cancellationToken);
+    }
 }

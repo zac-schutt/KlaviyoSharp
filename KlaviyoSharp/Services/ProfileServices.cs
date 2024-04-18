@@ -68,6 +68,44 @@ public class ProfileServices : KlaviyoServiceBase, IProfileServices
                                                                cancellationToken);
     }
     /// <inheritdoc />
+    public async Task<DataObject<Profile>> CreateOrUpdateProfile(Profile profile, CancellationToken cancellationToken = default)
+    {
+        return await _klaviyoService.HTTP<DataObject<Profile>>(HttpMethod.Post, "profile-import/", _revision, null, null,
+                                                               new DataObject<Profile>(profile), cancellationToken);
+    }
+    /// <inheritdoc />
+    public async Task<DataObject<ProfileMerge>> MergeProfiles(List<string> sources,
+                                                              DataObject<Profile> destination,
+                                                              CancellationToken cancellationToken = default)
+    {
+        var profileMerge = ProfileMergeRequest.Create();
+        profileMerge.Id = destination.Data.Id;
+        foreach (var source in sources)
+        {
+            var profile = new GenericObject("profile", source);
+            profileMerge.Relationships.Profiles.Data.Add(profile);
+        }
+
+        return await _klaviyoService.HTTP<DataObject<ProfileMerge>>(HttpMethod.Post, "profile-merge/", _revision, null, null, 
+                                                                    new DataObject<ProfileMerge>(profileMerge), cancellationToken);
+    }
+    /// <inheritdoc />
+    public async Task<DataObject<ProfileMerge>> MergeProfiles(List<DataObject<Profile>> sources,
+                                                              DataObject<Profile> destination,
+                                                              CancellationToken cancellationToken = default)
+    {
+        var profileMerge = ProfileMergeRequest.Create();
+        profileMerge.Id = destination.Data.Id;
+        foreach (var source in sources)
+        {
+            var profile = new GenericObject(source.Data.Type, source.Data.Id);
+            profileMerge.Relationships.Profiles.Data.Add(profile);
+        }
+        
+        return await _klaviyoService.HTTP<DataObject<ProfileMerge>>(HttpMethod.Post, "profile-merge/", _revision, null, null, 
+                                                                    new DataObject<ProfileMerge>(profileMerge), cancellationToken);
+    }
+    /// <inheritdoc />
     public async Task SuppressProfiles(ProfileSuppressionRequest supressions,
                                        CancellationToken cancellationToken = default)
     {
@@ -97,6 +135,21 @@ public class ProfileServices : KlaviyoServiceBase, IProfileServices
                                    new DataObject<ProfileUnsubscriptionRequest>(profileUnsubscriptions),
                                    cancellationToken);
     }
+    /// <inheritdoc />
+    public async Task<DataListObject<ProfileBulkImportJob>> GetBulkProfileImportJobs(List<string> fields = null,
+                                                           IFilter filter = null,
+                                                           string sort = null,
+                                                           CancellationToken cancellationToken = default)
+    {
+        QueryParams query = new();
+        query.AddFieldset("profile-bulk-import-job", fields);
+        query.AddFilter(filter);
+        query.AddSort(sort);
+        return await _klaviyoService.HTTPRecursive<ProfileBulkImportJob>(HttpMethod.Get, $"profile-bulk-import-jobs/", _revision,
+                                                                         query, null, null, cancellationToken);
+    }
+
+
     /// <inheritdoc />
     public async Task<DataListObject<List>> GetProfileLists(string profileId,
                                                             List<string> fields = null,
@@ -135,5 +188,11 @@ public class ProfileServices : KlaviyoServiceBase, IProfileServices
         return await _klaviyoService.HTTP<DataListObject<GenericObject>>(HttpMethod.Get,
                                                                          $"profiles/{id}/relationships/segments/",
                                                                          _revision, null, null, null, cancellationToken);
+    }
+    /// <inheritdoc />
+    public async Task CreateOrUpdateClientPushToken(PushToken pushToken, CancellationToken cancellationToken = default)
+    {
+        await _klaviyoService.HTTP(HttpMethod.Post, "push-tokens/", _revision, null, null,
+                                   new DataObject<PushToken>(pushToken), cancellationToken);
     }
 }

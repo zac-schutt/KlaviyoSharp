@@ -205,7 +205,8 @@ public abstract class KlaviyoApiBase
         {
             req.Headers.Add(header.Key, header.Value);
         }
-        if (content != null)
+        if (content != null
+            && typeof(HttpContent).IsAssignableFrom(content.GetType()) == false)
         {
             req.Content = new JsonContent(content);
         }
