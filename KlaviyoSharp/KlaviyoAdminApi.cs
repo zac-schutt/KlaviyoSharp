@@ -5,7 +5,7 @@ namespace KlaviyoSharp;
 /// </summary>
 public class KlaviyoAdminApi : KlaviyoApiBase
 {
-    const string REVISION = "2023-07-15";
+    const string REVISION = "2024-02-15";
     /// <summary>
     /// Creates a new instance of the Klaviyo Admin API.
     /// </summary>
@@ -38,6 +38,17 @@ public class KlaviyoAdminApi : KlaviyoApiBase
         }
     }
     private Services.DataPrivacyServices _DataPrivacyServices;
+    /// <summary>
+    /// Services for interacting with the Klaviyo Coupon API
+    /// </summary>
+    public Services.CouponServices CouponServices
+    {
+        get
+        {
+            _CouponServices ??= new(REVISION, this); return _CouponServices;
+        }
+    }
+    private Services.CouponServices _CouponServices;
     /// <summary>
     /// Services for interacting with the Klaviyo Lists API
     /// </summary>
@@ -148,4 +159,26 @@ public class KlaviyoAdminApi : KlaviyoApiBase
         }
     }
     private Services.CatalogServices _CatalogServices;
+    /// <summary>
+    /// Services for interacting with the Klaviyo Image API
+    /// </summary>
+    public Services.ImagesServices ImagesServices
+    {
+        get
+        {
+            _ImagesServices ??= new(REVISION, this); return _ImagesServices;
+        }
+    }
+    private Services.ImagesServices _ImagesServices;
+    /// <summary>
+    /// Services for interacting with the Klaviyo Catalogs API
+    /// </summary>
+    public Services.ReportingServices ReportingServices
+    {
+        get
+        {
+            _ReportingServices ??= new(REVISION, this); return _ReportingServices;
+        }
+    }
+    private Services.ReportingServices _ReportingServices;
 }

@@ -37,6 +37,62 @@ public class DataObjectWithIncluded<T> : DataObject<T>
 }
 
 /// <summary>
+/// A generic data object for relationships
+/// </summary>
+/// <typeparam name="T"></typeparam>
+public class DataObjectRelated<T>
+{
+    /// <summary>
+    /// Creates a new instance of the DataObjectRelated class
+    /// </summary>
+    public DataObjectRelated() { }
+    /// <summary>
+    /// Creates a new instance of the DataObjectRelated class with the provided data
+    /// </summary>
+    /// <param name="data"></param>
+    public DataObjectRelated(T data)
+    {
+        Data = data;
+    }
+    /// <summary>
+    /// The data property
+    /// </summary>
+    public T Data { get; set; }
+    /// <summary>
+    /// Links to paginate through the list
+    /// </summary>
+    public Links.RelatedLink Links { get; set; }
+}
+
+/// <summary>
+/// A generic data object for with navigation links
+/// </summary>
+/// <typeparam name="T"></typeparam>
+public class DataObjectWithNavigate<T>
+{
+    /// <summary>
+    /// Creates a new instance of the DataObjectRelated class
+    /// </summary>
+    public DataObjectWithNavigate() { }
+    /// <summary>
+    /// Creates a new instance of the DataObjectRelated class with the provided data
+    /// </summary>
+    /// <param name="data"></param>
+    public DataObjectWithNavigate(T data)
+    {
+        Data = data;
+    }
+    /// <summary>
+    /// The data property
+    /// </summary>
+    public T Data { get; set; }
+    /// <summary>
+    /// Links to paginate through the list
+    /// </summary>
+    public Links.NavLink Links { get; set; }
+}
+
+/// <summary>
 /// Generic object with a single list property called "data"
 /// </summary>
 /// <typeparam name="T"></typeparam>

@@ -35,6 +35,36 @@ public class ProfileServices_Tests : IClassFixture<ProfileServices_Tests_Fixture
         Assert.Equal(NewName, updated.Data.Attributes.LastName);
     }
 
+
+    [Fact]
+    public async Task CreateOrUpdateProfile()
+    {
+        var result = await Fixture.AdminApi.ProfileServices.CreateOrUpdateProfile(Fixture.NewProfile);
+        Assert.NotNull(result);
+        string NewName = "Name Updated";
+        var update = PatchProfile.Create();
+        update.Attributes = new() { LastName = NewName };
+        update.Id = result.Data.Id;
+        var updated = await Fixture.AdminApi.ProfileServices.CreateOrUpdateProfile(update);
+        Assert.Equal(NewName, updated.Data.Attributes.LastName);
+    }
+
+    [Fact]
+    public async Task MergeProfiles()
+    {
+        var oldProfile = await Fixture.AdminApi.ProfileServices.CreateProfile(Fixture.NewProfile);
+        Assert.NotNull(oldProfile);
+        var newProfile = await Fixture.AdminApi.ProfileServices.CreateProfile(Fixture.NewProfile);
+        Assert.NotNull(newProfile);
+
+        var updated = await Fixture.AdminApi.ProfileServices.MergeProfiles([oldProfile], newProfile);
+        Assert.Equal(newProfile.Data.Id, updated.Data.Id);
+
+        Task<DataObjectWithIncluded<Profile>> act() => Fixture.AdminApi.ProfileServices.GetProfile(oldProfile.Data.Id);
+        var exception = await Assert.ThrowsAsync<KlaviyoException>(act);
+        Assert.Equal($"A profile with id {oldProfile.Data.Id} does not exist.", exception.Message);
+    }
+
     [Fact]
     public async Task SuppressProfiles()
     {
@@ -54,7 +84,7 @@ public class ProfileServices_Tests : IClassFixture<ProfileServices_Tests_Fixture
         await Fixture.AdminApi.ProfileServices.SuppressProfiles(request);
 
         DataObject<Profile> check = await Fixture.AdminApi.ProfileServices.GetProfile(result.Data.Id);
-        Assert.Contains(check.Data.Attributes.Subscriptions.Email.Marketing.Suppressions, x => x.Reason == "USER_SUPPRESSED");
+        Assert.Contains(check.Data.Attributes.Subscriptions.Email.Marketing.Suppression, x => x.Reason == "USER_SUPPRESSED");
 
         //Unsuppress profile and check
         var request2 = ProfileUnsuppressionRequest.Create();
@@ -69,7 +99,7 @@ public class ProfileServices_Tests : IClassFixture<ProfileServices_Tests_Fixture
         await Fixture.AdminApi.ProfileServices.UnsuppressProfiles(request2);
         Thread.Sleep(10 * 1000);
         DataObject<Profile> final = await Fixture.AdminApi.ProfileServices.GetProfile(result.Data.Id);
-        Assert.DoesNotContain(final.Data.Attributes.Subscriptions.Email.Marketing.Suppressions, x => x.Reason == "USER_SUPPRESSED");
+        Assert.DoesNotContain(final.Data.Attributes.Subscriptions.Email.Marketing.Suppression, x => x.Reason == "USER_SUPPRESSED");
     }
 
     [Fact]
