@@ -120,6 +120,10 @@ public class ProfileAttributes
     /// Analytics for the profile
     /// </summary>
     public ProfilePredictiveAnalytics PredictiveAnalytics { get; set; }
+    /// <summary>
+    /// Custom Properties
+    /// </summary>
+    public Dictionary<string,object> Properties { get; set; } 
 }
 
 /// <summary>

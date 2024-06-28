@@ -31,6 +31,10 @@ public class ProfileServices_Tests : IClassFixture<ProfileServices_Tests_Fixture
         var update = PatchProfile.Create();
         update.Attributes = new() { LastName = NewName };
         update.Id = result.Data.Id;
+        update.Attributes.Properties = new Dictionary<string, object>() {
+                { "$organization", "XXXX Co" },
+                { "custom property", "test-prop" },
+            };
         var updated = await Fixture.AdminApi.ProfileServices.UpdateProfile(result.Data.Id, update);
         Assert.Equal(NewName, updated.Data.Attributes.LastName);
     }
