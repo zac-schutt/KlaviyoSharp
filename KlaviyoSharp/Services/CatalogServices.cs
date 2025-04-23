@@ -62,7 +62,7 @@ public class CatalogServices : KlaviyoServiceBase, ICatalogServices
                                                                  CatalogItem catalogItem,
                                                                  CancellationToken cancellationToken = default)
     {
-        return await _klaviyoService.HTTP<DataObject<CatalogItem>>(HttpMethod.Put, $"catalog-items/{catalogItemId}/",
+        return await _klaviyoService.HTTP<DataObject<CatalogItem>>(new HttpMethod("PATCH"), $"catalog-items/{catalogItemId}/",
                                                                    _revision, null, null,
                                                                    new DataObject<CatalogItem>(catalogItem),
                                                                    cancellationToken);
@@ -242,7 +242,7 @@ public class CatalogServices : KlaviyoServiceBase, ICatalogServices
                                                                        CatalogVariant catalogVariant,
                                                                        CancellationToken cancellationToken = default)
     {
-        return await _klaviyoService.HTTP<DataObject<CatalogVariant>>(HttpMethod.Put,
+        return await _klaviyoService.HTTP<DataObject<CatalogVariant>>(new HttpMethod("PATCH"),
                                                                       $"catalog-variants/{catalogVariantId}/", _revision,
                                                                       null, null,
                                                                       new DataObject<CatalogVariant>(catalogVariant),
@@ -434,7 +434,7 @@ public class CatalogServices : KlaviyoServiceBase, ICatalogServices
                                                                          CatalogCategory catalogCategory,
                                                                          CancellationToken cancellationToken = default)
     {
-        return await _klaviyoService.HTTP<DataObject<CatalogCategory>>(HttpMethod.Put,
+        return await _klaviyoService.HTTP<DataObject<CatalogCategory>>(new HttpMethod("PATCH"),
                                                                        $"catalog-categories/{catalogCategoryId}/",
                                                                        _revision, null, null,
                                                                        new DataObject<CatalogCategory>(catalogCategory),
