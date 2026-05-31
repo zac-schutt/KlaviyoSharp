@@ -95,5 +95,5 @@ public class CatalogVariantBulkJobAttributes
     /// <summary>
     /// Array of catalog variants to create/update/delete.
     /// </summary>
-    public List<CatalogVariant> Variants { get; set; }
+    public DataListObject<CatalogVariant> Variants { get; set; }
 }
